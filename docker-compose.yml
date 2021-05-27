@@ -9,6 +9,7 @@ services:
     volumes:
         - ./rabbitmq-disk/data/:/var/lib/rabbitmq/
         - ./rabbitmq-disk/log/:/var/log/rabbitmq
+
   #flower:  
   #  image: mher/flower
   #  command: ["flower", "--broker=amqp://guest:guest@localhost:5672//", "--port=5555"] 

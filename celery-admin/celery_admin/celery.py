@@ -1,6 +1,7 @@
 import os
 
 from celery import Celery
+from .secrets import decrypt
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'celery_admin.settings')
@@ -13,7 +14,14 @@ app.autodiscover_tasks()
 
 @app.task(bind=True)
 def debug_task(self):
+    # encrypted_resource = {
+    # 
+    # }
+    dec = decrypt("gAAAAABgruSZwSlU_kge70MFTP474_riUujZYwWNi7Xcm-IFHcganatg7TxQ8b_WiRbQqp0XFeR0XreNjKLNQksqRGSoyWY50A==")
+    print(f"decrypted -> {dec}")
     print(f'Request: {self.request!r}')
+
+
 
 
 @app.task(bind=True)
