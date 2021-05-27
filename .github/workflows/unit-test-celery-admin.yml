@@ -1,9 +1,7 @@
-name: Unit Tests - 
+name: Unit Tests celery admin
 
 on:
   push:
-    paths:
-      - './celery-admin/**'
 
 
 jobs:
