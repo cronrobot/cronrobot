@@ -3,7 +3,7 @@ name: Unit Tests -
 on:
   push:
     paths:
-      - './celery-admin/'
+      - './celery-admin/**'
 
 
 jobs:

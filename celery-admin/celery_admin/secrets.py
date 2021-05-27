@@ -19,3 +19,4 @@ def decrypt_fernet(encrypted_msg):
     f = Fernet(get_secret_key())
     
     return f.decrypt(encrypted_msg.encode()).decode("utf-8")
+
