@@ -1,0 +1,27 @@
+name: Unit Tests - 
+
+on:
+  push:
+    paths:
+      - './celery-admin'
+
+
+jobs:
+  test-:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: 'x64'
+      -
+        name: install deps
+        run: |
+          pip install -r requirements*.txt
+        working-directory: ./celery-admin/
+      -
+        name: Unit tests
+        run: |
+          python -m pytest
+        working-directory: ./celery-admin/
