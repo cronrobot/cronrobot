@@ -22,8 +22,6 @@ def debug_task(self):
     print(f'Request: {self.request!r}')
 
 
-
-
 @app.task(bind=True)
 def hello_world(self):
     print('Hello world ;)!')
