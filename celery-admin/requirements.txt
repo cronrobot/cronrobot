@@ -1,3 +1,5 @@
 django==3.2.3
+djangorestframework==3.12.4
+markdown
 django-celery-beat==2.2.0
 cryptography==3.4.7

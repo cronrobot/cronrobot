@@ -9,6 +9,12 @@ services:
     volumes:
         - ./rabbitmq-disk/data/:/var/lib/rabbitmq/
         - ./rabbitmq-disk/log/:/var/log/rabbitmq
+  celery-admin:
+    build:
+      context: ./celery-admin
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
 
   #flower:  
   #  image: mher/flower
