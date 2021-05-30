@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.forms.models import model_to_dict
 from django_celery_beat.models import PeriodicTask, PeriodicTasks, CrontabSchedule
+from ..secrets import encrypt
 
 
 # Get an instance of a logger
@@ -21,6 +22,7 @@ def latest(request):
 @api_view(['POST'])
 def create(request):
     body = request.data
+    encrypted_body = encrypt(json.dumps(body))
 
     crontab, _ = CrontabSchedule.objects.get_or_create(
         minute='35',
@@ -34,7 +36,7 @@ def create(request):
         crontab=crontab,                  # we created this above.
         name=body.get('name'),          # simply describes this periodic task.
         task=body.get('task'),
-        kwargs=json.dumps(body.get('kwargs'))
+        kwargs=json.dumps({"encrypted_params": encrypted_body})
     )
 
     return Response(model_to_dict(p_task))

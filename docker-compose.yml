@@ -15,6 +15,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8000:8000
+    environment:
+      - FERNET_SECRET_KEY="BFrJh-fIWvhwokDhsIIhjMuHxcgDXjyNZY_JIQZD78M=" # test key
     volumes:
       - ./celery-admin/:/app/
 

@@ -1,4 +1,5 @@
 import os
+import json
 
 from celery import Celery
 from .secrets import decrypt
@@ -13,7 +14,9 @@ app.autodiscover_tasks()
 
 @app.task(bind=True)
 def ssh(self, **kwargs):
-    print(f"SSH ing, kwargs = {kwargs}")
+    params = json.loads(decrypt(kwargs.get("encrypted_params")))
+    print(f"params --> {params}")
+    
 
 @app.task(bind=True)
 def debug_task(self):
