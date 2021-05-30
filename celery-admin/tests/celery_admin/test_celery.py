@@ -18,3 +18,15 @@ def test_celery_http_no_params():
     result = celery.http(encrypted_params=encr_params)
 
     assert "No params available" in result
+
+
+def test_celery_http_happy_path(requests_mock):
+
+    requests_mock.get("http://myrequest.com/test", text='{"this": "is"}')
+
+    body = {"name": "testtask", "params": {"url": "http://myrequest.com/test"}}
+    encr_params = secrets.encrypt(json.dumps(body))
+
+    result = celery.http(encrypted_params=encr_params)
+
+    assert {"content": '{"this": "is"}', "status_code": 200}

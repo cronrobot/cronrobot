@@ -1,0 +1,26 @@
+name: Lint celery admin
+
+on:
+  push:
+
+
+jobs:
+  unit-test-celery-admin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: 'x64'
+      -
+        name: install deps
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-test.txt
+        working-directory: ./celery-admin/
+      -
+        name: Lint (black)
+        run: |
+          black . --check --line-length 90
+        working-directory: ./celery-admin/

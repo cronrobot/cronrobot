@@ -23,6 +23,12 @@ def fail_task(msg, body):
     return msg
 
 
+def record_task_result(request_body, result):
+    logger.debug(f"record result - request body: {request_body}, result: {result}")
+
+    return result
+
+
 @app.task(bind=True)
 def http(self, **kwargs):
     body = json.loads(decrypt(kwargs.get("encrypted_params")))
@@ -32,6 +38,12 @@ def http(self, **kwargs):
         return fail_task(f"No params available to process the http task", body)
 
     url = params.get("url")
+
+    result = requests.get(url)
+
+    return record_task_result(
+        body, {"status_code": result.status_code, "content": result.text}
+    )
 
 
 @app.task(bind=True)
