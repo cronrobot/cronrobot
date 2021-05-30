@@ -19,9 +19,9 @@ from .api.status import status_ok
 from .api import periodic_tasks
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/ok', status_ok),
-    path('api/periodic-tasks/latest', periodic_tasks.latest),
-    path('api/periodic-tasks/', periodic_tasks.create),
+    path("admin/", admin.site.urls),
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/ok", status_ok),
+    path("api/periodic-tasks/latest", periodic_tasks.latest),
+    path("api/periodic-tasks/", periodic_tasks.create),
 ]

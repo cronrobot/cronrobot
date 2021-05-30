@@ -1,2 +1,4 @@
 rabbitmq-disk
 celery-admin/celery_admin/__pycache__/
+__pycache__/
+

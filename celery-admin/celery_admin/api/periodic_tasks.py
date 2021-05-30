@@ -1,4 +1,3 @@
-
 import logging
 import json
 
@@ -13,30 +12,26 @@ from ..secrets import encrypt
 logger = logging.getLogger(__name__)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def latest(request):
-    p = PeriodicTask.objects.latest('id')
+    p = PeriodicTask.objects.latest("id")
     return Response(model_to_dict(p))
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 def create(request):
     body = request.data
     encrypted_body = encrypt(json.dumps(body))
 
     crontab, _ = CrontabSchedule.objects.get_or_create(
-        minute='35',
-        hour='*',
-        day_of_week='*',
-        day_of_month='*',
-        month_of_year='*'
+        minute="35", hour="*", day_of_week="*", day_of_month="*", month_of_year="*"
     )
 
     p_task = PeriodicTask.objects.create(
-        crontab=crontab,                  # we created this above.
-        name=body.get('name'),          # simply describes this periodic task.
-        task=body.get('task'),
-        kwargs=json.dumps({"encrypted_params": encrypted_body})
+        crontab=crontab,  # we created this above.
+        name=body.get("name"),  # simply describes this periodic task.
+        task=body.get("task"),
+        kwargs=json.dumps({"encrypted_params": encrypted_body}),
     )
 
     return Response(model_to_dict(p_task))
