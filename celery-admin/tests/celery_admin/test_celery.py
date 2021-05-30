@@ -29,4 +29,19 @@ def test_celery_http_happy_path(requests_mock):
 
     result = celery.http(encrypted_params=encr_params)
 
-    assert {"content": '{"this": "is"}', "status_code": 200}
+    assert result == {
+        "content": '{"this": "is"}',
+        "status_code": 200,
+        "status": "success",
+    }
+
+
+def test_celery_http_exception_on_call():
+    params = {"url": "http://myrequest.com/testexception", "timeout": 3}
+    body = {"name": "testtask", "params": params}
+    encr_params = secrets.encrypt(json.dumps(body))
+
+    result = celery.http(encrypted_params=encr_params)
+
+    assert result.get("content")
+    assert result.get("status"), "error"

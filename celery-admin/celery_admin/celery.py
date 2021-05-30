@@ -16,6 +16,9 @@ app = Celery("celery_admin")
 app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 
+STATUS_SUCCESS_LABEL = "success"
+STATUS_ERROR_LABEL = "error"
+
 
 def fail_task(msg, body):
     logger.error(msg)
@@ -31,6 +34,7 @@ def record_task_result(request_body, result):
 
 @app.task(bind=True)
 def http(self, **kwargs):
+    default_http_timeout = 30  # seconds
     body = json.loads(decrypt(kwargs.get("encrypted_params")))
     params = body.get("params")
 
@@ -38,12 +42,21 @@ def http(self, **kwargs):
         return fail_task(f"No params available to process the http task", body)
 
     url = params.get("url")
+    timeout = params.get("timeout") or default_http_timeout
 
-    result = requests.get(url)
+    try:
+        result = requests.get(url, timeout=timeout)
 
-    return record_task_result(
-        body, {"status_code": result.status_code, "content": result.text}
-    )
+        return record_task_result(
+            body,
+            {
+                "status_code": result.status_code,
+                "content": result.text,
+                "status": STATUS_SUCCESS_LABEL,
+            },
+        )
+    except Exception as e:
+        return record_task_result(body, {"content": f"{e}", "status": STATUS_ERROR_LABEL})
 
 
 @app.task(bind=True)
