@@ -23,3 +23,13 @@ jobs:
         run: |
           curl localhost:8000/api/ok | grep status
           curl localhost:8000/api/ok | grep ok
+
+      - name: Celery-admin POST /periodic-tasks
+        run: |
+          result_create=$(curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"asdfdd\", \"name\": \"taskname\", \"task\": \"hello\"}" localhost:8000/api/periodic-tasks/)
+          echo $result_create | grep "taskname"
+
+          task_id=$(echo $result_create | jq .id)
+          result_latest=$(curl  localhost:8000/api/periodic-tasks/latest)
+          echo $result_latest | grep "\"id\":$task_id"
+

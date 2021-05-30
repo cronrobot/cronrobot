@@ -11,6 +11,9 @@ app = Celery('celery_admin')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
+@app.task(bind=True)
+def ssh(self, **kwargs):
+    print(f"SSH ing, kwargs = {kwargs}")
 
 @app.task(bind=True)
 def debug_task(self):
