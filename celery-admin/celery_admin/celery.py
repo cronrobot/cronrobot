@@ -1,6 +1,8 @@
 import os
 import json
 
+import requests
+
 from celery import Celery
 from .secrets import decrypt
 
