@@ -23,7 +23,7 @@ jobs:
         env:
           API_BASE_URL: http://localhost:8000/api
         run: |
-          bash tests/e2e/api_oki.sh
+          bash tests/e2e/api_ok.sh
 
       - name: API /periodic-tasks
         env:
