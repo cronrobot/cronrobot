@@ -18,6 +18,14 @@ def latest(request):
     return Response(model_to_dict(p))
 
 
+@api_view(["GET"])
+def find(request):
+    name = request.GET["name"]
+    p = PeriodicTask.objects.filter(name=name).first()
+
+    return Response(model_to_dict(p) if p else None)
+
+
 @api_view(["POST"])
 def create(request):
     body = request.data
@@ -35,3 +43,10 @@ def create(request):
     )
 
     return Response(model_to_dict(p_task))
+
+
+@api_view(["DELETE"])
+def manage(request, id):
+    PeriodicTask.objects.filter(id=id).delete()
+
+    return Response({})
