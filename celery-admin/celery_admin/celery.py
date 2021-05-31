@@ -61,6 +61,8 @@ def http(self, **kwargs):
 
 @app.task(bind=True)
 def ssh(self, **kwargs):
+    # TODO: pass resource id
+
     params = json.loads(decrypt(kwargs.get("encrypted_params")))
     print(f"params --> {params}")
 
