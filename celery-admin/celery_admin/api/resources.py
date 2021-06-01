@@ -21,18 +21,32 @@ def create(request):
         reference_id=body.get("reference_id"),
         data=body.get("data"),
     )
-    print(f"data is {body.get('data')}")
 
     return Response(model_to_dict(r))
 
 
-@api_view(["GET", "DELETE"])
+@api_view(["GET", "PATCH", "DELETE"])
 def manage(request, id):
     if request.method == "GET":
-        print(f"manage.. get")
         return Response(model_to_dict(ResourcesModel.objects.filter(id=id).first()))
-    if request.method == "DELETE":
-        print(f"manage.. delete")
+    elif request.method == "DELETE":
         ResourcesModel.objects.filter(id=id).delete()
 
         return Response({})
+    elif request.method == "PATCH":
+        body = request.data
+
+        obj = ResourcesModel.objects.get(id=id)
+
+        if body.get("name"):
+            obj.name = body.get("name")
+
+        if body.get("reference_id"):
+            obj.reference_id = body.get("reference_id")
+
+        if body.get("data"):
+            obj.data = body.get("data")
+
+        obj.save()
+
+        return Response(model_to_dict(obj))

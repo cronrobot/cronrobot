@@ -31,3 +31,9 @@ jobs:
         run: |
           bash tests/e2e/api_periodic_tasks.sh
 
+      - name: API /resources
+        env:
+          API_BASE_URL: http://localhost:8000/api
+        run: |
+          bash tests/e2e/api_resources.sh
+
