@@ -37,6 +37,7 @@ jobs:
     - name: Assets precompile
       run: |
         RAILS_ENV=test bin/rails assets:precompile
+      working-directory: ./www-cronrobot/
 
     - name: test
       run: |
