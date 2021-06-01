@@ -7,7 +7,10 @@
 
 name: Unit Test - www CronRobot
 
-on: [push]
+on:
+  push:
+    paths:
+     - www-cronrobot/**
 
 jobs:
   unit-test-www-cron-robot:
