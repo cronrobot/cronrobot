@@ -1,6 +1,6 @@
 import pytest
 import json
-from celery_admin import celery, secrets
+from celery_admin import celery
 
 test_fernet_key = "BFrJh-fIWvhwokDhsIIhjMuHxcgDXjyNZY_JIQZD78M="
 
@@ -13,9 +13,8 @@ def run_around_tests(monkeypatch):
 
 def test_celery_http_no_params():
     body = {"name": "testtask"}
-    encr_params = secrets.encrypt(json.dumps(body))
 
-    result = celery.http(encrypted_params=encr_params)
+    result = celery.http(body=body)
 
     assert "No params available" in result
 
@@ -25,9 +24,8 @@ def test_celery_http_happy_path(requests_mock):
     requests_mock.get("http://myrequest.com/test", text='{"this": "is"}')
 
     body = {"name": "testtask", "params": {"url": "http://myrequest.com/test"}}
-    encr_params = secrets.encrypt(json.dumps(body))
 
-    result = celery.http(encrypted_params=encr_params)
+    result = celery.http(body=body)
 
     assert result == {
         "content": '{"this": "is"}',
@@ -38,10 +36,8 @@ def test_celery_http_happy_path(requests_mock):
 
 def test_celery_http_exception_on_call():
     params = {"url": "http://myrequest.com/testexception", "timeout": 3}
-    body = {"name": "testtask", "params": params}
-    encr_params = secrets.encrypt(json.dumps(body))
 
-    result = celery.http(encrypted_params=encr_params)
+    result = celery.http(body={"params": params})
 
     assert result.get("content")
     assert result.get("status"), "error"

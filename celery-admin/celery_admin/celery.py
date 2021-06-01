@@ -35,7 +35,7 @@ def record_task_result(request_body, result):
 @app.task(bind=True)
 def http(self, **kwargs):
     default_http_timeout = 30  # seconds
-    body = json.loads(decrypt(kwargs.get("encrypted_params")))
+    body = kwargs.get("body")
     params = body.get("params")
 
     if not params:
