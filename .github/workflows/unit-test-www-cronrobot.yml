@@ -5,12 +5,12 @@
 # This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
 # For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
 
-name: Test
+name: Unit Test - www CronRobot
 
 on: [push]
 
 jobs:
-  test:
+  unit-test-www-cron-robot:
 
     runs-on: ubuntu-latest
 
