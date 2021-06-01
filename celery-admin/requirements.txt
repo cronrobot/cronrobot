@@ -3,3 +3,4 @@ djangorestframework==3.12.4
 markdown
 django-celery-beat==2.2.0
 cryptography==3.4.7
+requests==2.25.1

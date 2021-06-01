@@ -20,16 +20,20 @@ jobs:
           sleep 20
       -
         name: Api OK
+        env:
+          API_BASE_URL: http://localhost:8000/api
         run: |
-          curl localhost:8000/api/ok | grep status
-          curl localhost:8000/api/ok | grep ok
+          bash tests/e2e/api_ok.sh
 
-      - name: Celery-admin POST /periodic-tasks
+      - name: API /periodic-tasks
+        env:
+          API_BASE_URL: http://localhost:8000/api
         run: |
-          result_create=$(curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"asdfdd\", \"name\": \"taskname\", \"task\": \"hello\"}" localhost:8000/api/periodic-tasks/)
-          echo $result_create | grep "taskname"
+          bash tests/e2e/api_periodic_tasks.sh
 
-          task_id=$(echo $result_create | jq .id)
-          result_latest=$(curl  localhost:8000/api/periodic-tasks/latest)
-          echo $result_latest | grep "\"id\":$task_id"
+      - name: API /resources
+        env:
+          API_BASE_URL: http://localhost:8000/api
+        run: |
+          bash tests/e2e/api_resources.sh
 

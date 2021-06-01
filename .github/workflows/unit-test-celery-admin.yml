@@ -21,6 +21,8 @@ jobs:
         working-directory: ./celery-admin/
       -
         name: Unit tests
+        env:
+          FERNET_SECRET_KEY: ${{ secrets.FERNET_SECRET_KEY_TEST }}
         run: |
           python -m pytest
         working-directory: ./celery-admin/

@@ -16,12 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .api.status import status_ok
-from .api import periodic_tasks
+from .api import periodic_tasks, resources
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/ok', status_ok),
-    path('api/periodic-tasks/latest', periodic_tasks.latest),
-    path('api/periodic-tasks/', periodic_tasks.create),
+    path("admin/", admin.site.urls),
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/ok", status_ok),
+    path("api/periodic-tasks/latest", periodic_tasks.latest),
+    path("api/periodic-tasks/find", periodic_tasks.find),
+    path("api/periodic-tasks/<id>/", periodic_tasks.manage),
+    path("api/periodic-tasks/", periodic_tasks.create),
+    path("api/resources/", resources.create),
+    path("api/resources/<id>/", resources.manage),
 ]
