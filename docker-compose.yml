@@ -20,6 +20,27 @@ services:
     volumes:
       - ./celery-admin/:/app/
 
+  loki:
+    network_mode: "host"
+    image: grafana/loki:2.0.0
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    network_mode: "host"
+    image: grafana/promtail:2.0.0
+    volumes:
+      - ./grafana/promtail/etc:/etc/promtail
+      - ./scheduler-logs:/logs
+    command: -config.file=/etc/promtail/config.yml
+
+  grafana:
+    network_mode: "host"
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+
   #flower:  
   #  image: mher/flower
   #  command: ["flower", "--broker=amqp://guest:guest@localhost:5672//", "--port=5555"] 

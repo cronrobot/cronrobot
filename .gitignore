@@ -3,3 +3,5 @@ celery-admin/celery_admin/__pycache__/
 __pycache__/
 .coverage
 htmlcov/
+scheduler-logs
+node_modules
