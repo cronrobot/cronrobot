@@ -4,9 +4,9 @@ services:
     network_mode: "host"
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
-    ports:
-      - 5672:5672
-      - 15672:15672
+    #ports:
+    #  - 5672:5672
+    #  - 15672:15672
     volumes:
         - ./rabbitmq-disk/data/:/var/lib/rabbitmq/
         - ./rabbitmq-disk/log/:/var/log/rabbitmq
@@ -16,8 +16,8 @@ services:
     build:
       context: ./celery-admin
       dockerfile: Dockerfile.api
-    ports:
-      - 8000:8000
+    #ports:
+    #  - 8000:8000
     env_file:
       - .env
     volumes:
@@ -26,8 +26,8 @@ services:
   loki:
     network_mode: "host"
     image: grafana/loki:2.0.0
-    ports:
-      - "3100:3100"
+    #ports:
+    #  - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
   promtail:
@@ -41,8 +41,8 @@ services:
   grafana:
     network_mode: "host"
     image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
+    #ports:
+    #  - "3000:3000"
 
   #flower:  
   #  image: mher/flower
