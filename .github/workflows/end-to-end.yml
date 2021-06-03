@@ -16,6 +16,7 @@ jobs:
       -
         name: boot
         run: |
+          touch .env
           docker-compose up -d
           sleep 20
       -
