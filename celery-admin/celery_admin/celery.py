@@ -19,19 +19,57 @@ app.autodiscover_tasks()
 STATUS_SUCCESS_LABEL = "success"
 STATUS_ERROR_LABEL = "error"
 
+LOG_LEVEL_ERROR = "error"
+LOG_LEVEL_INFO = "info"
+LOG_LEVEL_DEBUG = "debug"
 
-def fail_task(msg, body):
-    logger.error(msg)
+
+### Global
+
+
+def handle_task(func):
+    def inner(*args, **kwargs):
+        body = kwargs.get("body")
+
+        try:
+            if not body:
+                raise Exception("No body in the task definition")
+
+            params = body.get("params")
+
+            if not params:
+                raise Exception("No params in the task definition")
+
+            result = func(*args, **kwargs)
+            result["status"] = STATUS_SUCCESS_LABEL
+
+            return record_task_result(LOG_LEVEL_INFO, body, result)
+
+        except Exception as e:
+            return record_task_result(
+                LOG_LEVEL_ERROR, body, {"error": f"{e}", "status": STATUS_ERROR_LABEL}
+            )
+
+    return inner
+
+
+def record_task_result(level, request_body, result):
+    logger.debug(f"record result - request body: {request_body}, result: {result}")
+
+    msg = {
+        "level": level,
+        "status": result["status"],
+        "body": request_body,
+        "result": result or {},
+    }
 
     return msg
 
 
-def record_task_result(request_body, result):
-    logger.debug(f"record result - request body: {request_body}, result: {result}")
-
-    return result
+### Main tasks
 
 
+@handle_task
 @app.task(bind=True)
 def http(self, **kwargs):
     default_http_timeout = 30  # seconds
@@ -44,19 +82,13 @@ def http(self, **kwargs):
     url = params.get("url")
     timeout = params.get("timeout") or default_http_timeout
 
-    try:
-        result = requests.get(url, timeout=timeout)
+    result = requests.get(url, timeout=timeout)
 
-        return record_task_result(
-            body,
-            {
-                "status_code": result.status_code,
-                "content": result.text,
-                "status": STATUS_SUCCESS_LABEL,
-            },
-        )
-    except Exception as e:
-        return record_task_result(body, {"content": f"{e}", "status": STATUS_ERROR_LABEL})
+    return {
+        "status_code": result.status_code,
+        "content": result.text,
+        "status": STATUS_SUCCESS_LABEL,
+    }
 
 
 @app.task(bind=True)

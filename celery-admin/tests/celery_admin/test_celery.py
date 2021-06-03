@@ -16,7 +16,10 @@ def test_celery_http_no_params():
 
     result = celery.http(body=body)
 
-    assert "No params available" in result
+    print(result)
+
+    assert "No params" in result["result"]["error"]
+    assert result["status"] == "error"
 
 
 def test_celery_http_happy_path(requests_mock):
@@ -27,17 +30,22 @@ def test_celery_http_happy_path(requests_mock):
 
     result = celery.http(body=body)
 
-    assert result == {
+    assert result["level"] == "info"
+    assert result["status"] == "success"
+    assert result["body"] == body
+    assert result["result"] == {
         "content": '{"this": "is"}',
-        "status_code": 200,
         "status": "success",
+        "status_code": 200,
     }
 
 
-def test_celery_http_exception_on_call():
+def test_celery_http_exception_on_call(requests_mock):
     params = {"url": "http://myrequest.com/testexception", "timeout": 3}
 
     result = celery.http(body={"params": params})
 
-    assert result.get("content")
-    assert result.get("status"), "error"
+    assert result["level"], "error"
+    assert result["status"], "error"
+    assert result["body"] == {"params": params}
+    assert "No mock address" in result["result"]["error"]
