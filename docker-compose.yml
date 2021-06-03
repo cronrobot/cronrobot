@@ -1,6 +1,7 @@
 version: "3"
 services:
   rabbitmq:
+    network_mode: "host"
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
     ports:
@@ -9,14 +10,16 @@ services:
     volumes:
         - ./rabbitmq-disk/data/:/var/lib/rabbitmq/
         - ./rabbitmq-disk/log/:/var/log/rabbitmq
+
   celery-admin:
+    network_mode: "host"
     build:
       context: ./celery-admin
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.api
     ports:
       - 8000:8000
-    environment:
-      - FERNET_SECRET_KEY="BFrJh-fIWvhwokDhsIIhjMuHxcgDXjyNZY_JIQZD78M=" # test key
+    env_file:
+      - .env
     volumes:
       - ./celery-admin/:/app/
 

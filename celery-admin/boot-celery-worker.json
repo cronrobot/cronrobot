@@ -1,0 +1,13 @@
+{
+  "name": "celery-worker",
+  "cwd": ".",
+  //"error_file": "./scripts/pm2/err.log",
+  //"out_file": "./scripts/pm2/out.log",
+  "script"     : "celery",
+  "args": "  -A celery_admin worker -l INFO",
+  "exec_interpreter": "python",
+  "max_memory_restart" : "2024M",
+  "env": {
+    "FERNET_SECRET_KEY": "BFrJh-fIWvhwokDhsIIhjMuHxcgDXjyNZY_JIQZD78M="
+  }
+}
