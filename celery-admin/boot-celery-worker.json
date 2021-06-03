@@ -4,7 +4,7 @@
   //"error_file": "./scripts/pm2/err.log",
   //"out_file": "./scripts/pm2/out.log",
   "script"     : "celery",
-  "args": "  -A celery_admin worker -l INFO",
+  "args": "  -A celery_admin worker --pool=gevent --concurrency=500 -l INFO",
   "exec_interpreter": "python",
   "max_memory_restart" : "2024M",
   "env": {
