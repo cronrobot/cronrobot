@@ -19,7 +19,7 @@ jobs:
           FERNET_SECRET_KEY: ${{secrets.FERNET_SECRET_KEY_TEST}}
         run: |
           echo "PYTHONUNBUFFERED=1" > .env
-          echo "$FERNET_SECRET_KEY" >> .env
+          echo "FERNET_SECRET_KEY=$FERNET_SECRET_KEY" >> .env
           cat .env
           docker-compose up -d
           sleep 20
