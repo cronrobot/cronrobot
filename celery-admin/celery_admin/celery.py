@@ -56,7 +56,6 @@ def handle_task(func):
             return record_task_result(LOG_LEVEL_INFO, body, result)
 
         except Exception as e:
-            raise Exception("what2?")
             return record_task_result(
                 LOG_LEVEL_ERROR, body, {"error": f"{e}", "status": STATUS_ERROR_LABEL}
             )
