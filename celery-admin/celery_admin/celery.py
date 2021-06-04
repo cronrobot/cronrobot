@@ -2,18 +2,22 @@ import os
 import json
 
 import requests
-import logging
+from functools import wraps
 
 from celery import Celery
+from celery.utils.log import get_task_logger
+
 from .secrets import decrypt
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "celery_admin.settings")
 
-logger = logging.getLogger(__name__)
+logger = get_task_logger(__name__)
 
 app = Celery("celery_admin")
 
 app.config_from_object("django.conf:settings", namespace="CELERY")
+
+
 app.autodiscover_tasks()
 
 STATUS_SUCCESS_LABEL = "success"
@@ -23,11 +27,17 @@ LOG_LEVEL_ERROR = "error"
 LOG_LEVEL_INFO = "info"
 LOG_LEVEL_DEBUG = "debug"
 
+logger.info(os.environ)
+RECORD_TASK_RESULTS_PATH = os.environ.get("TASK_RESULTS_PATH", "out.json")
+
+logger.info(f"Record task results path: {RECORD_TASK_RESULTS_PATH}")
+
 
 ### Global
 
 
 def handle_task(func):
+    @wraps(func)
     def inner(*args, **kwargs):
         body = kwargs.get("body")
 
@@ -46,11 +56,19 @@ def handle_task(func):
             return record_task_result(LOG_LEVEL_INFO, body, result)
 
         except Exception as e:
+            raise Exception("what2?")
             return record_task_result(
                 LOG_LEVEL_ERROR, body, {"error": f"{e}", "status": STATUS_ERROR_LABEL}
             )
 
     return inner
+
+
+def write_task_result_file(msg):
+    logger.info(f"writing... {RECORD_TASK_RESULTS_PATH}")
+    log_file = open(RECORD_TASK_RESULTS_PATH, "a")
+    log_file.write(f"{json.dumps(msg)}\n")
+    log_file.close()
 
 
 def record_task_result(level, request_body, result):
@@ -63,21 +81,20 @@ def record_task_result(level, request_body, result):
         "result": result or {},
     }
 
+    write_task_result_file(msg)
+
     return msg
 
 
 ### Main tasks
 
 
-@handle_task
 @app.task(bind=True)
+@handle_task
 def http(self, **kwargs):
     default_http_timeout = 30  # seconds
     body = kwargs.get("body")
     params = body.get("params")
-
-    if not params:
-        return fail_task(f"No params available to process the http task", body)
 
     url = params.get("url")
     timeout = params.get("timeout") or default_http_timeout
@@ -96,7 +113,6 @@ def ssh(self, **kwargs):
     # TODO: pass resource id
 
     params = json.loads(decrypt(kwargs.get("encrypted_params")))
-    print(f"params --> {params}")
 
 
 @app.task(bind=True)

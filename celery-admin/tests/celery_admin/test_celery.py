@@ -8,6 +8,12 @@ test_fernet_key = "BFrJh-fIWvhwokDhsIIhjMuHxcgDXjyNZY_JIQZD78M="
 @pytest.fixture(autouse=True)
 def run_around_tests(monkeypatch):
     monkeypatch.setenv("FERNET_SECRET_KEY", test_fernet_key)
+
+    def dummy_write(content):
+        pass
+
+    celery.write_task_result_file = dummy_write
+
     yield
 
 
