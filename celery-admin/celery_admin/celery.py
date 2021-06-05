@@ -66,7 +66,7 @@ def handle_task(func):
                 LOG_LEVEL_ERROR,
                 body,
                 {"error": f"{e}", "status": STATUS_ERROR_LABEL},
-                t_begin=t_begin
+                t_begin=t_begin,
             )
 
     return inner
@@ -80,6 +80,8 @@ def write_task_result_file(msg):
 
 
 def record_task_result(level, request_body, result, t_begin=None):
+    result = result or {}
+
     if t_begin:
         result["duration"] = time.time() - t_begin
 
@@ -89,7 +91,7 @@ def record_task_result(level, request_body, result, t_begin=None):
         "level": level,
         "status": result["status"],
         "body": request_body,
-        "result": result or {},
+        "result": result,
     }
 
     write_task_result_file(msg)
