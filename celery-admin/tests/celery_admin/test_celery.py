@@ -46,23 +46,19 @@ def test_celery_http_no_params():
 
 
 def test_celery_http_happy_path(requests_mock):
-
     requests_mock.get("http://myrequest.com/test", text='{"this": "is"}')
 
     body = {"name": "testtask", "params": {"url": "http://myrequest.com/test"}}
 
     result = celery.http(body=body)
 
-    print(result)
-
     assert result["level"] == "info"
     assert result["status"] == "success"
     assert result["body"] == body
-    assert result["result"] == {
-        "content": '{"this": "is"}',
-        "status": "success",
-        "status_code": 200,
-    }
+    assert result["result"]["content"] == '{"this": "is"}'
+    assert result["result"]["status"] == "success"
+    assert result["result"]["status_code"] == 200
+    assert result["result"]["duration"] > 0
 
 
 def test_celery_http_exception_on_call(requests_mock):
@@ -74,3 +70,4 @@ def test_celery_http_exception_on_call(requests_mock):
     assert result["status"], "error"
     assert result["body"] == {"params": params}
     assert "No mock address" in result["result"]["error"]
+    assert result["result"]["duration"] > 0
