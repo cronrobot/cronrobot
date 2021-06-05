@@ -17,12 +17,29 @@ def run_around_tests(monkeypatch):
     yield
 
 
+# SOCKET PING
+
+
+def test_celery_socket_ping_not_listening():
+    body = {
+        "name": "testtask",
+        "params": {"host": "127.0.0.1", "port": 55555, "socket_type": "TCP"},
+    }
+
+    result = celery.socket_ping(body=body)
+
+    assert result["level"] == "error"
+    assert result["status"] == "error"
+    assert "down" in result["result"]["error"]
+
+
+## HTTP
+
+
 def test_celery_http_no_params():
     body = {"name": "testtask"}
 
     result = celery.http(body=body)
-
-    print(result)
 
     assert "No params" in result["result"]["error"]
     assert result["status"] == "error"
@@ -35,6 +52,8 @@ def test_celery_http_happy_path(requests_mock):
     body = {"name": "testtask", "params": {"url": "http://myrequest.com/test"}}
 
     result = celery.http(body=body)
+
+    print(result)
 
     assert result["level"] == "info"
     assert result["status"] == "success"

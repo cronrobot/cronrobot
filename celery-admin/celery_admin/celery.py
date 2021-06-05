@@ -7,6 +7,10 @@ from functools import wraps
 from celery import Celery
 from celery.utils.log import get_task_logger
 
+from .celery_tasks import http as http_task
+from .celery_tasks import socket_ping as socket_ping_task
+
+
 from .secrets import decrypt
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "celery_admin.settings")
@@ -56,6 +60,7 @@ def handle_task(func):
             return record_task_result(LOG_LEVEL_INFO, body, result)
 
         except Exception as e:
+            logger.error(f"HANDLING EX.. e = {e}")
             return record_task_result(
                 LOG_LEVEL_ERROR, body, {"error": f"{e}", "status": STATUS_ERROR_LABEL}
             )
@@ -91,20 +96,13 @@ def record_task_result(level, request_body, result):
 @app.task(bind=True)
 @handle_task
 def http(self, **kwargs):
-    default_http_timeout = 30  # seconds
-    body = kwargs.get("body")
-    params = body.get("params")
+    return http_task.task(**kwargs)
 
-    url = params.get("url")
-    timeout = params.get("timeout") or default_http_timeout
 
-    result = requests.get(url, timeout=timeout)
-
-    return {
-        "status_code": result.status_code,
-        "content": result.text,
-        "status": STATUS_SUCCESS_LABEL,
-    }
+@app.task(bind=True)
+@handle_task
+def socket_ping(self, **kwargs):
+    return socket_ping_task.task(**kwargs)
 
 
 @app.task(bind=True)
