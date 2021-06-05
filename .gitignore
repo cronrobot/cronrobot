@@ -5,3 +5,4 @@ __pycache__/
 htmlcov/
 scheduler-logs
 node_modules
+secrets/*.json
