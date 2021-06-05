@@ -8,7 +8,32 @@ test_fernet_key = "BFrJh-fIWvhwokDhsIIhjMuHxcgDXjyNZY_JIQZD78M="
 @pytest.fixture(autouse=True)
 def run_around_tests(monkeypatch):
     monkeypatch.setenv("FERNET_SECRET_KEY", test_fernet_key)
+
+    def dummy_write(content):
+        pass
+
+    celery.write_task_result_file = dummy_write
+
     yield
+
+
+# SOCKET PING
+
+
+def test_celery_socket_ping_not_listening():
+    body = {
+        "name": "testtask",
+        "params": {"host": "127.0.0.1", "port": 55555, "socket_type": "TCP"},
+    }
+
+    result = celery.socket_ping(body=body)
+
+    assert result["level"] == "error"
+    assert result["status"] == "error"
+    assert "down" in result["result"]["error"]
+
+
+## HTTP
 
 
 def test_celery_http_no_params():
@@ -16,7 +41,8 @@ def test_celery_http_no_params():
 
     result = celery.http(body=body)
 
-    assert "No params available" in result
+    assert "No params" in result["result"]["error"]
+    assert result["status"] == "error"
 
 
 def test_celery_http_happy_path(requests_mock):
@@ -27,17 +53,24 @@ def test_celery_http_happy_path(requests_mock):
 
     result = celery.http(body=body)
 
-    assert result == {
+    print(result)
+
+    assert result["level"] == "info"
+    assert result["status"] == "success"
+    assert result["body"] == body
+    assert result["result"] == {
         "content": '{"this": "is"}',
-        "status_code": 200,
         "status": "success",
+        "status_code": 200,
     }
 
 
-def test_celery_http_exception_on_call():
+def test_celery_http_exception_on_call(requests_mock):
     params = {"url": "http://myrequest.com/testexception", "timeout": 3}
 
     result = celery.http(body={"params": params})
 
-    assert result.get("content")
-    assert result.get("status"), "error"
+    assert result["level"], "error"
+    assert result["status"], "error"
+    assert result["body"] == {"params": params}
+    assert "No mock address" in result["result"]["error"]

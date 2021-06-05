@@ -18,9 +18,12 @@ scrape_configs:
         message: message
         timestamp: timestamp
         scheduler_id: scheduler_id
+        status: status
+        result: result
   - labels:
       level:
       scheduler_id:
+      status:
 
   static_configs:
   - targets:
