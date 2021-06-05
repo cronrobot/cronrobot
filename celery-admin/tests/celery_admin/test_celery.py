@@ -58,11 +58,10 @@ def test_celery_http_happy_path(requests_mock):
     assert result["level"] == "info"
     assert result["status"] == "success"
     assert result["body"] == body
-    assert result["result"] == {
-        "content": '{"this": "is"}',
-        "status": "success",
-        "status_code": 200,
-    }
+    assert result["result"]["content"] == '{"this": "is"}'
+    assert result["result"]["status"] == 'success'
+    assert result["result"]["status_code"] == 200
+    assert result["result"]["duration"] > 0
 
 
 def test_celery_http_exception_on_call(requests_mock):
@@ -74,3 +73,4 @@ def test_celery_http_exception_on_call(requests_mock):
     assert result["status"], "error"
     assert result["body"] == {"params": params}
     assert "No mock address" in result["result"]["error"]
+    assert result["result"]["duration"] > 0

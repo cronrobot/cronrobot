@@ -1,5 +1,6 @@
 import os
 import json
+import time
 
 import requests
 from functools import wraps
@@ -44,6 +45,7 @@ def handle_task(func):
     @wraps(func)
     def inner(*args, **kwargs):
         body = kwargs.get("body")
+        t_begin = time.time()
 
         try:
             if not body:
@@ -57,12 +59,14 @@ def handle_task(func):
             result = func(*args, **kwargs)
             result["status"] = STATUS_SUCCESS_LABEL
 
-            return record_task_result(LOG_LEVEL_INFO, body, result)
+            return record_task_result(LOG_LEVEL_INFO, body, result, t_begin=t_begin)
 
         except Exception as e:
-            logger.error(f"HANDLING EX.. e = {e}")
             return record_task_result(
-                LOG_LEVEL_ERROR, body, {"error": f"{e}", "status": STATUS_ERROR_LABEL}
+                LOG_LEVEL_ERROR,
+                body,
+                {"error": f"{e}", "status": STATUS_ERROR_LABEL},
+                t_begin=t_begin
             )
 
     return inner
@@ -75,7 +79,10 @@ def write_task_result_file(msg):
     log_file.close()
 
 
-def record_task_result(level, request_body, result):
+def record_task_result(level, request_body, result, t_begin=None):
+    if t_begin:
+        result["duration"] = time.time() - t_begin
+
     logger.debug(f"record result - request body: {request_body}, result: {result}")
 
     msg = {
