@@ -30,7 +30,7 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: /secrets/sa-gcs.json
     volumes:
       - ./grafana/loki/etc:/etc/loki
-      - ./secrets/service-account-gcs.json:/secrets/sa-gcs.json
+      - ./secrets:/secrets
     #ports:
     #  - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml

@@ -34,3 +34,4 @@ jobs:
           $ssh_in "$go_home ; git pull"
           cat .env | $ssh_in -T "cat > /var/www/cronrobot/.env"
 
+          $ssh_in "$go_home ; sudo docker-compose stop ; sudo docker-compose up -d"
