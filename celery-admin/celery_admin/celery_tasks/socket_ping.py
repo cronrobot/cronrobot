@@ -7,7 +7,7 @@ def task(**kwargs):
 
     host = params.get("host")
     port = params.get("port")
-    socket_type = params.get("socket_type")
+    socket_type = params.get("socket_type") or "TCP"
 
     socket_type_id = socket.SOCK_STREAM if socket_type == "TCP" else socket.SOCK_DGRAM
 
