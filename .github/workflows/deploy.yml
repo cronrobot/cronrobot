@@ -19,6 +19,6 @@ jobs:
           MAIN_SERVER_USERNAME: ${{secrets.MAIN_SERVER_USERNAME}}
         run: |
           mkdir .ssh
-          echo $MAIN_SERVER_SSH_B64 > .ssh/main_server_pk
+          echo $MAIN_SERVER_SSH_B64 | base64 -d > .ssh/main_server_pk
           ssh -i .ssh/main_server_pk $MAIN_SERVER_USERNAME@$MAIN_SERVER_HOST "ls -la /var/www"
 
