@@ -18,10 +18,20 @@ jobs:
           MAIN_SERVER_HOST: ${{secrets.MAIN_SERVER_HOST}}
           MAIN_SERVER_USERNAME: ${{secrets.MAIN_SERVER_USERNAME}}
         run: |
+
+          # .env
+          echo "FERNET_SECRET_KEY=$FERNET_SECRET_KEY" > .env
+          echo "PYTHONUNBUFFERED=1" >> .env
+          cat .env | wc -l
+
+
+          # ssh setup
           mkdir .ssh
           echo $MAIN_SERVER_SSH_B64 | base64 -d > .ssh/main_server_pk
           chmod 400 .ssh/main_server_pk
           ssh_in="ssh -o StrictHostKeyChecking=no -i .ssh/main_server_pk $MAIN_SERVER_USERNAME@$MAIN_SERVER_HOST"
+
+          # git pull
           go_home="cd /var/www/cronrobot"
           $ssh_in "$go_home ; git pull"
 
