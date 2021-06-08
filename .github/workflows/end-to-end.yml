@@ -21,6 +21,7 @@ jobs:
           echo "PYTHONUNBUFFERED=1" > .env
           echo "FERNET_SECRET_KEY=$FERNET_SECRET_KEY" >> .env
           cat .env
+          touch .grafana.env
           docker-compose up -d
           sleep 20
       -

@@ -17,11 +17,15 @@ jobs:
           MAIN_SERVER_SSH_B64: ${{secrets.MAIN_SERVER_SSH_B64}}
           MAIN_SERVER_HOST: ${{secrets.MAIN_SERVER_HOST}}
           MAIN_SERVER_USERNAME: ${{secrets.MAIN_SERVER_USERNAME}}
+          GRAFANA_DOTENV: ${{secrets.GRAFANA_DOTENV}}
         run: |
 
           # .env
           echo "FERNET_SECRET_KEY=$FERNET_SECRET_KEY" > .env
           echo "PYTHONUNBUFFERED=1" >> .env
+
+          # .grafana.env
+          echo "$GRAFANA_DOTENV" | base64 -d > .grafana.env
 
           # ssh setup
           mkdir .ssh
@@ -33,6 +37,7 @@ jobs:
           go_home="cd /var/www/cronrobot"
           $ssh_in "$go_home ; git pull"
           cat .env | $ssh_in -T "cat > /var/www/cronrobot/.env"
+          cat .grafana.env | $ssh_in -T "cat > /var/www/cronrobot/.grafana.env"
 
           # python deps
           $ssh_in "cd /var/www/cronrobot/celery-admin ; pip install -r requirements.txt"

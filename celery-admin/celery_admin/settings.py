@@ -25,9 +25,7 @@ SECRET_KEY = "django-insecure-ojwnd2gz_fn%69rt*^u88)sw!vao17^@*xsy_6lz%9cl4potya
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "celery-admin.cronrobot.io"
-]
+ALLOWED_HOSTS = ["celery-admin.cronrobot.io"]
 
 
 # Application definition
