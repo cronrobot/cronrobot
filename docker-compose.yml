@@ -46,6 +46,10 @@ services:
   grafana:
     network_mode: "host"
     image: grafana/grafana:latest
+    volumes:
+      - ./grafana/grafana/etc:/etc/grafana
+    env_file:
+      - .grafana.env
     #ports:
     #  - "3000:3000"
 
