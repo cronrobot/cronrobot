@@ -1,0 +1,7 @@
+/var/www/cronrobot/scheduler-logs/*.json {
+    rotate 2
+    minsize 500M
+    missingok
+    copytruncate
+    compress
+}

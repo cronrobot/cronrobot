@@ -3,7 +3,7 @@ celery-admin/celery_admin/__pycache__/
 __pycache__/
 .coverage
 htmlcov/
-scheduler-logs
+scheduler-logs/*.json
 node_modules
 secrets/*.json
 .grafana.env
