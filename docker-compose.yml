@@ -23,9 +23,9 @@ services:
     volumes:
       - ./celery-admin/:/app/
 
-  loki:
+  loki: # https://github.com/grafana/loki/releases
     network_mode: "host"
-    image: grafana/loki:2.0.0
+    image: grafana/loki:2.2.1
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /secrets/sa-gcs.json
     volumes:
@@ -35,17 +35,17 @@ services:
     #  - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
-  promtail:
+  promtail: # https://github.com/grafana/loki/releases
     network_mode: "host"
-    image: grafana/promtail:2.0.0
+    image: grafana/promtail:2.2.1
     volumes:
       - ./grafana/promtail/etc:/etc/promtail
       - ./scheduler-logs:/logs
     command: -config.file=/etc/promtail/config.yml
 
-  grafana:
+  grafana: # https://github.com/grafana/grafana
     network_mode: "host"
-    image: grafana/grafana:latest
+    image: grafana/grafana:8.0.0
     volumes:
       - ./grafana/grafana/etc:/etc/grafana
     env_file:
