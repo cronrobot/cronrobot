@@ -10,4 +10,8 @@ Rails.application.routes.draw do
     get '/schedulers', to: 'schedulers#index'
   end
 
+  namespace :api do
+    get '/test', to: 'test#index'
+  end
+
 end
