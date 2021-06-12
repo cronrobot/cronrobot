@@ -43,7 +43,7 @@ jobs:
       env:
         DOTENV_TEST_B64: ${{secrets.DOTENV_TEST_B64}}
       run: |
-        echo "$DOTENV_TEST_B64" > .env
+        echo "$DOTENV_TEST_B64" | base64 -d > .env
         export $(cat .env | xargs) && bundle exec bin/rails test
       working-directory: ./www-cronrobot/
 
