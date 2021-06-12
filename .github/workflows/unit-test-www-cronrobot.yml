@@ -40,7 +40,10 @@ jobs:
       working-directory: ./www-cronrobot/
 
     - name: test
+      env:
+        DOTENV_TEST_B64: ${{secrets.DOTENV_TEST_B64}}
       run: |
-        bundle exec bin/rails test
+        echo "$DOTENV_TEST_B64" > .env
+        export $(cat .env | xargs) && bundle exec bin/rails test
       working-directory: ./www-cronrobot/
 

@@ -2,27 +2,27 @@
 require 'net/http'
 require 'uri'
 
-tenant_url = ENV.fetch("AUTH0_API_TENANT_URL")
-ENV.fetch("AUTH0_API_IDENTIFIER")
-
-puts tenant_url
-
 class JsonWebToken
-  def self.verify(token)
+  def initialize(opts = {})
+    @opts = opts.clone
+  end
+
+  def verify(token)
     JWT.decode(token, nil,
                true, # Verify the signature of this token
                algorithms: 'RS256',
-               iss: tenant_url,
+               iss: @opts[:tenant_url],
                verify_iss: true,
-               aud: Rails.application.secrets.auth0_api_audience,
+               aud: @opts[:audience],
                verify_aud: true) do |header|
       jwks_hash[header['kid']]
     end
   end
 
-  def self.jwks_hash
-    jwks_raw = Net::HTTP.get URI("https://YOUR_DOMAIN/.well-known/jwks.json")
+  def jwks_hash
+    jwks_raw = Net::HTTP.get URI("#{@opts[:tenant_url]}.well-known/jwks.json")
     jwks_keys = Array(JSON.parse(jwks_raw)['keys'])
+
     Hash[
       jwks_keys
       .map do |k|

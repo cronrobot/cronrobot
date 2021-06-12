@@ -10,6 +10,7 @@ ruby '3.0.1'
 gem 'rails', github: 'rails/rails'
 
 gem 'jwt'
+gem 'httparty'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
