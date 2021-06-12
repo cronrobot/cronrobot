@@ -22,6 +22,7 @@ jobs:
           echo "FERNET_SECRET_KEY=$FERNET_SECRET_KEY" >> .env
           cat .env
           touch .grafana.env
+          touch www-cronrobot/.env
           docker-compose up -d
           sleep 20
       -
