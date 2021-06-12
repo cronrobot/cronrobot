@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## Running tests
+
+With a .env file with some configs, run:
+
+        export $(cat .env | xargs) && rails test

@@ -2,7 +2,8 @@ name: Lint celery admin
 
 on:
   push:
-
+    paths:
+     - celery-admin/**
 
 jobs:
   unit-test-celery-admin:
