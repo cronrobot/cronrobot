@@ -3,9 +3,6 @@ require 'test_api_helper'
 
 class TestControllerTest < ActionDispatch::IntegrationTest
   test '/api/test' do
-
-    puts "api_headers -> #{api_headers}"
-
     get '/api/test',
       headers: api_headers,
       as: :json
