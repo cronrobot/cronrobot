@@ -22,7 +22,10 @@ RUN bundle install --jobs 20 --retry 5 --without development test
 COPY . .
 
 # compile assets
-#RUN bin/rails assets:precompile
+RUN apk add --no-cache npm
+RUN npm install -g yarn
+RUN yarn install --check-files
+RUN bin/rails assets:precompile
 
 RUN echo 'echo db:migrate' >> /boot.sh
 RUN echo 'bin/rails db:migrate' >> /boot.sh
