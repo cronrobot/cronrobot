@@ -23,6 +23,7 @@ jobs:
           cat .env
           touch .grafana.env
           touch www-cronrobot/.env
+          touch www-cronrobot/master.key
           docker-compose up -d
           sleep 20
       -
