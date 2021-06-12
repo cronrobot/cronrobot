@@ -23,7 +23,7 @@ jobs:
           cat .env
           touch .grafana.env
           touch www-cronrobot/.env
-          echo "523lk5h2lkjlj6nlk4n6lk4" > www-cronrobot/config/master.key
+          echo "231047af4e20f5d7e931cfb6b4bccdab" > www-cronrobot/config/master.key
           docker-compose up -d
           sleep 20
       -
