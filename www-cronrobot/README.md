@@ -27,4 +27,4 @@ Things you may want to cover:
 
 With a .env file with some configs, run:
 
-        export $(cat .env | xargs) &&
+        export $(cat .env | xargs) && rails test
