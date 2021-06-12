@@ -29,4 +29,4 @@ RUN echo 'bin/rails db:migrate' >> /boot.sh
 
 # launch the application
 RUN echo 'echo starting the application' >> /boot.sh
-CMD sh /boot.sh && bundle exec puma -C config/puma.rb
+CMD sh /boot.sh && bundle exec rails s
