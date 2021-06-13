@@ -49,3 +49,8 @@ jobs:
 
           $ssh_in "$go_home ; sudo docker-compose build"
           $ssh_in "$go_home ; sudo docker-compose up -d"
+
+          # reload celery
+          $ssh_in "$go_home ; pm2 reload celery-beat --update-env"
+          $ssh_in "$go_home ; pm2 reload celery-worker --update-env"
+          
