@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CronRobot</title>
+    <title>CronRobot Dashboard</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,11 +10,7 @@
   </head>
 
   <body>
-    <% if @current_user %>
-      <%= button_to 'Logout', 'auth/logout', method: :get %>
-    <% else %>
-      <%= button_to 'Login', 'auth/auth0', method: :post %>
-    <% end %>
+    <div class="pull-right"><%= button_to 'Logout', 'auth/logout', method: :get %></div>
     <%= yield %>
   </body>
 </html>

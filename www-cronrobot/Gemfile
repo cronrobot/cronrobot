@@ -12,6 +12,9 @@ gem 'rails', github: 'rails/rails'
 gem 'jwt'
 gem 'httparty'
 
+gem 'omniauth-auth0', '~> 3.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
