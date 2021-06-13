@@ -22,7 +22,6 @@ jobs:
         run: |
           echo "PYTHONUNBUFFERED=1" > .env
           echo "FERNET_SECRET_KEY=$FERNET_SECRET_KEY" >> .env
-          cat .env
           touch .grafana.env
           touch www-cronrobot/.env
           echo "$WWW_CRONROBOT_MASTER_KEY" > www-cronrobot/config/master.key
