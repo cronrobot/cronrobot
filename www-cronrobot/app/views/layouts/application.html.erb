@@ -11,9 +11,9 @@
 
   <body>
     <% if @current_user %>
-      <%= button_to 'Logout', 'auth/logout', method: :get %>
+      <%= button_to 'Logout', '/auth/logout', method: :get %>
     <% else %>
-      <%= button_to 'Login', 'auth/auth0', method: :post %>
+      <%= button_to 'Login', '/auth/auth0', method: :post %>
     <% end %>
     <%= yield %>
   </body>
