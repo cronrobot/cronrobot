@@ -2,6 +2,7 @@ version: "3"
 services:
   www-api:
     network_mode: "host"
+    restart: always
     build:
       context: ./www-cronrobot
       dockerfile: Dockerfile
@@ -12,6 +13,7 @@ services:
 
   rabbitmq:
     network_mode: "host"
+    restart: always
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
     #ports:
@@ -23,6 +25,7 @@ services:
 
   celery-admin:
     network_mode: "host"
+    restart: always
     build:
       context: ./celery-admin
       dockerfile: Dockerfile.api
@@ -35,6 +38,7 @@ services:
 
   loki: # https://github.com/grafana/loki/releases
     network_mode: "host"
+    restart: always
     image: grafana/loki:2.2.1
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /secrets/sa-gcs.json
@@ -47,6 +51,7 @@ services:
 
   promtail: # https://github.com/grafana/loki/releases
     network_mode: "host"
+    restart: always
     image: grafana/promtail:2.2.1
     volumes:
       - ./grafana/promtail/etc:/etc/promtail
@@ -55,6 +60,7 @@ services:
 
   grafana: # https://github.com/grafana/grafana
     network_mode: "host"
+    restart: always
     image: grafana/grafana:8.0.0
     volumes:
       - ./grafana/grafana/etc:/etc/grafana
