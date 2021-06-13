@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
     #ports:
     #  - 3030:3030
+    environment:
+      RAILS_LOG_TO_STDOUT: "true"
     env_file:
       - ./www-cronrobot/.env
 
