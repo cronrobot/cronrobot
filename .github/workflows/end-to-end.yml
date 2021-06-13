@@ -18,6 +18,7 @@ jobs:
         env:
           FERNET_SECRET_KEY: ${{secrets.FERNET_SECRET_KEY_TEST}}
           WWW_CRONROBOT_MASTER_KEY: ${{secrets.WWW_CRONROBOT_MASTER_KEY}}
+          WWW_CREDENTIALS_PRODUCTION_KEY: ${{secrets.WWW_CREDENTIALS_PRODUCTION_KEY}}
         run: |
           echo "PYTHONUNBUFFERED=1" > .env
           echo "FERNET_SECRET_KEY=$FERNET_SECRET_KEY" >> .env
@@ -25,6 +26,8 @@ jobs:
           touch .grafana.env
           touch www-cronrobot/.env
           echo "$WWW_CRONROBOT_MASTER_KEY" > www-cronrobot/config/master.key
+          mkdir -p www-cronrobot/config/credentials/
+          echo "$WWW_CREDENTIALS_PRODUCTION_KEY" > www-cronrobot/config/credentials/production.key
           docker-compose up -d
           sleep 20
       -
