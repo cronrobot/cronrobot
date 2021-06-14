@@ -27,6 +27,10 @@ jobs:
           echo "$WWW_CRONROBOT_MASTER_KEY" > www-cronrobot/config/master.key
           mkdir -p www-cronrobot/config/credentials/
           echo "$WWW_CREDENTIALS_PRODUCTION_KEY" > www-cronrobot/config/credentials/production.key
+
+          ls -la www-cronrobot/config/credentials
+          cat www-cronrobot/config/credentials/production.key
+
           docker-compose up -d
           sleep 20
       -
