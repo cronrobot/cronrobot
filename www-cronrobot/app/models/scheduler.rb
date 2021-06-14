@@ -1,7 +1,8 @@
 class Scheduler < ApplicationRecord
   belongs_to :project
-
-  encrypts :command
-
+  has_many :resources,
+           foreign_key: :reference_id,
+           class_name: :ResourceScheduler,
+           dependent: :destroy
   
 end

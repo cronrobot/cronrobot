@@ -2,10 +2,10 @@
 
 one:
   type: 
-  schedule: MyString
-  project: one
+  reference_id: 1
+  params: MyText
 
 two:
   type: 
-  schedule: MyString
-  project: two
+  reference_id: 1
+  params: MyText
