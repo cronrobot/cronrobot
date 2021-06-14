@@ -4,5 +4,5 @@ class Scheduler < ApplicationRecord
            foreign_key: :reference_id,
            class_name: :ResourceScheduler,
            dependent: :destroy
-  
+
 end

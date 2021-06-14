@@ -19,6 +19,7 @@ jobs:
           MAIN_SERVER_USERNAME: ${{secrets.MAIN_SERVER_USERNAME}}
           GRAFANA_DOTENV: ${{secrets.GRAFANA_DOTENV}}
           DOTENV_WWW_PROD: ${{secrets.DOTENV_WWW_PROD}}
+          WWW_CREDENTIALS_PRODUCTION_KEY: ${{secrets.WWW_CREDENTIALS_PRODUCTION_KEY}}
         run: |
 
           # .env

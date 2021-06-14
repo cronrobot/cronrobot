@@ -1,4 +1,4 @@
 
 class SchedulerSocketPing < Scheduler
-  
+
 end
