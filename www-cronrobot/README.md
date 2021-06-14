@@ -23,6 +23,10 @@ Things you may want to cover:
 
 * ...
 
+## Secret keys
+
+        rails credentials:edit --environment=production
+
 ## Running tests
 
 With a .env file with some configs, run:
