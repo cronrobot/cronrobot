@@ -22,7 +22,10 @@ def find(request):
     name = request.GET["name"]
     p = PeriodicTask.objects.filter(name=name).first()
 
-    return Response(model_to_dict(p) if p else None)
+    if p:
+        return Response(model_to_dict(p))
+    else:
+        return Response(None, status=404)
 
 
 @api_view(["POST"])
@@ -37,7 +40,14 @@ def create(request):
         crontab=crontab,  # we created this above.
         name=body.get("name"),  # simply describes this periodic task.
         task=body.get("task"),
-        kwargs=json.dumps({"params": body.get("params") or {}}),
+        kwargs=json.dumps({
+                "body": {
+                    "params": {
+                        "resource_id": body.get("resource_id")
+                    }
+                }
+            }
+        ),
     )
 
     return Response(model_to_dict(p_task))
