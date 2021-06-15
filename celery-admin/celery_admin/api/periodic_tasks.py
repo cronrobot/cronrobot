@@ -40,14 +40,7 @@ def create(request):
         crontab=crontab,  # we created this above.
         name=body.get("name"),  # simply describes this periodic task.
         task=body.get("task"),
-        kwargs=json.dumps({
-                "body": {
-                    "params": {
-                        "resource_id": body.get("resource_id")
-                    }
-                }
-            }
-        ),
+        kwargs=json.dumps({"body": {"params": {"resource_id": body.get("resource_id")}}}),
     )
 
     return Response(model_to_dict(p_task))
