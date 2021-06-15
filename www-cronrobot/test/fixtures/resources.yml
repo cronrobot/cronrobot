@@ -3,9 +3,7 @@
 one:
   type: 
   reference_id: 1
-  params: MyText
 
 two:
   type: 
   reference_id: 1
-  params: MyText
