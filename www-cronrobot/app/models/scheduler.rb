@@ -45,6 +45,7 @@ class Scheduler < ApplicationRecord
       body = {
         name: celery_periodic_task_name,
         task: celery_task,
+        schedule: schedule,
         resource_id: resources.first&.id
       }
 
