@@ -26,10 +26,11 @@ class ActiveSupport::TestCase
   def mock_create_celery_periodic_task(status_code = 200, opts = {})
     id = opts[:id]
     task = opts[:task]
+    schedule = opts[:schedule]
 
     stub_request(:post, "http://localhost:8000/api/periodic-tasks/").
     with(
-      body: "name=scheduler-#{id}&task=#{task}&resource_id=",
+      body: "name=scheduler-#{id}&task=#{task}&schedule=#{schedule}&resource_id=",
       headers: {
       'Accept'=>'*/*',
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

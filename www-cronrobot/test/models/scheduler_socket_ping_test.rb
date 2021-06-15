@@ -18,7 +18,8 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
     mock_create_celery_periodic_task(
       200,
       id: sched.id,
-      task: "celery_admin.celery.socket_ping"
+      task: "celery_admin.celery.socket_ping",
+      schedule: "%2A%20%2A%20%2A%20%2A%20%2A"
     )
 
     sched.touch!

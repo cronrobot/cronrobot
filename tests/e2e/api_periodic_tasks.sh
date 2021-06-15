@@ -7,7 +7,9 @@ if [ ! -z "${result_find}" ]; then
     curl -X DELETE $API_BASE_URL/periodic-tasks/$task_to_delete/
 fi
 
-result_create=$(curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"asdfdd\", \"name\": \"taskname\", \"task\": \"hello\"}" $API_BASE_URL/periodic-tasks/)
+result_create=$(curl -X POST -H "Content-Type: application/json" \
+    -d "{\"status\": \"asdfdd\", \"name\": \"taskname\", \"task\": \"hello\", \"schedule\": \"* * * * *\"}" \
+    $API_BASE_URL/periodic-tasks/)
 echo $result_create | grep "taskname"
 
 task_id=$(echo $result_create | jq .id)
