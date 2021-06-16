@@ -19,6 +19,7 @@ jobs:
           GRAFANA_DOTENV: ${{secrets.GRAFANA_DOTENV}}
           DOTENV_WWW_PROD: ${{secrets.DOTENV_WWW_PROD}}
           WWW_CREDENTIALS_PRODUCTION_KEY: ${{secrets.WWW_CREDENTIALS_PRODUCTION_KEY}}
+          DOTENV_CELERY_ADMIN_B64: ${{ secrets.DOTENV_CELERY_ADMIN_B64 }}
         run: |
 
           # .env
@@ -30,6 +31,9 @@ jobs:
 
           # .grafana.env
           echo "$GRAFANA_DOTENV" | base64 -d > .grafana.env
+
+          # .env for celery-admin
+          echo "$DOTENV_CELERY_ADMIN_B64" | base64 -d > .celery-admin.env
 
           # ssh setup
           mkdir .ssh
@@ -43,6 +47,7 @@ jobs:
           cat .env | $ssh_in -T "cat > /var/www/cronrobot/.env"
           cat .grafana.env | $ssh_in -T "cat > /var/www/cronrobot/.grafana.env"
           cat .www-cronrobot.env | $ssh_in -T "cat > /var/www/cronrobot/www-cronrobot/.env"
+          cat .celery-admin.env | $ssh_in -T "cat > /var/www/cronrobot/celery-admin/.env"
 
           # python deps
           $ssh_in "cd /var/www/cronrobot/celery-admin ; pip install -r requirements.txt"
