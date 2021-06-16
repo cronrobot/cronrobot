@@ -8,7 +8,6 @@
   "exec_interpreter": "python",
   "max_memory_restart" : "2024M",
   "env": {
-    "FERNET_SECRET_KEY": "BFrJh-fIWvhwokDhsIIhjMuHxcgDXjyNZY_JIQZD78M=",
-    "TASK_RESULTS_PATH": "../scheduler-logs/all.json"
+    "DOTENV_PATH": ".env"    
   }
 }

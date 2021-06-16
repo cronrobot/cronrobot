@@ -13,7 +13,6 @@ jobs:
       -
         name: deploy
         env:
-          FERNET_SECRET_KEY: ${{secrets.FERNET_SECRET_KEY_TEST}}
           MAIN_SERVER_SSH_B64: ${{secrets.MAIN_SERVER_SSH_B64}}
           MAIN_SERVER_HOST: ${{secrets.MAIN_SERVER_HOST}}
           MAIN_SERVER_USERNAME: ${{secrets.MAIN_SERVER_USERNAME}}

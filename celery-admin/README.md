@@ -1,6 +1,7 @@
 
-python manage.py runserver
 
-FERNET_SECRET_KEY=$(cat celery_admin/key.txt) celery -A celery_admin beat -l INFO
+## Running tests
 
-FERNET_SECRET_KEY=$(cat celery_admin/key.txt) celery -A celery_admin worker -l INFO
+With a .env file with some configs, run:
+
+        export $(cat .env | xargs) && DOTENV_PATH=.env python -m pytest

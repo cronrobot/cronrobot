@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .api.status import status_ok
-from .api import periodic_tasks, resources
+from .api import periodic_tasks
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,6 +26,4 @@ urlpatterns = [
     path("api/periodic-tasks/find", periodic_tasks.find),
     path("api/periodic-tasks/<id>/", periodic_tasks.manage),
     path("api/periodic-tasks/", periodic_tasks.create),
-    path("api/resources/", resources.create),
-    path("api/resources/<id>/", resources.manage),
 ]
