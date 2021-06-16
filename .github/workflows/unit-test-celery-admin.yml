@@ -24,7 +24,8 @@ jobs:
       -
         name: Unit tests
         env:
-          FERNET_SECRET_KEY: ${{ secrets.FERNET_SECRET_KEY_TEST }}
+          DOTENV_CELERY_ADMIN_B64: ${{ secrets.DOTENV_CELERY_ADMIN_B64 }}
         run: |
-          python -m pytest
+          echo $DOTENV_CELERY_ADMIN_B64 | base64 -d > .env
+          export $(cat .env | xargs) && DOTENV_PATH=.env python -m pytest
         working-directory: ./celery-admin/

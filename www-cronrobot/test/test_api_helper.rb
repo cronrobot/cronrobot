@@ -1,6 +1,4 @@
 
-require 'net/https'
-
 class ActiveSupport::TestCase
 
   def api_headers

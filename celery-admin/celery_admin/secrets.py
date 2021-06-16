@@ -1,30 +1,46 @@
 import os
-from cryptography.fernet import Fernet
 
-secret_type = os.environ.get("SECRET_TYPE", "FERNET")
+import requests
+import json
+from dotenv import dotenv_values
 
-SUPPORTED_SECRET_TYPES = ["FERNET"]
+dotenv_values = dotenv_values(os.environ["DOTENV_PATH"])
 
-
-def get_secret_key():
-    return os.environ.get("FERNET_SECRET_KEY", "")
-
-
-def decrypt(encrypted_msg):
-    return decrypt_fernet(encrypted_msg)
-
-
-def decrypt_fernet(encrypted_msg):
-    f = Fernet(get_secret_key())
-
-    return f.decrypt(encrypted_msg.encode()).decode("utf-8")
+auth0_tenant_url = dotenv_values["RESOURCE_SECRETS_AUTH0_TENANT_URL"]
+auth0_client_id = dotenv_values["RESOURCE_SECRETS_AUTH0_CLIENT_ID"]
+auth0_client_secret = dotenv_values["RESOURCE_SECRETS_AUTH0_CLIENT_SECRET"]
+auth0_audience = dotenv_values["RESOURCE_SECRETS_AUTH0_AUDIENCE"]
+resource_secret_base_url = dotenv_values["RESOURCE_SECRETS_API_BASE_URL"]
 
 
-def encrypt(msg):
-    return encrypt_fernet(msg)
+def get_auth0_access_token():
+    token_url = f"{auth0_tenant_url}/oauth/token"
+
+    data = {
+        "client_id": auth0_client_id,
+        "client_secret": auth0_client_secret,
+        "audience": auth0_audience,
+        "grant_type": "client_credentials",
+    }
+
+    result = requests.post(token_url, timeout=60, json=data)
+
+    if result.status_code != 200:
+        raise Exception(f"{result.text}, status code = {result.status_code}")
+
+    parsed_result = json.loads(result.text)
+
+    return parsed_result.get("access_token")
 
 
-def encrypt_fernet(msg):
-    f = Fernet(get_secret_key())
+def decrypt(resource_id):
+    access_token = get_auth0_access_token()
 
-    return f.encrypt(msg.encode()).decode("utf-8")
+    resource_url = f"{resource_secret_base_url}/{resource_id}"
+    headers = {"Authorization": f"Bearer {access_token}"}
+    decrypted = requests.get(resource_url, timeout=60, headers=headers)
+
+    if decrypted.status_code != 200:
+        raise Exception(f"Unable to retrieve resource")
+
+    return decrypted.json()

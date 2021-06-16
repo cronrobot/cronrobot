@@ -1,5 +1,6 @@
 django==3.2.3
 djangorestframework==3.12.4
+python-dotenv==0.17.1
 gevent==21.1.2
 markdown
 django-celery-beat==2.2.0

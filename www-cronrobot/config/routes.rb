@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     get '/test', to: 'test#index'
+
+    get '/resources/:id', to: 'resource#retrieve'
   end
 
 end

@@ -1,14 +1,11 @@
 import pytest
 import json
+import copy
 from celery_admin import celery
-
-test_fernet_key = "BFrJh-fIWvhwokDhsIIhjMuHxcgDXjyNZY_JIQZD78M="
 
 
 @pytest.fixture(autouse=True)
 def run_around_tests(monkeypatch):
-    monkeypatch.setenv("FERNET_SECRET_KEY", test_fernet_key)
-
     def dummy_write(content):
         pass
 
@@ -17,14 +14,36 @@ def run_around_tests(monkeypatch):
     yield
 
 
+def mock_oauth_resources(requests_mock):
+
+    requests_mock.post(
+        "https://dev-4eegkib6.us.auth0.com/oauth/token",
+        json={"access_token": "at"},
+        headers={"content-type": "json"},
+        status_code=200,
+    )
+
+
+def mock_resources_api(requests_mock, id, body):
+
+    requests_mock.get(
+        f"http://localhost:3030/api/resources/{id}",
+        json=body,
+        status_code=200,
+        headers={"content-type": "json"},
+    )
+
+
 # SOCKET PING
 
 
-def test_celery_socket_ping_not_listening():
-    body = {
-        "name": "testtask",
-        "params": {"host": "127.0.0.1", "port": 55555, "socket_type": "TCP"},
-    }
+def test_celery_socket_ping_not_listening(requests_mock):
+    mock_oauth_resources(requests_mock)
+
+    params = {"host": "127.0.0.1", "port": 55555, "socket_type": "TCP"}
+    mock_resources_api(requests_mock, 1234, {"params": params})
+
+    body = {"name": "testtask", "params": {"resource_id": "1234"}}
 
     result = celery.socket_ping(body=body)
 
@@ -48,13 +67,19 @@ def test_celery_http_no_params():
 def test_celery_http_happy_path(requests_mock):
     requests_mock.get("http://myrequest.com/test", text='{"this": "is"}')
 
-    body = {"name": "testtask", "params": {"url": "http://myrequest.com/test"}}
+    mock_oauth_resources(requests_mock)
+    mock_resources_api(
+        requests_mock, 1234, {"params": {"url": "http://myrequest.com/test"}}
+    )
+
+    body = {"name": "testtask", "params": {"resource_id": 1234}}
+    orig_body = copy.deepcopy(body)
 
     result = celery.http(body=body)
 
     assert result["level"] == "info"
     assert result["status"] == "success"
-    assert result["body"] == body
+    assert result["body"] == orig_body
     assert result["result"]["content"] == '{"this": "is"}'
     assert result["result"]["status"] == "success"
     assert result["result"]["status_code"] == 200
