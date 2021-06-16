@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import copy
 
 import requests
 from functools import wraps
@@ -44,26 +45,36 @@ def handle_task(func):
     @wraps(func)
     def inner(*args, **kwargs):
         body = kwargs.get("body")
+        orig_body = copy.deepcopy(body)
         t_begin = time.time()
 
         try:
             if not body:
                 raise Exception("No body in the task definition")
 
+            # check parameters
             params = body.get("params")
 
             if not params:
                 raise Exception("No params in the task definition")
 
+            # decrypt resource
+            resource_id = params.get("resource_id")
+
+            decrypted_resource = decrypt(resource_id)
+            resource_params = decrypted_resource["params"]
+            body["params"] = { **resource_params, **params}
+            print(f"body before function --> {body}")
+
             result = func(*args, **kwargs)
             result["status"] = STATUS_SUCCESS_LABEL
 
-            return record_task_result(LOG_LEVEL_INFO, body, result, t_begin=t_begin)
+            return record_task_result(LOG_LEVEL_INFO, orig_body, result, t_begin=t_begin)
 
         except Exception as e:
             return record_task_result(
                 LOG_LEVEL_ERROR,
-                body,
+                orig_body,
                 {"error": f"{e}", "status": STATUS_ERROR_LABEL},
                 t_begin=t_begin,
             )
