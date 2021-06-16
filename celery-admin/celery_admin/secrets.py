@@ -34,5 +34,13 @@ def get_auth0_access_token():
 
 
 def decrypt(resource_id):
+    access_token = get_auth0_access_token()
 
-    return ""
+    resource_url = f"{resource_secret_base_url}/{resource_id}"
+    headers = {"Authorization": f"Bearer {access_token}"}
+    decrypted = requests.get(resource_url, timeout=60, headers=headers)
+
+    if decrypted.status_code != 200:
+        raise Exception(f"Unable to retrieve resource")
+
+    return decrypted.json()
