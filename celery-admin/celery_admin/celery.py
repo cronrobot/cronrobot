@@ -62,9 +62,8 @@ def handle_task(func):
             resource_id = params.get("resource_id")
 
             decrypted_resource = decrypt(resource_id)
-            resource_params = decrypted_resource["params"]
-            body["params"] = { **resource_params, **params}
-            print(f"body before function --> {body}")
+            resource_params = decrypted_resource.get("params") or {}
+            body["params"] = {**resource_params, **params}
 
             result = func(*args, **kwargs)
             result["status"] = STATUS_SUCCESS_LABEL
