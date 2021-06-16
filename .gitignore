@@ -1,5 +1,6 @@
 rabbitmq-disk
 celery-admin/celery_admin/__pycache__/
+celery-admin/tests/celery_admin/__pycache__/
 __pycache__/
 .coverage
 htmlcov/
