@@ -62,6 +62,6 @@ def create(request):
 
 @api_view(["DELETE"])
 def manage(request, id):
-    PeriodicTask.objects.filter(id=id).delete()
+    PeriodicTask.objects.filter(name=id).delete()
 
     return Response({})
