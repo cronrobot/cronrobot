@@ -33,6 +33,9 @@ def create(request):
     body = request.data
 
     schedule_s = body.get("schedule")
+    name = body.get("name")
+    task = body.get("task")
+    kwargs = json.dumps({"body": {"params": {"resource_id": body.get("resource_id")}}})
 
     if not schedule_s:
         return Response({"error": "Missing schedule"}, status=400)
@@ -50,12 +53,21 @@ def create(request):
         month_of_year=parts_schedule[4],
     )
 
-    p_task = PeriodicTask.objects.create(
-        crontab=crontab,
-        name=body.get("name"),
-        task=body.get("task"),
-        kwargs=json.dumps({"body": {"params": {"resource_id": body.get("resource_id")}}}),
-    )
+    # upsert
+    p_task = PeriodicTask.objects.filter(name=name).first()
+
+    if p_task:
+        p_task.task = task
+        p_task.crontab = crontab
+        p_task.kwargs = kwargs
+        p_task.save()
+    else:
+        p_task = PeriodicTask.objects.create(
+            crontab=crontab,
+            name=name,
+            task=task,
+            kwargs=kwargs,
+        )
 
     return Response(model_to_dict(p_task))
 

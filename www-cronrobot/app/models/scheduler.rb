@@ -44,18 +44,16 @@ class Scheduler < ApplicationRecord
   end
 
   def upsert_celery_periodic_task
-    if celery_periodic_task_exists?
-      # update
-    else
-      body = {
-        name: celery_periodic_task_name,
-        task: celery_task,
-        schedule: schedule,
-        resource_id: resources.first&.id
-      }
+    body = {
+      name: celery_periodic_task_name,
+      task: celery_task,
+      schedule: schedule,
+      resource_id: resources.first&.id
+    }
 
-      celery_post("/periodic-tasks/", body)
-    end
+    result = celery_post("/periodic-tasks/", body)
+
+    raise Exception, "#{result.body}" if result.code != 200 
   end
 
   def delete_celery_periodic_task

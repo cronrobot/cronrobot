@@ -25,6 +25,24 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
     sched.touch!
   end
 
+  test "update - fail if non status code 200" do
+    p = Project.last
+
+    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *")
+
+    mock_find_celery_periodic_task(sched.id, 404)
+    mock_create_celery_periodic_task(
+      400,
+      id: sched.id,
+      task: "celery_admin.celery.socket_ping",
+      schedule: "%2A%20%2A%20%2A%20%2A%20%2A"
+    )
+
+    assert_raises Exception do
+      sched.touch!
+    end
+  end
+
   test "create then delete" do
     p = Project.last
 
