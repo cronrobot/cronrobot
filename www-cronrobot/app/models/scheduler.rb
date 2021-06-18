@@ -6,6 +6,7 @@ class Scheduler < ApplicationRecord
            dependent: :destroy
 
   before_update :upsert_celery_periodic_task
+  before_destroy :delete_celery_periodic_task
 
   def touch!
     upsert_celery_periodic_task
@@ -34,6 +35,10 @@ class Scheduler < ApplicationRecord
     HTTParty.post(celery_api_url(path), body: body)
   end
 
+  def celery_delete(path)
+    HTTParty.delete(celery_api_url(path))
+  end
+
   def celery_periodic_task_exists?
     celery_get("/periodic-tasks/find?name=#{celery_periodic_task_name}").code == 200
   end
@@ -50,6 +55,12 @@ class Scheduler < ApplicationRecord
       }
 
       celery_post("/periodic-tasks/", body)
+    end
+  end
+
+  def delete_celery_periodic_task
+    if celery_periodic_task_exists?
+      celery_delete("/periodic-tasks/#{celery_periodic_task_name}/")
     end
   end
 

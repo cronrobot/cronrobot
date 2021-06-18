@@ -23,6 +23,17 @@ class ActiveSupport::TestCase
     to_return(status: status_code, body: "", headers: {})
   end
 
+  def mock_delete_celery_periodic_task(id, status_code = 200)
+    stub_request(:delete, "http://localhost:8000/api/periodic-tasks/scheduler-#{id}/").
+    with(
+      headers: {
+      'Accept'=>'*/*',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: 200, body: "", headers: {})
+  end
+
   def mock_create_celery_periodic_task(status_code = 200, opts = {})
     id = opts[:id]
     task = opts[:task]

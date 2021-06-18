@@ -24,4 +24,15 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
 
     sched.touch!
   end
+
+  test "create then delete" do
+    p = Project.last
+
+    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *")
+
+    mock_find_celery_periodic_task(sched.id, 200)
+    mock_delete_celery_periodic_task(sched.id)
+
+    sched.destroy
+  end
 end
