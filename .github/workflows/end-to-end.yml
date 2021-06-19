@@ -18,8 +18,9 @@ jobs:
         env:
           WWW_CRONROBOT_MASTER_KEY: ${{secrets.WWW_CRONROBOT_MASTER_KEY}}
           WWW_CREDENTIALS_PRODUCTION_KEY: ${{secrets.WWW_CREDENTIALS_PRODUCTION_KEY}}
+          DOTENV_DJANGO_B64: ${{ secrets.DOTENV_DJANGO_B64 }}
         run: |
-          echo "PYTHONUNBUFFERED=1" > .env
+          echo "$DOTENV_DJANGO_B64" | base64 -d > .env
           touch .grafana.env
           touch www-cronrobot/.env
           echo "$WWW_CRONROBOT_MASTER_KEY" > www-cronrobot/config/master.key
