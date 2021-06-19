@@ -13,52 +13,17 @@ class Scheduler < ApplicationRecord
     touch
   end
 
-  def celery_api_url(path)
-    base_url = Rails.application.credentials.dig(:celery_api, :base_url)
-
-    "#{base_url}#{path}"
-  end
-
-  def celery_periodic_task_name
-    "scheduler-#{id}"
-  end
-
   def celery_task
     raise "not implemented"
   end
 
-  def celery_get(path)
-    HTTParty.get(celery_api_url(path))
-  end
-
-  def celery_post(path, body)
-    HTTParty.post(celery_api_url(path), body: body)
-  end
-
-  def celery_delete(path)
-    HTTParty.delete(celery_api_url(path))
-  end
-
-  def celery_periodic_task_exists?
-    celery_get("/periodic-tasks/find?name=#{celery_periodic_task_name}").code == 200
-  end
-
   def upsert_celery_periodic_task
-    body = {
-      name: celery_periodic_task_name,
-      task: celery_task,
-      schedule: schedule,
-      resource_id: resources.first&.id
-    }
-
-    result = celery_post("/periodic-tasks/", body)
-
-    raise Exception, "#{result.body}" if result.code != 200 
+    Celery.upsert_periodic_task(self)
   end
 
   def delete_celery_periodic_task
-    if celery_periodic_task_exists?
-      celery_delete("/periodic-tasks/#{celery_periodic_task_name}/")
+    if Celery.periodic_task_exists?(id)
+      Celery.delete("/periodic-tasks/#{Celery.periodic_task_name(id)}/")
     end
   end
 
