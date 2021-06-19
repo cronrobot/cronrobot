@@ -79,7 +79,7 @@ WSGI_APPLICATION = "celery_admin.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": os.environ["DJANGO_DATABASE_ENGINE"],
         "NAME": os.environ["DJANGO_DATABASE_NAME"],
         "USER": os.environ["DJANGO_DATABASE_USER"],
         "PASSWORD": os.environ["DJANGO_DATABASE_PASSWORD"],
