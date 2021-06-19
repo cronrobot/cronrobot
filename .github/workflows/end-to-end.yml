@@ -7,7 +7,23 @@ on:
 jobs:
   end-to-end:
     runs-on: ubuntu-latest
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: django
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
+
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -18,9 +34,9 @@ jobs:
         env:
           WWW_CRONROBOT_MASTER_KEY: ${{secrets.WWW_CRONROBOT_MASTER_KEY}}
           WWW_CREDENTIALS_PRODUCTION_KEY: ${{secrets.WWW_CREDENTIALS_PRODUCTION_KEY}}
-          DOTENV_DJANGO_B64: ${{ secrets.DOTENV_DJANGO_B64 }}
+          DOTENV_TEST_DJANGO_B64: ${{ secrets.DOTENV_TEST_DJANGO_B64 }}
         run: |
-          echo "$DOTENV_DJANGO_B64" | base64 -d > .env
+          echo "$DOTENV_TEST_DJANGO_B64" | base64 -d > .env
           touch .grafana.env
           touch www-cronrobot/.env
           echo "$WWW_CRONROBOT_MASTER_KEY" > www-cronrobot/config/master.key
