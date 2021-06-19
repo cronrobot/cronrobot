@@ -12,7 +12,7 @@ from celery.utils.log import get_task_logger
 from .celery_tasks import http as http_task
 from .celery_tasks import socket_ping as socket_ping_task
 
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 from .secrets import decrypt
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "celery_admin.settings")
@@ -33,7 +33,9 @@ LOG_LEVEL_ERROR = "error"
 LOG_LEVEL_INFO = "info"
 LOG_LEVEL_DEBUG = "debug"
 
-RECORD_TASK_RESULTS_PATH = dotenv_values(os.environ["DOTENV_PATH"])["TASK_RESULTS_PATH"]
+load_dotenv(os.environ["DOTENV_PATH"])
+
+RECORD_TASK_RESULTS_PATH = os.environ["TASK_RESULTS_PATH"]
 
 logger.info(f"Record task results path: {RECORD_TASK_RESULTS_PATH}")
 
