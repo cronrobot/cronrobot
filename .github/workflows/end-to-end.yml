@@ -8,6 +8,7 @@ jobs:
   end-to-end:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -18,9 +19,9 @@ jobs:
         env:
           WWW_CRONROBOT_MASTER_KEY: ${{secrets.WWW_CRONROBOT_MASTER_KEY}}
           WWW_CREDENTIALS_PRODUCTION_KEY: ${{secrets.WWW_CREDENTIALS_PRODUCTION_KEY}}
-          DOTENV_DJANGO_B64: ${{ secrets.DOTENV_DJANGO_B64 }}
+          DOTENV_TEST_DJANGO_B64: ${{ secrets.DOTENV_TEST_DJANGO_B64 }}
         run: |
-          echo "$DOTENV_DJANGO_B64" | base64 -d > .env
+          echo "$DOTENV_TEST_DJANGO_B64" | base64 -d > .env
           touch .grafana.env
           touch www-cronrobot/.env
           echo "$WWW_CRONROBOT_MASTER_KEY" > www-cronrobot/config/master.key
@@ -32,6 +33,7 @@ jobs:
 
           docker-compose up -d
           sleep 20
+          docker-compose logs celery-admin
       -
         name: Api OK
         env:
