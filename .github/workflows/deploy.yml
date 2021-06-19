@@ -20,11 +20,11 @@ jobs:
           DOTENV_WWW_PROD: ${{secrets.DOTENV_WWW_PROD}}
           WWW_CREDENTIALS_PRODUCTION_KEY: ${{secrets.WWW_CREDENTIALS_PRODUCTION_KEY}}
           DOTENV_CELERY_ADMIN_B64: ${{ secrets.DOTENV_CELERY_ADMIN_B64 }}
+          DOTENV_DJANGO_B64: ${{ secrets.DOTENV_DJANGO_B64 }}
         run: |
 
           # .env
-          echo "FERNET_SECRET_KEY=$FERNET_SECRET_KEY" > .env
-          echo "PYTHONUNBUFFERED=1" >> .env
+          echo "$DOTENV_DJANGO_B64" | base64 -d > .env
 
           # .env for www-cronrobot
           echo "$DOTENV_WWW_PROD" | base64 -d > .www-cronrobot.env

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,9 +78,13 @@ WSGI_APPLICATION = "celery_admin.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ["DJANGO_DATABASE_NAME"], #'django',
+        'USER': os.environ["DJANGO_DATABASE_USER"], #'postgres',
+        'PASSWORD': os.environ["DJANGO_DATABASE_PASSWORD"], #'colony',
+        'HOST': os.environ["DJANGO_DATABASE_HOST"], #'localhost',
+        'PORT': os.environ["DJANGO_DATABASE_PORT"] #'5432',
     }
 }
 
