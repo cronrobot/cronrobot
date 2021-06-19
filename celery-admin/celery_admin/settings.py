@@ -78,13 +78,13 @@ WSGI_APPLICATION = "celery_admin.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ["DJANGO_DATABASE_NAME"], #'django',
-        'USER': os.environ["DJANGO_DATABASE_USER"], #'postgres',
-        'PASSWORD': os.environ["DJANGO_DATABASE_PASSWORD"], #'colony',
-        'HOST': os.environ["DJANGO_DATABASE_HOST"], #'localhost',
-        'PORT': os.environ["DJANGO_DATABASE_PORT"] #'5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["DJANGO_DATABASE_NAME"],
+        "USER": os.environ["DJANGO_DATABASE_USER"],
+        "PASSWORD": os.environ["DJANGO_DATABASE_PASSWORD"],
+        "HOST": os.environ["DJANGO_DATABASE_HOST"],
+        "PORT": os.environ["DJANGO_DATABASE_PORT"],
     }
 }
 
