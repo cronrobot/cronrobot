@@ -58,4 +58,6 @@ jobs:
           # reload celery
           $ssh_in "$go_home ; pm2 reload celery-beat --update-env"
           $ssh_in "$go_home ; pm2 reload celery-worker --update-env"
+          sleep 5
+          $ssh_in "$go_home ; pm2 list"
           
