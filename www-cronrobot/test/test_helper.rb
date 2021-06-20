@@ -50,5 +50,18 @@ class ActiveSupport::TestCase
     to_return(status: status_code, body: "", headers: {})
   end
 
+  def mock_create_grafana_admin_create_user(status_code = 200, opts = {})
+    stub_request(:post, "http://grafana.cronrobot.io/api/admin/users").
+    with(
+      body: "name=test%40mail.com&email=test%40mail.com&login=test%40mail.com&password=#{opts[:pw]}&OrgId=1",
+      headers: {
+      'Accept'=>'*/*',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: 200, body: '{"id": 10}', headers: {})
+  end
+
   # Add more helper methods to be used by all tests here...
 end

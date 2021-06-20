@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_002324) do
+ActiveRecord::Schema.define(version: 2021_06_20_013041) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 2021_06_14_002324) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_schedulers_on_project_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "uid"
+    t.string "grafana_password"
+    t.string "grafana_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
   add_foreign_key "schedulers", "projects"
