@@ -5,7 +5,13 @@ class Auth0Controller < ApplicationController
     # In this code, you will pull the raw_info supplied from the id_token and assign it to the session.
     # Refer to https://github.com/auth0/omniauth-auth0#authentication-hash for complete information on 'omniauth.auth' contents.
     auth_info = request.env['omniauth.auth']
+
     session[:userinfo] = auth_info['extra']['raw_info']
+
+    email = session[:userinfo]["email"]
+    uid = session[:userinfo]["sub"]
+
+    create_grafana_user(uid, email)
 
     # Redirect to the URL you want after successful auth
     redirect_to '/dashboard'
@@ -19,6 +25,26 @@ class Auth0Controller < ApplicationController
   def logout
     reset_session
     redirect_to logout_url
+  end
+
+  def create_grafana_user(uid, email, opts = {})
+    unless User.exists?(uid: uid)
+      grafana_body = {
+        "name" => email,
+        "email" => email,
+        "login" => email,
+        "password" => opts[:pw] || User.random_password,
+        "OrgId": 1
+      }
+
+      result = JSON.parse(Grafana.post("/admin/users", grafana_body).body)
+
+      User.create!(
+        uid: uid,
+        grafana_password: grafana_body["password"],
+        grafana_user_id: result["id"]
+      )
+    end
   end
 
   private

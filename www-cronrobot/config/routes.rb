@@ -11,7 +11,10 @@ Rails.application.routes.draw do
 
   namespace :dashboard do
     get '/', to: 'home#index'
-    get '/schedulers', to: 'schedulers#index'
+
+    get '/schedulers/', to: 'schedulers#index'
+    get '/schedulers/new', to: 'schedulers#new'
+    post '/schedulers/', to: 'schedulers#create'
   end
 
   namespace :api do

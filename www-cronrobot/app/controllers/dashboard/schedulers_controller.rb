@@ -6,4 +6,12 @@ class Dashboard::SchedulersController < DashboardController
 
   end
 
+  def new
+
+  end
+
+  def create
+    redirect_to action: :index
+  end
+
 end
