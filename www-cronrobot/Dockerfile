@@ -10,7 +10,7 @@ WORKDIR /opt/app
 RUN mkdir -p /opt/app
 RUN touch /boot.sh # this is the script which will run on start
 
-RUN apk add --no-cache build-base tzdata git sqlite-dev nodejs # sqlite-dev || postgressql-dev
+RUN apk add --no-cache build-base tzdata git sqlite-dev postgresql-dev nodejs # sqlite-dev || postgressql-dev
 
 # daemon for cron jobs
 RUN echo 'echo will install crond...' >> /boot.sh
