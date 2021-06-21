@@ -40,7 +40,11 @@ def mock_resources_api(requests_mock, id, body):
 def test_celery_socket_ping_not_listening(requests_mock):
     mock_oauth_resources(requests_mock)
 
-    params = {"host": "127.0.0.1", "port": 55555, "socket_type": "TCP"}
+    params = {
+        "host": "127.0.0.1",
+        "port": 55555,
+        "socket_type": "TCP",
+    }
     mock_resources_api(requests_mock, 1234, {"params": params})
 
     body = {"name": "testtask", "params": {"resource_id": "1234"}}
@@ -72,7 +76,7 @@ def test_celery_http_happy_path(requests_mock):
         requests_mock, 1234, {"params": {"url": "http://myrequest.com/test"}}
     )
 
-    body = {"name": "testtask", "params": {"resource_id": 1234}}
+    body = {"name": "testtask", "params": {"resource_id": 1234, "scheduler_id": 22}}
     orig_body = copy.deepcopy(body)
 
     result = celery.http(body=body)
@@ -87,7 +91,11 @@ def test_celery_http_happy_path(requests_mock):
 
 
 def test_celery_http_exception_on_call(requests_mock):
-    params = {"url": "http://myrequest.com/testexception", "timeout": 3}
+    params = {
+        "url": "http://myrequest.com/testexception",
+        "timeout": 3,
+        "scheduler_id": 22,
+    }
 
     result = celery.http(body={"params": params})
 

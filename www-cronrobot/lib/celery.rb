@@ -31,6 +31,7 @@ class Celery
       name: Celery.periodic_task_name(scheduler.id),
       task: scheduler.celery_task,
       schedule: scheduler.schedule,
+      scheduler_id: scheduler.id,
       resource_id: scheduler.resources.first&.id
     }
 
