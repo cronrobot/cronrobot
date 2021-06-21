@@ -64,7 +64,7 @@ services:
   grafana: # https://github.com/grafana/grafana
     network_mode: "host"
     restart: always
-    image: grafana/grafana:8.0.0
+    image: grafana/grafana:8.0.3
     volumes:
       - ./grafana/grafana/etc:/etc/grafana
     env_file:
