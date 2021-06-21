@@ -25,9 +25,10 @@ curl -X DELETE $API_BASE_URL/periodic-tasks/taskname-2/
 # UPDATE via POST /periodic-tasks
 
 curl -X POST -H "Content-Type: application/json" \
-    -d "{\"status\": \"asdfdd\", \"name\": \"taskname\", \"task\": \"hello2\", \"schedule\": \"2 * * * *\", \"resource_id\": \"333\"}" \
+    -d "{\"status\": \"asdfdd\", \"name\": \"taskname\", \"task\": \"hello2\", \"schedule\": \"2 * * * *\", \"resource_id\": \"333\", \"scheduler_id\": \"444\"}" \
     $API_BASE_URL/periodic-tasks/
 
 result_find=$(curl $API_BASE_URL/periodic-tasks/find\?name=taskname)
 echo $result_find | grep '"task":"hello2"'
 echo $result_find | grep '333'
+echo $result_find | grep '444'

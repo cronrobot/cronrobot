@@ -100,6 +100,7 @@ def record_task_result(level, request_body, result, t_begin=None):
 
     msg = {
         "level": level,
+        "scheduler_id": request_body["params"]["scheduler_id"],
         "status": result["status"],
         "body": request_body,
         "result": result,
