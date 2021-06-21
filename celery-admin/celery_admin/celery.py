@@ -97,10 +97,11 @@ def record_task_result(level, request_body, result, t_begin=None):
         result["duration"] = time.time() - t_begin
 
     logger.debug(f"record result - request body: {request_body}, result: {result}")
+    scheduler_id = (request_body.get("params", {}) or {}).get("scheduler_id")
 
     msg = {
         "level": level,
-        "scheduler_id": request_body["params"]["scheduler_id"],
+        "scheduler_id": scheduler_id,
         "status": result["status"],
         "body": request_body,
         "result": result,

@@ -35,14 +35,16 @@ def create(request):
     schedule_s = body.get("schedule")
     name = body.get("name")
     task = body.get("task")
-    kwargs = json.dumps({
-        "body": {
-            "params": {
-                "resource_id": body.get("resource_id"),
-                "scheduler_id": body.get("scheduler_id")
+    kwargs = json.dumps(
+        {
+            "body": {
+                "params": {
+                    "resource_id": body.get("resource_id"),
+                    "scheduler_id": body.get("scheduler_id"),
+                }
             }
         }
-    })
+    )
 
     if not schedule_s:
         return Response({"error": "Missing schedule"}, status=400)
