@@ -53,6 +53,7 @@ def test_celery_socket_ping_not_listening(requests_mock):
 
     assert result["level"] == "error"
     assert result["status"] == "error"
+    assert result["status_int"] == 0
     assert "down" in result["result"]["error"]
 
 
@@ -83,6 +84,7 @@ def test_celery_http_happy_path(requests_mock):
 
     assert result["level"] == "info"
     assert result["status"] == "success"
+    assert result["status_int"] == 1
     assert result["body"] == orig_body
     assert result["result"]["content"] == '{"this": "is"}'
     assert result["result"]["status"] == "success"
