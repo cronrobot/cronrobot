@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_20_013041) do
+ActiveRecord::Schema.define(version: 2021_06_22_114432) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.string "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name", "user_id"], name: "index_projects_on_name_and_user_id", unique: true
+    t.integer "user_id"
+    t.index ["name"], name: "index_projects_on_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -46,5 +47,6 @@ ActiveRecord::Schema.define(version: 2021_06_20_013041) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  add_foreign_key "projects", "users"
   add_foreign_key "schedulers", "projects"
 end

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :projects
+
   encrypts :grafana_password
 
   validates :uid, :grafana_password, :grafana_user_id, presence: true
