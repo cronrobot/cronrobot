@@ -84,7 +84,7 @@ def test_celery_http_happy_path(requests_mock):
 
     assert result["level"] == "info"
     assert result["status"] == "success"
-    assert result["status_int"] == 1
+    assert result["status_int"] == 100
     assert result["body"] == orig_body
     assert result["result"]["content"] == '{"this": "is"}'
     assert result["result"]["status"] == "success"

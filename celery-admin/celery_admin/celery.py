@@ -98,7 +98,7 @@ def record_task_result(level, request_body, result, t_begin=None):
 
     logger.debug(f"record result - request body: {request_body}, result: {result}")
     scheduler_id = (request_body.get("params", {}) or {}).get("scheduler_id")
-    status_int = 1 if result["status"] == STATUS_SUCCESS_LABEL else 0
+    status_int = 100 if result["status"] == STATUS_SUCCESS_LABEL else 0
 
     msg = {
         "level": level,
