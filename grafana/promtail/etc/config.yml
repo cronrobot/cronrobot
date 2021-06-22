@@ -19,11 +19,13 @@ scrape_configs:
         timestamp: timestamp
         scheduler_id: scheduler_id
         status: status
+        status_int: status_int
         result: result
   - labels:
       level:
       scheduler_id:
       status:
+      status_int:
 
   static_configs:
   - targets:
