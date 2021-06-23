@@ -18,7 +18,13 @@ class Scheduler < ApplicationRecord
   end
 
   def upsert_celery_periodic_task
-    Celery.upsert_periodic_task(self)
+    result_celery = Celery.upsert_periodic_task(self)
+    result_grafana = Grafana.upsert_dashboard(self)
+
+    {
+      result_celery: result_celery,
+      result_grafana: result_grafana
+    }
   end
 
   def delete_celery_periodic_task

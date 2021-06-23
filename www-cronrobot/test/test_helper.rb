@@ -51,6 +51,8 @@ class ActiveSupport::TestCase
     to_return(status: status_code, body: "", headers: {})
   end
 
+  ## grafana
+
   def mock_create_grafana_admin_create_user(status_code = 200, opts = {})
     stub_request(:post, "http://grafana.cronrobot.io/api/admin/users").
     with(
@@ -62,6 +64,34 @@ class ActiveSupport::TestCase
       'User-Agent'=>'Ruby'
       }).
     to_return(status: 200, body: '{"id": 10}', headers: {})
+  end
+
+  
+  def mock_get_grafana_dashboard_by_uid(uid, status_code = 200, opts = {})
+    stub_request(:get, "http://grafana.cronrobot.io/api/dashboards/uid/#{uid}").
+    with(
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: status_code, body: opts[:response], headers: {})
+  end
+
+  def mock_create_grafana_dashboard(scheduler, status_code = 200, opts = {})
+    stub_request(:post, "http://grafana.cronrobot.io/api/dashboards/db").
+    with(
+      body: opts[:request_body],
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: status_code, body: opts[:response], headers: {})
   end
 
   # Add more helper methods to be used by all tests here...
