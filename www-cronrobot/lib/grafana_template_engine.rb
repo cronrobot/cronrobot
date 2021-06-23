@@ -2,8 +2,9 @@
 class GrafanaTemplateEngine
   include ERB::Util
 
-  def initialize(model)
+  def initialize(model, opts = {})
     @model = model
+    @opts = opts
   end
 
   def render()
