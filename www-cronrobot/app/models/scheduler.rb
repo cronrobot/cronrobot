@@ -33,6 +33,10 @@ class Scheduler < ApplicationRecord
     if Celery.periodic_task_exists?(id)
       Celery.delete("/periodic-tasks/#{Celery.periodic_task_name(id)}/")
     end
+
+    if Grafana.dashboard_exists?(self)
+      Grafana.destroy_dashboard(self)
+    end
   end
 
 end
