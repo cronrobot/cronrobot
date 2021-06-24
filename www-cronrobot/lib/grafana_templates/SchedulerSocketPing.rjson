@@ -267,7 +267,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "(ID: <%= @model.id %>)",
+    "title": "<%= @model.name %> (ID: <%= @model.id %>)",
     "uid": "<%= @model.id %>"
     <% if @opts[:model_internal_id].present? %>
     ,"id": "<%= @opts[:model_internal_id] %>"

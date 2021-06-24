@@ -3,7 +3,7 @@ require "test_helper"
 class GrafanaTemplateEngineTest < ActiveSupport::TestCase
   test "happy path, scheduler socket ping" do
     p = Project.last
-    sched = SchedulerSocketPing.create!(schedule: '* * * * *', project: p)
+    sched = SchedulerSocketPing.create!(schedule: '* * * * *', project: p, name: 's')
 
     engine = GrafanaTemplateEngine.new(sched)
 

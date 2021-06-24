@@ -4,7 +4,7 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
   test "Create" do
     p = Project.last
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *")
+    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
 
     assert sched
   end
@@ -12,7 +12,7 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
   test "update" do
     p = Project.last
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *")
+    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
 
     mock_find_celery_periodic_task(sched.id, 404)
     mock_create_celery_periodic_task(
@@ -33,7 +33,7 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
   test "update - fail if non status code 200" do
     p = Project.last
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *")
+    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
 
     mock_find_celery_periodic_task(sched.id, 404)
     mock_create_celery_periodic_task(
@@ -51,7 +51,7 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
   test "create then delete" do
     p = Project.last
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *")
+    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
 
     mock_find_celery_periodic_task(sched.id, 200)
     mock_delete_celery_periodic_task(sched.id)
