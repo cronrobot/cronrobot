@@ -11,36 +11,59 @@ class Grafana
     HTTParty.get(Grafana.api_url(path), headers: headers)
   end
 
+  def self.delete(path, headers = {})
+    Rails.logger.info("Grafana DELETE #{path}")
+    HTTParty.delete(Grafana.api_url(path), headers: headers)
+  end
+
   def self.post(path, body, headers = {})
+    Rails.logger.info("Grafana POST #{path}")
+
     HTTParty.post(
       Grafana.api_url(path),
       body: body,
-      headers: headers#,
-      #debug_output: $stdout
+      headers: headers,
+      debug_output: $stdout
     )
   end
 
-  def self.upsert_dashboard(model)
+  def self.headers()
     headers = {
       "Content-Type" => "application/json",
       "Accept" => "application/json"
     }
+  end
 
-    result_get = Grafana.get("/dashboards/uid/#{model.id}", headers)
+  def self.dashboard_exists?(model)
+    result_get = Grafana.get("/dashboards/uid/#{model.id}", Grafana.headers)
+
+    result_get.code == 200 ? JSON.parse(result_get.body) : nil
+  end
+
+  def self.destroy_dashboard(model)
+    result_get = Grafana.delete("/dashboards/uid/#{model.id}", Grafana.headers)
+
+
+    result_get.code == 200# ? JSON.parse(result_get.body) : nil
+  end
+
+  def self.upsert_dashboard(model)
+    existing_dashboard = Grafana.dashboard_exists?(model)
     engine = GrafanaTemplateEngine.new(model)
 
-    if result_get.code == 200
+    if existing_dashboard.present?
       # update
-      existing_dashboard = JSON.parse(result_get.body)
+      Rails.logger.info("Will update dashboard #{existing_dashboard["id"]}")
       engine = GrafanaTemplateEngine.new(model, model_internal_id: existing_dashboard["id"])
     end
 
     grafana_dashboard_to_update = JSON.parse(engine.render)
+    Rails.logger.debug("Dashboard update: #{JSON.pretty_generate(grafana_dashboard_to_update)}")
 
     Grafana.post(
       "/dashboards/db",
       grafana_dashboard_to_update.to_json,
-      headers
+      Grafana.headers
     )
   end
 end
