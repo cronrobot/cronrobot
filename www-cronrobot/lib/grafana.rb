@@ -22,8 +22,8 @@ class Grafana
     HTTParty.post(
       Grafana.api_url(path),
       body: body,
-      headers: headers,
-      debug_output: $stdout
+      headers: headers#,
+      #debug_output: $stdout
     )
   end
 
