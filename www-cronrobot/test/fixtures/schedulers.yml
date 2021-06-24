@@ -2,10 +2,12 @@
 
 one:
   type: 
+  name: sched1
   schedule: MyString
   project: one
 
 two:
   type: 
+  name: sched2
   schedule: MyString
   project: two

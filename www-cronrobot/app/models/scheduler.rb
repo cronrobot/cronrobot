@@ -5,6 +5,8 @@ class Scheduler < ApplicationRecord
            class_name: :ResourceScheduler,
            dependent: :destroy
 
+  validates :name, presence: true
+
   before_update :upsert_celery_periodic_task
   before_destroy :delete_celery_periodic_task
 

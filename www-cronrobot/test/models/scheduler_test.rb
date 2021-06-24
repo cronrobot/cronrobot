@@ -4,7 +4,7 @@ class SchedulerTest < ActiveSupport::TestCase
   test "Create" do
     p = Project.last
 
-    sched = Scheduler.create!(project: p, schedule: "* * * * *")
+    sched = Scheduler.create!(project: p, schedule: "* * * * *", name: 's')
 
     assert sched
   end
