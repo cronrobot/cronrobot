@@ -57,6 +57,7 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
     mock_delete_celery_periodic_task(sched.id)
 
     mock_get_grafana_dashboard_by_uid(sched.id, 200, response: '{}')
+    mock_delete_grafana_dashboard(sched, 200)
 
     sched.destroy
   end
