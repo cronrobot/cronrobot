@@ -40,13 +40,6 @@ class Grafana
     result_get.code == 200 ? JSON.parse(result_get.body) : nil
   end
 
-  def self.destroy_dashboard(model)
-    result_get = Grafana.delete("/dashboards/uid/#{model.id}", Grafana.headers)
-
-
-    result_get.code == 200
-  end
-
   def self.update_dashboard_permissions(model, users)
     dashboard = Grafana.dashboard_exists?(model)
     grafana_editor_permission_id = 2
@@ -70,6 +63,13 @@ class Grafana
     body = { "items" =>  permissions }
 
     Grafana.post("/dashboards/id/#{dashboard_id}/permissions", body.to_json, Grafana.headers)
+  end
+
+  def self.destroy_dashboard(model)
+    result_get = Grafana.delete("/dashboards/uid/#{model.id}", Grafana.headers)
+
+
+    result_get.code == 200
   end
 
   def self.upsert_dashboard(model)

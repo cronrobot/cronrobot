@@ -40,6 +40,8 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
     )
     mock_update_grafana_dashboard_permissions(sched, 200, dashboard_id: 8)
 
+    mock_create_grafana_dashboard(sched, 200, request_body: request_body, response: '{"id": 123}')
+
     sched.touch!
   end
 
