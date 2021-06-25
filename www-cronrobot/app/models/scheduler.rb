@@ -10,6 +10,10 @@ class Scheduler < ApplicationRecord
   before_update :upsert_celery_periodic_task
   before_destroy :delete_celery_periodic_task
 
+  def accessible_by_users
+    [project.user]
+  end
+
   def touch!
     upsert_celery_periodic_task
     touch
@@ -21,11 +25,16 @@ class Scheduler < ApplicationRecord
 
   def upsert_celery_periodic_task
     result_celery = Celery.upsert_periodic_task(self)
-    result_grafana = Grafana.upsert_dashboard(self)
+    result_upsert_grafana_dashboard = Grafana.upsert_dashboard(self)
+    result_update_permissions = Grafana.update_dashboard_permissions(
+      self,
+      accessible_by_users
+    )
 
     {
       result_celery: result_celery,
-      result_grafana: result_grafana
+      result_upsert_grafana_dashboard: result_upsert_grafana_dashboard,
+      result_update_permissions: result_update_permissions
     }
   end
 

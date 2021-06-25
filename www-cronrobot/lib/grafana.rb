@@ -23,7 +23,7 @@ class Grafana
       Grafana.api_url(path),
       body: body,
       headers: headers#,
-      #debug_output: $stdout
+      # debug_output: $stdout
     )
   end
 
@@ -40,11 +40,36 @@ class Grafana
     result_get.code == 200 ? JSON.parse(result_get.body) : nil
   end
 
+  def self.update_dashboard_permissions(model, users)
+    dashboard = Grafana.dashboard_exists?(model)
+    grafana_editor_permission_id = 2
+
+    if !dashboard || !dashboard.dig("dashboard", "id")
+      Rails.logger.debug("Skipping dashboard permissions update")
+      return
+    end
+
+    dashboard_id = dashboard["dashboard"]["id"]
+
+    Rails.logger.debug("Permissions Dashboard id #{dashboard_id}")
+
+    permissions = users.map do |user|
+      {
+        "userId" => user.grafana_user_id.to_i,
+        "permission" => grafana_editor_permission_id
+      }
+    end
+
+    body = { "items" =>  permissions }
+
+    Grafana.post("/dashboards/id/#{dashboard_id}/permissions", body.to_json, Grafana.headers)
+  end
+
   def self.destroy_dashboard(model)
     result_get = Grafana.delete("/dashboards/uid/#{model.id}", Grafana.headers)
 
 
-    result_get.code == 200# ? JSON.parse(result_get.body) : nil
+    result_get.code == 200
   end
 
   def self.upsert_dashboard(model)
