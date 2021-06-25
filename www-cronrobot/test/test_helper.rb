@@ -107,5 +107,21 @@ class ActiveSupport::TestCase
     to_return(status: status_code, body: opts[:response], headers: {})
   end
 
+  def mock_update_grafana_dashboard_permissions(scheduler, status_code = 200, opts = {})
+    dashboard_id = opts[:dashboard_id]
+
+    stub_request(:post, "http://grafana.cronrobot.io/api/dashboards/id/#{dashboard_id}/permissions").
+    with(
+      body: "{\"items\":[{\"userId\":9,\"permission\":2}]}",
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: status_code, body: "{}", headers: {})
+  end
+
   # Add more helper methods to be used by all tests here...
 end
