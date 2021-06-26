@@ -8,7 +8,7 @@ class Dashboard::SchedulersController < DashboardController
 
   def new
     @scheduler = @scheduler_klass.new
-    @scheduler.project_id = params["project_id"]
+    @scheduler.project_id = @project.id
 
     render template: "dashboard/schedulers/#{@scheduler_klass}"
   end
