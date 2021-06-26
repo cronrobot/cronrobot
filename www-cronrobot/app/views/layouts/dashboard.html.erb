@@ -11,6 +11,19 @@
 
   <body>
     <div class="pull-right"><%= button_to 'Logout', '/auth/logout', method: :get %></div>
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>">
+        <% values = value.class == Array ? value : [value] %>
+        <ul>
+          <% values.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+        
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
