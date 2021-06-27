@@ -6,12 +6,13 @@ class ResourceSchedulerSocketPingTest < ActiveSupport::TestCase
 
     sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
 
-    params = {"port" => 1234, "host" => "localhost"}
+    params = {"port" => "1234", "host" => "localhost"}
     resource = ResourceSchedulerSocketPing.create!(scheduler: sched, params: params)
 
     assert resource
     assert sched.resources.count == 1
     assert sched.resources.first == resource
+    assert resource.params["port"] == 1234
   end
 
   test "Create with wrong scheduler" do

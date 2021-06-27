@@ -1,6 +1,8 @@
 
 class ResourceSchedulerSocketPing < ResourceScheduler
 
+  before_validation :clean_params
+
   validate :validate_params
   validate :validate_scheduler_type
 
@@ -21,6 +23,12 @@ class ResourceSchedulerSocketPing < ResourceScheduler
   def validate_scheduler_type
     unless scheduler.type == "SchedulerSocketPing"
       errors.add(:scheduler_type, "invalid scheduler type")
+    end
+  end
+
+  def clean_params
+    if params["port"].present?
+      params["port"] = params["port"].to_i
     end
   end
 end
