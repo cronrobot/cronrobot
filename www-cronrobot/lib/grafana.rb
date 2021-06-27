@@ -6,6 +6,12 @@ class Grafana
     "#{base_url}#{path}"
   end
 
+  def self.base_url(path)
+    base_url = Rails.application.credentials.dig(:grafana, :base_url)
+
+    "#{base_url}#{path}"
+  end
+
   def self.get(path, headers = {})
     Rails.logger.info("Grafana GET #{path}")
     HTTParty.get(Grafana.api_url(path), headers: headers)
@@ -32,6 +38,10 @@ class Grafana
       "Content-Type" => "application/json",
       "Accept" => "application/json"
     }
+  end
+
+  def self.dashboard_url(model)
+    Grafana.base_url("/d/#{model.id}/")
   end
 
   def self.dashboard_exists?(model)

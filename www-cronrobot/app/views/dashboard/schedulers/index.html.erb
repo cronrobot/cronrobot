@@ -3,3 +3,31 @@ scheds!
 <a href="/dashboard/schedulers/new/SchedulerSocketPing">
     Create Socket ping scheduler
 </a>
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Type</th>
+        <th>name</th>
+        <th>actions</th>
+    </thead>
+
+    <tbody>
+        <% @schedulers.each do |scheduler| %>
+            <tr>
+                <td><%= scheduler.id %></td>
+                <td><%= scheduler.type %></td>
+                <td><%= scheduler.name %></td>
+                <td>
+                    <ul>
+                        <li>
+                            <%= link_to "Access Dashboard (Grafana)", Grafana.dashboard_url(scheduler) %>
+                        </li>
+                        <li><%= link_to 'Destroy', "/dashboard/schedulers/#{scheduler.id}",
+                            data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
+                    </ul>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

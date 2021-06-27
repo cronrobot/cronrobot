@@ -3,7 +3,7 @@ class Dashboard::SchedulersController < DashboardController
   before_action :validate_param_type
 
   def index
-
+    @schedulers = @current_user.schedulers.order(id: :desc)
   end
 
   def new
@@ -11,6 +11,14 @@ class Dashboard::SchedulersController < DashboardController
     @scheduler.project_id = @project.id
 
     render template: "dashboard/schedulers/#{@scheduler_klass}"
+  end
+
+  def delete
+    scheduler = @current_user.schedulers.where(id: params["id"]).first
+    scheduler.destroy!
+
+    flash[:success] = "Scheduler removed successfully!"
+    redirect_back fallback_location: root_path
   end
 
   private

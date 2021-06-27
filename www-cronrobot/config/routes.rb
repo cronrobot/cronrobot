@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get '/', to: 'home#index'
 
     get '/schedulers/', to: 'schedulers#index'
+    delete '/schedulers/:id', to: 'schedulers#delete'
     get '/schedulers/new/:type', to: 'schedulers#new'
 
     resources :scheduler_socket_pings
