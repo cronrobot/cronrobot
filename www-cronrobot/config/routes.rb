@@ -13,9 +13,12 @@ Rails.application.routes.draw do
     get '/', to: 'home#index'
 
     get '/schedulers/', to: 'schedulers#index'
-    get '/schedulers/new', to: 'schedulers#new'
-    post '/schedulers/', to: 'schedulers#create'
+    get '/schedulers/new/:type', to: 'schedulers#new'
+
+    resources :scheduler_socket_pings
   end
+
+  
 
   namespace :api do
     get '/test', to: 'test#index'

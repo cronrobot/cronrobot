@@ -58,9 +58,9 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
       schedule: "%2A%20%2A%20%2A%20%2A%20%2A"
     )
 
-    assert_raises Exception do
-      sched.touch!
-    end
+    sched.touch!
+
+    assert sched.errors.count.positive?
   end
 
   test "create then delete" do

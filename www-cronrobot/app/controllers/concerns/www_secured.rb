@@ -6,7 +6,8 @@ module WwwSecured
   end
 
   def logged_in_using_omniauth?
-    @current_user = session[:userinfo]
-    redirect_to '/' unless @current_user.present?
+    session_user = Rails.env.test? ? params["userinfo"] : session[:userinfo]
+    @current_user = User.find_by(uid: session_user&.dig("sub"))
+    redirect_to '/' if session_user.blank? || @current_user.blank?
   end
 end
