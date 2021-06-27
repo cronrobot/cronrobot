@@ -15,10 +15,12 @@ class Celery
   end
 
   def self.post(path, body)
+    Rails.logger.info("Celery POST of #{path}")
     HTTParty.post(Celery.api_url(path), body: body)
   end
 
   def self.delete(path)
+    Rails.logger.info("Celery DELETE of #{path}")
     HTTParty.delete(Celery.api_url(path))
   end
 
