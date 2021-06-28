@@ -33,12 +33,25 @@ class Grafana
     )
   end
 
+  def self.put(path, body, headers = {})
+    Rails.logger.info("Grafana PUT #{path}")
+
+    HTTParty.put(
+      Grafana.api_url(path),
+      body: body,
+      headers: headers#,
+      # debug_output: $stdout
+    )
+  end
+
   def self.headers()
     headers = {
       "Content-Type" => "application/json",
       "Accept" => "application/json"
     }
   end
+
+  ### Dashboard
 
   def self.dashboard_url(model)
     Grafana.base_url("/d/#{model.id}/")
@@ -100,5 +113,39 @@ class Grafana
       grafana_dashboard_to_update.to_json,
       Grafana.headers
     )
+  end
+
+  ### Notification channel
+
+  def self.notification_channel_exists?(model)
+    result_get = Grafana.get("/alert-notifications/uid/#{model.id}", Grafana.headers)
+
+    result_get.code == 200 ? JSON.parse(result_get.body) : nil
+  end
+
+  def self.upsert_notification_channel(model)
+    grafana_channel = Grafana.notification_channel_exists?(model)
+    attribs = {
+      "uid" => "#{model.id}",
+      "type" => model.type,
+      "name" => "notification-channel-#{model.id}",
+      "settings" => model.configs
+    }
+
+    if grafana_channel.blank?
+      Grafana.post(
+        "/alert-notifications",
+        attribs.to_json,
+        Grafana.headers
+      )
+    else
+      attribs["id"] = grafana_channel["id"]
+      puts "updating.. #{attribs.inspect}"
+      Grafana.put(
+        "/alert-notifications/uid/#{model.id}",
+        attribs.to_json,
+        Grafana.headers
+      )
+    end
   end
 end
