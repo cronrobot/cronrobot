@@ -40,6 +40,10 @@ class Scheduler < ApplicationRecord
     raise "not implemented"
   end
 
+  def default_grafana_template
+    raise "not implemented"
+  end
+
   def process_upsert
     begin
       result_celery = Celery.upsert_periodic_task(self)
