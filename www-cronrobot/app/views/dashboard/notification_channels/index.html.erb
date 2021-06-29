@@ -21,7 +21,7 @@ notification channels!
                 <td>
                     <ul>
                         <li>
-                            
+                            <%= link_to "Edit", "/dashboard/notification_channels/#{notification_channel.id}" %>
                         </li>
                         <li><%= link_to 'Destroy', "/dashboard/notification_channels/#{notification_channel.id}",
                             data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
