@@ -23,6 +23,13 @@ class Dashboard::NotificationChannelsController < DashboardController
     redirect_to action: :index
   end
 
+  def destroy
+    @notification_channel = @current_user.notification_channels.find(params["id"])
+    @notification_channel.destroy!
+
+    redirect_to action: :index
+  end
+
   def show
     @notification_channel = @current_user.notification_channels.find(params["id"])
     @notification_channel.configs ||= {}

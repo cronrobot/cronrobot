@@ -12,6 +12,7 @@ class NotificationChannel < ApplicationRecord
   validates :type, :inclusion => {:in => NOTIFICATION_CHANNEL_TYPES}
 
   before_update :upsert_grafana_notification_channel
+  before_destroy :destroy_grafana_notification_channel
 
   def upsert_grafana_notification_channel
     begin
@@ -20,5 +21,9 @@ class NotificationChannel < ApplicationRecord
       Rails.logger.error("Issue upsert: #{e}")
       errors.add(:channel, "update error - #{e}")
     end
+  end
+
+  def destroy_grafana_notification_channel
+    Grafana.destroy_notification_channel(self)
   end
 end

@@ -152,5 +152,18 @@ class ActiveSupport::TestCase
     to_return(status: status_code, body: "{}", headers: {})
   end
 
+  def mock_delete_grafana_notification_channel(ch, status_code=200)
+    stub_request(:delete, "http://grafana.cronrobot.io/api/alert-notifications/uid/#{ch.id}").
+    with(
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: status_code, body: "{}", headers: {})
+  end
+
   # Add more helper methods to be used by all tests here...
 end
