@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  configs: MyText
+  name: channel1
+  project: one
+  type: email
+
+two:
+  configs: MyText
+  name: channel2
+  project: two
+  type: email

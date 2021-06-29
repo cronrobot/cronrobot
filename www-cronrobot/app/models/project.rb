@@ -6,4 +6,5 @@ class Project < ApplicationRecord
            foreign_key: :reference_id,
            class_name: :ResourceProject,
            dependent: :destroy
+  has_many :notification_channels, dependent: :destroy
 end

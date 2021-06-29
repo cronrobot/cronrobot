@@ -17,15 +17,34 @@ class Grafana
     HTTParty.get(Grafana.api_url(path), headers: headers)
   end
 
+  def self.handle_mutation_result(result)
+    if result.code != 200
+      raise Exception.new("#{result.body}")
+    end
+
+    result
+  end
+
   def self.delete(path, headers = {})
     Rails.logger.info("Grafana DELETE #{path}")
-    HTTParty.delete(Grafana.api_url(path), headers: headers)
+    Grafana.handle_mutation_result HTTParty.delete(Grafana.api_url(path), headers: headers)
   end
 
   def self.post(path, body, headers = {})
     Rails.logger.info("Grafana POST #{path}")
 
-    HTTParty.post(
+    Grafana.handle_mutation_result HTTParty.post(
+      Grafana.api_url(path),
+      body: body,
+      headers: headers#,
+      # debug_output: $stdout
+    )
+  end
+
+  def self.put(path, body, headers = {})
+    Rails.logger.info("Grafana PUT #{path}")
+
+    Grafana.handle_mutation_result HTTParty.put(
       Grafana.api_url(path),
       body: body,
       headers: headers#,
@@ -39,6 +58,8 @@ class Grafana
       "Accept" => "application/json"
     }
   end
+
+  ### Dashboard
 
   def self.dashboard_url(model)
     Grafana.base_url("/d/#{model.id}/")
@@ -100,5 +121,37 @@ class Grafana
       grafana_dashboard_to_update.to_json,
       Grafana.headers
     )
+  end
+
+  ### Notification channel
+
+  def self.notification_channel_exists?(model)
+    result_get = Grafana.get("/alert-notifications/uid/#{model.id}", Grafana.headers)
+
+    result_get.code == 200 ? JSON.parse(result_get.body) : nil
+  end
+
+  def self.upsert_notification_channel(model)
+    grafana_channel = Grafana.notification_channel_exists?(model)
+    attribs = {
+      "uid" => "#{model.id}",
+      "type" => model.type,
+      "name" => "notification-channel-#{model.id}",
+      "settings" => model.configs
+    }
+
+    if grafana_channel.blank?
+      Grafana.post(
+        "/alert-notifications",
+        attribs.to_json,
+        Grafana.headers
+      )
+    else
+      Grafana.put(
+        "/alert-notifications/uid/#{model.id}",
+        attribs.to_json,
+        Grafana.headers
+      )
+    end
   end
 end

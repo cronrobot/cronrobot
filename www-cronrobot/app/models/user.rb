@@ -14,4 +14,9 @@ class User < ApplicationRecord
     project_ids = projects.pluck(:id)
     Scheduler.where(project_id: project_ids)
   end
+
+  def notification_channels
+    project_ids = projects.pluck(:id)
+    NotificationChannel.where(project_id: project_ids)
+  end
 end

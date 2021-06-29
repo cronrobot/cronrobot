@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_24_015328) do
+ActiveRecord::Schema.define(version: 2021_06_28_113941) do
+
+  create_table "notification_channels", force: :cascade do |t|
+    t.text "configs"
+    t.string "name"
+    t.integer "project_id", null: false
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name", "project_id"], name: "index_notification_channels_on_name_and_project_id", unique: true
+    t.index ["project_id"], name: "index_notification_channels_on_project_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -48,6 +59,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_015328) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  add_foreign_key "notification_channels", "projects"
   add_foreign_key "projects", "users"
   add_foreign_key "schedulers", "projects"
 end

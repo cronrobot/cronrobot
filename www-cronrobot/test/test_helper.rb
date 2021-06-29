@@ -123,5 +123,34 @@ class ActiveSupport::TestCase
     to_return(status: status_code, body: "{}", headers: {})
   end
 
+  ## notification channels
+
+  def mock_get_grafana_notification_channel(ch, status_code = 200)
+    stub_request(:get, "http://grafana.cronrobot.io/api/alert-notifications/uid/#{ch.id}").
+    with(
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: status_code, body: "{}", headers: {})
+  end
+
+  def mock_update_grafana_notification_channel(ch, status_code = 200, request_body = "")
+    stub_request(:post, "http://grafana.cronrobot.io/api/alert-notifications").
+    with(
+      body: request_body,
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: status_code, body: "{}", headers: {})
+  end
+
   # Add more helper methods to be used by all tests here...
 end
