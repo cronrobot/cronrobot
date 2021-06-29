@@ -154,4 +154,12 @@ class Grafana
       )
     end
   end
+
+  def self.destroy_notification_channel(model)
+    grafana_channel = Grafana.notification_channel_exists?(model)
+
+    if grafana_channel
+      Grafana.delete("/alert-notifications/uid/#{model.id}", Grafana.headers)
+    end
+  end
 end

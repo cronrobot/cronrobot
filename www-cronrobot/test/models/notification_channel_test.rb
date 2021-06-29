@@ -38,4 +38,16 @@ class NotificationChannelTest < ActiveSupport::TestCase
     
     assert ch.errors.count == 0
   end
+
+  test "destroy - happy path" do
+    p = Project.last
+    ch = NotificationChannel.create!(
+      project: p, name: "channel3", configs: {"c1" => "v1"}, type: "email"
+    )
+
+    mock_get_grafana_notification_channel(ch, 200)
+    mock_delete_grafana_notification_channel(ch, 200)
+
+    ch.destroy!
+  end
 end
