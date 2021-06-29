@@ -17,15 +17,23 @@ class Grafana
     HTTParty.get(Grafana.api_url(path), headers: headers)
   end
 
+  def self.handle_mutation_result(result)
+    if result.code != 200
+      raise Exception.new("#{result.body}")
+    end
+
+    result
+  end
+
   def self.delete(path, headers = {})
     Rails.logger.info("Grafana DELETE #{path}")
-    HTTParty.delete(Grafana.api_url(path), headers: headers)
+    Grafana.handle_mutation_result HTTParty.delete(Grafana.api_url(path), headers: headers)
   end
 
   def self.post(path, body, headers = {})
     Rails.logger.info("Grafana POST #{path}")
 
-    HTTParty.post(
+    Grafana.handle_mutation_result HTTParty.post(
       Grafana.api_url(path),
       body: body,
       headers: headers#,
@@ -36,7 +44,7 @@ class Grafana
   def self.put(path, body, headers = {})
     Rails.logger.info("Grafana PUT #{path}")
 
-    HTTParty.put(
+    Grafana.handle_mutation_result HTTParty.put(
       Grafana.api_url(path),
       body: body,
       headers: headers#,
@@ -139,8 +147,6 @@ class Grafana
         Grafana.headers
       )
     else
-      attribs["id"] = grafana_channel["id"]
-      puts "updating.. #{attribs.inspect}"
       Grafana.put(
         "/alert-notifications/uid/#{model.id}",
         attribs.to_json,

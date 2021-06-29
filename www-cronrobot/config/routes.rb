@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     get '/schedulers/new/:type', to: 'schedulers#new'
 
     resources :scheduler_socket_pings
+
+    resources :notification_channels
   end
 
   

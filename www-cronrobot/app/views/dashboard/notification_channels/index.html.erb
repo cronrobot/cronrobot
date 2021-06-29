@@ -1,0 +1,33 @@
+notification channels!
+
+<a href="/dashboard/notification_channels/new">
+    Create
+</a>
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Type</th>
+        <th>name</th>
+        <th>actions</th>
+    </thead>
+
+    <tbody>
+        <% @notification_channels.each do |notification_channel| %>
+            <tr>
+                <td><%= notification_channel.id %></td>
+                <td><%= notification_channel.type %></td>
+                <td><%= notification_channel.name %></td>
+                <td>
+                    <ul>
+                        <li>
+                            
+                        </li>
+                        <li><%= link_to 'Destroy', "/dashboard/notification_channels/#{notification_channel.id}",
+                            data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
+                    </ul>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

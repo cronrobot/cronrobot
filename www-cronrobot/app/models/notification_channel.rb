@@ -10,4 +10,15 @@ class NotificationChannel < ApplicationRecord
   NOTIFICATION_CHANNEL_TYPES = %w(email )
 
   validates :type, :inclusion => {:in => NOTIFICATION_CHANNEL_TYPES}
+
+  before_update :upsert_grafana_notification_channel
+
+  def upsert_grafana_notification_channel
+    begin
+      Grafana.upsert_notification_channel(self)
+    rescue Exception => e
+      Rails.logger.error("Issue upsert: #{e}")
+      errors.add(:channel, "update error - #{e}")
+    end
+  end
 end
