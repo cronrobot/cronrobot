@@ -73,7 +73,7 @@ class Grafana
 
   def self.update_dashboard_permissions(model, users)
     dashboard = Grafana.dashboard_exists?(model)
-    grafana_editor_permission_id = 2
+    grafana_editor_permission_id = 1
 
     if !dashboard || !dashboard.dig("dashboard", "id")
       Rails.logger.debug("Skipping dashboard permissions update")
