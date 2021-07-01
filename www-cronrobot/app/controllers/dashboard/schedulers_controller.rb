@@ -10,6 +10,7 @@ class Dashboard::SchedulersController < DashboardController
   def new
     @scheduler = @scheduler_klass.new
     @scheduler.project_id = @project.id
+    @notification_channels = @current_user.notification_channels
 
     render template: "dashboard/schedulers/#{@scheduler_klass}"
   end

@@ -20,6 +20,7 @@ class Dashboard::SchedulerSocketPingsController < DashboardController
 
   def show
     @scheduler = Scheduler.find_by id: params["id"]
+    @notification_channels = @current_user.notification_channels
 
     render template: "dashboard/schedulers/SchedulerSocketPing"
   end
@@ -29,6 +30,6 @@ class Dashboard::SchedulerSocketPingsController < DashboardController
   def allowed_scheduler_socket_ping_params
     params
     .require(:scheduler_socket_ping)
-    .permit(:name, :schedule, :project_id, params: {})
+    .permit(:name, :schedule, :project_id, params: {}, notification_channels: [])
   end
 end

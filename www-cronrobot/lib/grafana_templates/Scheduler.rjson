@@ -259,7 +259,7 @@
           "handler": 1,
           "name": "down alert",
           "noDataState": "ok",
-          "notifications": []
+          "notifications": <%= @model.notification_channels.map { |ch| { "uid": "#{ch}" } }.to_json %>
         },
         "aliasColors": {},
         "bars": false,
