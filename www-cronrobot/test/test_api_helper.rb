@@ -2,22 +2,16 @@
 class ActiveSupport::TestCase
 
   def api_headers
-    unless @access_token
-      body = {
-        client_id: ENV.fetch("AUTH0_API_CLIENT_ID"),
-        client_secret: ENV.fetch("AUTH0_API_CLIENT_SECRET"),
-        audience: ENV.fetch("AUTH0_API_AUDIENCE"),
-        grant_type: "client_credentials"
-      }
+    client_id = "5643f9b0-c3af-4ec2-8b92-146f9652fdbc"
+    token = AuthToken.find_by client_id: client_id
 
-      oauth_token_url = "#{ENV.fetch("AUTH0_API_TENANT_URL")}oauth/token"
-      res_body = JSON.parse HTTParty.post(oauth_token_url, body: body).body
-
-      @access_token = res_body["access_token"]
+    unless token
+      token = AuthToken.create!(client_id: client_id)
     end
 
     {
-      Myauthorization: @access_token
+      "x-auth-client-id" => token.client_id,
+      "x-auth-client-secret" => token.client_secret
     }
   end
 
