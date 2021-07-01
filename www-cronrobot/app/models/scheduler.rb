@@ -48,6 +48,11 @@ class Scheduler < ApplicationRecord
     begin
       result_celery = Celery.upsert_periodic_task(self)
       result_upsert_grafana_dashboard = Grafana.upsert_dashboard(self)
+
+      grafana_dashboard_response = JSON.parse(result_upsert_grafana_dashboard.body)
+      self.grafana_dashboard_id = grafana_dashboard_response["id"]
+      save!
+
       result_update_permissions = Grafana.update_dashboard_permissions(
         self,
         accessible_by_users
