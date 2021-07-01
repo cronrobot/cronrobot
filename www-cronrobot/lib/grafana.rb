@@ -59,6 +59,21 @@ class Grafana
     }
   end
 
+  ### Alerts
+
+  def self.alerts_dashboard_ids_query(dashboard_ids)
+    (dashboard_ids.map { |id| "dashboardId=#{id}" }).join("&")
+  end
+
+  def self.dashboards_alerts(dashboard_ids)
+    url = "/alerts?#{Grafana.alerts_dashboard_ids_query(dashboard_ids)}"
+
+    result_get = Grafana.get(url, Grafana.headers)
+    puts "ress #{result_get.inspect}"
+
+    result_get.code == 200 ? JSON.parse(result_get.body) : nil
+  end
+
   ### Dashboard
 
   def self.dashboard_url(model)

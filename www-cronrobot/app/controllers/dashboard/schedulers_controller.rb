@@ -4,6 +4,7 @@ class Dashboard::SchedulersController < DashboardController
 
   def index
     @schedulers = @current_user.schedulers.order(id: :desc)
+    @alerts_statuses = prepare_alerts_statuses(@schedulers)
   end
 
   def new
@@ -31,6 +32,24 @@ class Dashboard::SchedulersController < DashboardController
 
       @scheduler_klass = params["type"].constantize
     end
+  end
+
+  def prepare_alerts_statuses(schedulers)
+    grafana_dashboard_ids = schedulers
+      .map { |s| s.grafana_dashboard_id }
+      .select { |s| s }
+
+    alerts = Grafana.dashboards_alerts(grafana_dashboard_ids)
+
+    result = {}
+
+    alerts.each do |alert|
+      result[alert["dashboardUid"].to_i] = alert
+    end
+
+    puts "states --> #{result.inspect}"
+
+    result
   end
 
 end

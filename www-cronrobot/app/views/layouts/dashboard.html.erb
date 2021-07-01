@@ -11,6 +11,7 @@
 
   <body>
     <div class="pull-right"><%= button_to 'Logout', '/auth/logout', method: :get %></div>
+    <div>Project: <%= @project.name %> (<%= @project.id %>)</div>
 
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>">

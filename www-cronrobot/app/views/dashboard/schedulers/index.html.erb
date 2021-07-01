@@ -18,6 +18,7 @@ scheds!
                 <td><%= scheduler.id %></td>
                 <td><%= scheduler.type %></td>
                 <td><%= scheduler.name %></td>
+                <td><%= @alerts_statuses[scheduler.id]&.dig("state") %>
                 <td>
                     <ul>
                         <li>
