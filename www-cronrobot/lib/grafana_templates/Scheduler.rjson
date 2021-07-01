@@ -258,7 +258,7 @@
           "frequency": "1m",
           "handler": 1,
           "name": "down alert",
-          "noDataState": "no_data",
+          "noDataState": "ok",
           "notifications": []
         },
         "aliasColors": {},
