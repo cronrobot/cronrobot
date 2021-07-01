@@ -69,7 +69,6 @@ class Grafana
     url = "/alerts?#{Grafana.alerts_dashboard_ids_query(dashboard_ids)}"
 
     result_get = Grafana.get(url, Grafana.headers)
-    puts "ress #{result_get.inspect}"
 
     result_get.code == 200 ? JSON.parse(result_get.body) : nil
   end
