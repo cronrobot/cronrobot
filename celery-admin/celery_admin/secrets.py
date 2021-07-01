@@ -9,6 +9,7 @@ from celery.utils.log import get_task_logger
 
 dotenv_values = dotenv_values(os.environ["DOTENV_PATH"])
 
+resource_secret_base_url = dotenv_values["RESOURCE_SECRETS_API_BASE_URL"]
 api_client_id = dotenv_values["RESOURCE_SECRETS_API_CLIENT_ID"]
 api_client_secret = dotenv_values["RESOURCE_SECRETS_API_CLIENT_SECRET"]
 
