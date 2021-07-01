@@ -47,8 +47,6 @@ class Dashboard::SchedulersController < DashboardController
       result[alert["dashboardUid"].to_i] = alert
     end
 
-    puts "states --> #{result.inspect}"
-
     result
   end
 
