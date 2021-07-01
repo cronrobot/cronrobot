@@ -7,16 +7,6 @@ def run_around_tests(monkeypatch):
     yield
 
 
-def test_secrets_get_auth0_access_token():
-    try:
-        token = secrets.get_auth0_access_token()
-
-        assert len(token) > 0
-    except Exception as e:
-        if "M2M quota has been fully utilized" not in f"{e}":
-            raise "fail"
-
-
 def test_secrets_decrypt_resource_happy_path(requests_mock):
     def my_access_token(ttl_hash=None):
         return "access_token"
@@ -31,10 +21,6 @@ def test_secrets_decrypt_resource_happy_path(requests_mock):
 
 
 def test_secrets_decrypt_resource_not_found(requests_mock):
-    def my_access_token():
-        return "access_token"
-
-    secrets.get_auth0_access_token = my_access_token
 
     requests_mock.get(
         "http://localhost:3030/api/resources/1234", text='{"id": 123}', status_code=404

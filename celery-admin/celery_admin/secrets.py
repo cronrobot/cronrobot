@@ -22,8 +22,6 @@ def get_ttl_hash(seconds=80000):
 
 
 def decrypt(resource_id):
-    access_token = get_auth0_access_token(ttl_hash=get_ttl_hash())
-
     resource_url = f"{resource_secret_base_url}/{resource_id}"
     headers = {
         "x-auth-client-id": api_client_id,
