@@ -2,11 +2,6 @@ require 'test_helper'
 require 'test_api_helper'
 
 class ResourceControllerTest < ActionDispatch::IntegrationTest
-
-  setup do
-    WebMock.allow_net_connect!
-  end
-
   test '/api/resources/:id happy path' do
     resource = Resource.last
     resource.params = { "hello" => "world" }

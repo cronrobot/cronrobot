@@ -9,21 +9,24 @@ module Secured
   private
 
   def authenticate_request!
-    auth_token
-  rescue JWT::VerificationError, JWT::DecodeError => e
-    puts e
+    auth_token!
+  rescue User::AuthorizationError => e
     render json: { errors: ['Not Authenticated'] }, status: :unauthorized
   end
 
-  def http_token
-    auth_header = request.headers['Authorization'] || request.headers['Myauthorization']
-
-    if auth_header.present?
-      auth_header.split(' ').last
+  def auth_token!
+    unless request.headers['x-auth-client-id']
+      raise User::AuthorizationError.new("Missing auth header")
     end
-  end
 
-  def auth_token
-    @jwt_token_handler.verify(http_token)
+    token = AuthToken.find_by client_id: request.headers['x-auth-client-id']
+
+    unless token
+      raise User::AuthorizationError.new("Unauthorized")
+    end
+
+    unless token.client_secret == request.headers['x-auth-client-secret']
+      raise User::AuthorizationError.new("Unauthorized")
+    end
   end
 end

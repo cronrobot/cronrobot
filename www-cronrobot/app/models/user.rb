@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  AuthorizationError = Class.new(StandardError)
+  ForbiddenError = Class.new(StandardError)
+
   has_many :projects
 
   encrypts :grafana_password

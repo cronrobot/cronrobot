@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client_id: 5643f9b0-c3af-4ec2-8b92-146f9652fdbb
+  client_secret: a159cf9c-f1b4-4990-b0ae-ece5f81d15fb
+
+two:
+  client_id: MyString
+  client_secret: MyString
