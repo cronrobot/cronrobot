@@ -15,7 +15,6 @@ api_client_secret = dotenv_values["RESOURCE_SECRETS_API_CLIENT_SECRET"]
 logger = get_task_logger(__name__)
 
 
-
 def get_ttl_hash(seconds=80000):
     """Return the same value withing `seconds` time period"""
     return round(time.time() / seconds)
@@ -27,7 +26,7 @@ def decrypt(resource_id):
     resource_url = f"{resource_secret_base_url}/{resource_id}"
     headers = {
         "x-auth-client-id": api_client_id,
-        "x-auth-client-secret": api_client_secret
+        "x-auth-client-secret": api_client_secret,
     }
 
     decrypted = requests.get(resource_url, timeout=60, headers=headers)
