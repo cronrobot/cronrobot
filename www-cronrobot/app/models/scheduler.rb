@@ -6,14 +6,22 @@ class Scheduler < ApplicationRecord
            dependent: :destroy
 
   attr_accessor :params
+  serialize :notification_channels, JSON
 
   validates :name, presence: true
 
   before_destroy :process_destroy
+  before_save :clean_notification_channels
   after_save :store_params
 
   def accessible_by_users
     [project.user]
+  end
+
+  def clean_notification_channels
+    self.notification_channels = [] unless notification_channels
+
+    self.notification_channels = self.notification_channels.select { |ch| ch.present? }
   end
 
   def store_params
