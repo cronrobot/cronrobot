@@ -45,11 +45,11 @@ class Scheduler < ApplicationRecord
   end
 
   def celery_task
-    raise "not implemented"
+    raise "celery_task not implemented"
   end
 
   def default_grafana_template
-    raise "not implemented"
+    "Scheduler"
   end
 
   def process_upsert

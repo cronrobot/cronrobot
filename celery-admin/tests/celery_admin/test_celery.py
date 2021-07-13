@@ -92,6 +92,24 @@ def test_celery_http_happy_path(requests_mock):
     assert result["result"]["duration"] > 0
 
 
+def test_celery_http_different_status_code(requests_mock):
+    requests_mock.get("http://myrequest.com/test", text='{"this": "is"}', status_code=400)
+
+    mock_oauth_resources(requests_mock)
+    mock_resources_api(
+        requests_mock, 1234, {"params": {"url": "http://myrequest.com/test"}}
+    )
+
+    body = {"name": "testtask", "params": {"resource_id": 1234, "scheduler_id": 22}}
+    orig_body = copy.deepcopy(body)
+
+    result = celery.http(body=body)
+
+    assert result["level"] == "error"
+    assert result["status"] == "error"
+    assert result["status_int"] == 0
+
+
 def test_celery_http_exception_on_call(requests_mock):
     params = {
         "url": "http://myrequest.com/testexception",

@@ -1,28 +1,20 @@
 
 class ResourceSchedulerSocketPing < ResourceScheduler
-
   before_validation :clean_params
 
   validate :validate_params
-  validate :validate_scheduler_type
 
-  def validate_params
-    if params["port"].blank?
-      return errors.add(:port, "is missing")
-    end
-
-    if params["host"].blank?
-      return errors.add(:host, "is missing")
-    end
-
-    unless params["port"].to_i > 0 && params["port"].to_i <= 65535
-      errors.add(:port, "invalid port number")
-    end
+  def expected_scheduler_type
+    "SchedulerSocketPing"
   end
 
-  def validate_scheduler_type
-    unless scheduler.type == "SchedulerSocketPing"
-      errors.add(:scheduler_type, "invalid scheduler type")
+  def expected_required_params
+    ["port", "host"]
+  end
+
+  def validate_params
+    unless params["port"].to_i > 0 && params["port"].to_i <= 65535
+      errors.add(:port, "invalid port number")
     end
   end
 
