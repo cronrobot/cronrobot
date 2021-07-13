@@ -3,12 +3,26 @@ import requests
 
 def task(**kwargs):
     default_http_timeout = 30  # seconds
+    default_expected_status_code = 200
+
     body = kwargs.get("body")
     params = body.get("params")
 
     url = params.get("url")
     timeout = params.get("timeout") or default_http_timeout
+    expected_status_code = (
+        params.get("expected_status_code") or default_expected_status_code
+    )
 
-    result = requests.get(url, timeout=timeout)
+    try:
+        result = requests.get(url, timeout=timeout)
 
-    return {"status_code": result.status_code, "content": result.text}
+        if result.status_code == expected_status_code:
+            return {"status_code": result.status_code, "content": result.text}
+        else:
+            raise Exception({"http_status": "down", "status_code": result.status_code})
+    except Exception as e:
+
+        raise e
+
+    return {}
