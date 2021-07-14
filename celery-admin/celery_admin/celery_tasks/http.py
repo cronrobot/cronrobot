@@ -18,7 +18,7 @@ def task(**kwargs):
         result = requests.get(url, timeout=timeout)
 
         if result.status_code == expected_status_code:
-            return {"status_code": result.status_code, "content": result.text}
+            return {"status_code": result.status_code}
         else:
             raise Exception({"http_status": "down", "status_code": result.status_code})
     except Exception as e:
