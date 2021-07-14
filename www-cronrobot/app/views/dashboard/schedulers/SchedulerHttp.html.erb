@@ -4,21 +4,21 @@
 
   <div class="form-group">
     <%= form.label :name, "Name" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label :schedule, "Schedule" %>
-    <%= form.text_field :schedule %>
+    <%= form.text_field :schedule, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label "params[url]", "URL" %>
-    <%= form.url_field "params[url]" %>
+    <%= form.url_field "params[url]", class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, multiple: true %>
+    <%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, multiple: true, class: "form-control" %>
   </div>
 
   <%= form.submit %>

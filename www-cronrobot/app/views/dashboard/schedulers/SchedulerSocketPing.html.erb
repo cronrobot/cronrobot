@@ -4,22 +4,22 @@
 
   <div class="form-group">
     <%= form.label :name, "Name" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label :schedule, "Schedule" %>
-    <%= form.text_field :schedule %>
+    <%= form.text_field :schedule, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label "params[port]", "Port" %>
-    <%= form.number_field "params[port]" %>
+    <%= form.number_field "params[port]", class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label "params[host]", "Hostname" %>
-    <%= form.text_field "params[host]" %>
+    <%= form.text_field "params[host]", class: "form-control" %>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
