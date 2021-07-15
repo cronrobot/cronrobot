@@ -287,7 +287,7 @@
         },
         "lines": true,
         "linewidth": 1,
-        "nullPointMode": "null",
+        "nullPointMode": "null as zero",
         "options": {
           "alertThreshold": true
         },
@@ -302,8 +302,9 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "absent_over_time({scheduler_id=\"<%= @model.id %>\", status=\"success\"}[1m])",
+            "expr": "(rate( {scheduler_id=\"<%= @model.id %>\", status=\"error\" } [10s]))*10",
             "hide": false,
+            "instant": false,
             "legendFormat": "Status: Down",
             "maxLines": 1,
             "refId": "A"
