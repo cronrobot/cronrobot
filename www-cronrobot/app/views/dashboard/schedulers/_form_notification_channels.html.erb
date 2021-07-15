@@ -1,3 +1,3 @@
 <div class="form-group">
-<%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, multiple: true %>
+<%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, multiple: true, class: "form-control" %>
 </div>
