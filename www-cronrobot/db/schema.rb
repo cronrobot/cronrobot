@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_01_211712) do
+ActiveRecord::Schema.define(version: 2021_07_16_135430) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string "client_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_211712) do
     t.text "params"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "sub_type"
   end
 
   create_table "schedulers", force: :cascade do |t|
