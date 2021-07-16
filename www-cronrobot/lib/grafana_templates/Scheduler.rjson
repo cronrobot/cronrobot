@@ -378,7 +378,7 @@
           "dedupStrategy": "none",
           "enableLogDetails": true,
           "showLabels": false,
-          "showTime": false,
+          "showTime": true,
           "sortOrder": "Descending",
           "wrapLogMessage": false
         },
