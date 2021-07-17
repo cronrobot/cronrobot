@@ -123,3 +123,84 @@ def test_celery_http_exception_on_call(requests_mock):
     assert result["body"] == {"params": params}
     assert "No mock address" in result["result"]["error"]
     assert result["result"]["duration"] > 0
+
+
+# SSH
+
+
+def test_celery_ssh_private_key_happy_path(requests_mock):
+    params = {
+        "host": "localhost",
+        "port": 22,
+        "username": "ubuntu",
+        "private_key": "pk",
+        "command": "ls",
+    }
+    mock_resources_api(requests_mock, 1234, {"params": params})
+
+    body = {"name": "testtask", "params": {"resource_id": 1234, "scheduler_id": 22}}
+    orig_body = copy.deepcopy(body)
+
+    log_cmds = []
+
+    def my_ssh_cmd(host=None, port=None, username=None, private_key=None, cmd=None):
+        log_cmds.append(
+            {
+                "host": host,
+                "port": port,
+                "username": username,
+                "private_key": private_key,
+                "cmd": cmd,
+            }
+        )
+
+        return {"exit_code": 0, "output": "result"}
+
+    celery.ssh_task.ssh_cmd = my_ssh_cmd
+
+    result = celery.ssh(body=body)
+
+    assert result["level"] == "info"
+    assert result["status"] == "success"
+    assert result["status_int"] == 100
+    assert result["body"] == orig_body
+    assert result["result"]["exit_code"] == 0
+
+
+def test_celery_ssh_private_key_cmd_failing(requests_mock):
+    params = {
+        "host": "localhost",
+        "port": 22,
+        "username": "ubuntu",
+        "private_key": "pk",
+        "command": "ls",
+    }
+    mock_resources_api(requests_mock, 1234, {"params": params})
+
+    body = {"name": "testtask", "params": {"resource_id": 1234, "scheduler_id": 22}}
+    orig_body = copy.deepcopy(body)
+
+    log_cmds = []
+
+    def my_ssh_cmd(host=None, port=None, username=None, private_key=None, cmd=None):
+        log_cmds.append(
+            {
+                "host": host,
+                "port": port,
+                "username": username,
+                "private_key": private_key,
+                "cmd": cmd,
+            }
+        )
+
+        return {"exit_code": 110, "output": "result"}
+
+    celery.ssh_task.ssh_cmd = my_ssh_cmd
+
+    result = celery.ssh(body=body)
+
+    assert result["level"] == "error"
+    assert result["status"] == "error"
+    assert result["status_int"] == 0
+    assert result["body"] == orig_body
+    assert "'exit_code': 110" in result["result"]["error"]
