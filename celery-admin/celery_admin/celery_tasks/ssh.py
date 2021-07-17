@@ -34,7 +34,8 @@ def task(**kwargs):
 
         channel.exec_command(command)
 
-        exit_code = channel.recv_exit_code()
+        exit_code = channel.recv_exit_status()
+        output = channel.recv(1000000000)
 
         if exit_code == expected_exit_code:
             return {"exit_code": exit_code}

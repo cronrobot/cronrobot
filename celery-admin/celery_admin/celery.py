@@ -131,8 +131,9 @@ def socket_ping(self, **kwargs):
 
 
 @app.task(bind=True)
+@handle_task
 def ssh(self, **kwargs):
-    params = json.loads(decrypt(kwargs.get("encrypted_params")))
+    return ssh_task.task(**kwargs)
 
 
 @app.task(bind=True)
