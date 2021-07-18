@@ -9,6 +9,7 @@ class Scheduler < ApplicationRecord
   serialize :notification_channels, JSON
 
   validates :name, presence: true
+  validates :updated_by_user_id, presence: true
 
   before_destroy :process_destroy
   before_save :clean_notification_channels
@@ -16,6 +17,10 @@ class Scheduler < ApplicationRecord
 
   def accessible_by_users
     [project.user]
+  end
+
+  def updated_by_user
+    User.find(updated_by_user_id)
   end
 
   def clean_notification_channels

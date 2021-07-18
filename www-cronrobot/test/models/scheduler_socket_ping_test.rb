@@ -4,7 +4,9 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
   test "Create" do
     p = Project.last
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
+    sched = SchedulerSocketPing.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
 
     assert sched
   end
@@ -19,7 +21,9 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
     u.grafana_password = User.random_password
     u.save!
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
+    sched = SchedulerSocketPing.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
 
     mock_find_celery_periodic_task(sched.id, 404)
     mock_create_celery_periodic_task(
@@ -48,7 +52,9 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
   test "update - fail if non status code 200" do
     p = Project.last
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
+    sched = SchedulerSocketPing.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
 
     mock_find_celery_periodic_task(sched.id, 404)
     mock_create_celery_periodic_task(
@@ -66,7 +72,9 @@ class SchedulerSocketPingTest < ActiveSupport::TestCase
   test "create then delete" do
     p = Project.last
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
+    sched = SchedulerSocketPing.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
 
     mock_find_celery_periodic_task(sched.id, 200)
     mock_delete_celery_periodic_task(sched.id)

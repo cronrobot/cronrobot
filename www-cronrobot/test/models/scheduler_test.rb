@@ -8,7 +8,8 @@ class SchedulerTest < ActiveSupport::TestCase
       project: p,
       schedule: "* * * * *",
       name: 's',
-      notification_channels: ["", "12"]
+      notification_channels: ["", "12"],
+      updated_by_user_id: User.last.id
       )
 
     assert sched

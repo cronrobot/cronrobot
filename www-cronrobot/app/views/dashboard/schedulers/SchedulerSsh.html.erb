@@ -1,0 +1,31 @@
+
+<%= form_with model: [:dashboard, @scheduler] do |form| %>
+  <%= form.hidden_field :project_id %>
+
+  <div class="form-group">
+    <%= form.label :name, "Name" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :schedule, "Schedule" %>
+    <%= form.text_field :schedule, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "params[username]", "Username" %>
+    <%= form.text_field "params[username]", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "params[resource_project_ssh_id]", "Ssh credentials" %>
+    <%= form.select "params[resource_project_ssh_id]", (ResourceProjectSsh.all.collect {|p| [ p.params["name"], p.id ] }), {}, multiple: false, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :notification_channels, "Notification Channels" %>
+    <%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, multiple: true, class: "form-control" %>
+  </div>
+
+  <%= form.submit %>
+<% end %>
