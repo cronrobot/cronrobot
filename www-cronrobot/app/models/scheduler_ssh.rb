@@ -7,6 +7,7 @@ class SchedulerSsh < Scheduler
 
   def store_params
     if self.params.present?
+
       if resources.exists?
         resource = resources.first
 

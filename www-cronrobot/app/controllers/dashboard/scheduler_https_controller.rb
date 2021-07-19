@@ -2,6 +2,7 @@
 class Dashboard::SchedulerHttpsController < DashboardController
   def create
     @scheduler = SchedulerHttp.new(allowed_scheduler_http_params)
+    @scheduler.updated_by_user_id = @current_user.id
     @scheduler.save && @scheduler.errors.count.zero? && @scheduler.touch!
 
     if @scheduler.errors.count.positive?

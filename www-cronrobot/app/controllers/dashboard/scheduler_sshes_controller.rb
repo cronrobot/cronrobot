@@ -1,8 +1,8 @@
 
 class Dashboard::SchedulerSshesController < DashboardController
   def create
-    puts "allowed_params --> #{allowed_params.inspect}"
     @scheduler = SchedulerSsh.new(allowed_params)
+    @scheduler.updated_by_user_id = @current_user.id
     @scheduler.save && @scheduler.errors.count.zero? && @scheduler.touch!
 
     if @scheduler.errors.count.positive?

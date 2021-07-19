@@ -10,6 +10,7 @@ class Scheduler < ApplicationRecord
 
   validates :name, presence: true
   validates :updated_by_user_id, presence: true
+  validate :verify_params_resource_access
 
   before_destroy :process_destroy
   before_save :clean_notification_channels
@@ -21,6 +22,16 @@ class Scheduler < ApplicationRecord
 
   def updated_by_user
     User.find(updated_by_user_id)
+  end
+
+  def verify_params_resource_access
+    if self.params&.dig("resource_id").present?
+      resource = Resource.find(params["resource_id"])
+
+      if ! Resource.accessible_by(updated_by_user).include?(resource)
+        raise User::AuthorizationError.new("Unauthorized")
+      end
+    end
   end
 
   def clean_notification_channels
