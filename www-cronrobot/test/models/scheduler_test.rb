@@ -71,4 +71,50 @@ class SchedulerTest < ActiveSupport::TestCase
       )
     end
   end
+
+  test "Create - store params from template resource" do
+    p = Project.last
+
+    user = User.last
+
+    params = {
+      "param1" => 123,
+      "host" => "localhost",
+      "username" => "user",
+      "private_key" => "private_key"
+    }
+
+    resource = ResourceProjectSsh.create!(
+      project: p,
+      type: "ResourceProject",
+      params: params
+    )
+
+    s = Scheduler.last
+    s.project_id = p.id
+    s.updated_by_user_id = user.id
+    s.save!
+
+    p.user = user
+    p.save!
+
+    resources = Resource.accessible_by(user)
+    assert resources.include?(ResourceProject.find(resource.id))
+    
+    new_scheduler = SchedulerSsh.create!(
+      project: p,
+      schedule: "* * * * *",
+      name: 's',
+      notification_channels: ["", "12"],
+      updated_by_user_id: user.id,
+      params: { "resource_id" => Resource.last.id }
+    )
+
+    resource_scheduler = new_scheduler.resources.reload.last
+    
+    assert resource_scheduler.params["param1"] == 123
+    assert resource_scheduler.params["host"] == "localhost"
+    assert resource_scheduler.params["username"] == "user"
+    assert resource_scheduler.params["private_key"] == "private_key"
+  end
 end

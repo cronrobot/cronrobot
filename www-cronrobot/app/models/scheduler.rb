@@ -34,6 +34,29 @@ class Scheduler < ApplicationRecord
     end
   end
 
+  def store_params_from_template
+    # the template is passed in params["resource_id"]
+
+    if self.params.present?
+
+      # the parent resource has already been authorized here
+      template_resource = Resource.find(params["resource_id"])
+
+      if resources.exists?
+        resource = resources.first
+
+        resource.params = template_resource.params
+        
+        resource.save
+      else
+        klass = "Resource#{self.type}".constantize
+        resource = klass.create(reference_id: id, params: template_resource.params)
+      end
+      
+      errors.add(:params, "Invalid parameters: #{resource.errors.full_messages}") unless resource.valid?
+    end
+  end
+
   def clean_notification_channels
     self.notification_channels = [] unless notification_channels
 
