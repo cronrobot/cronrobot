@@ -143,7 +143,9 @@ def test_celery_ssh_private_key_happy_path(requests_mock):
 
     log_cmds = []
 
-    def my_ssh_cmd(host=None, port=None, username=None, private_key=None, cmd=None):
+    def my_ssh_cmd(
+        host=None, port=None, username=None, private_key=None, cmd=None, timeout=None
+    ):
         log_cmds.append(
             {
                 "host": host,
@@ -182,7 +184,9 @@ def test_celery_ssh_private_key_cmd_failing(requests_mock):
 
     log_cmds = []
 
-    def my_ssh_cmd(host=None, port=None, username=None, private_key=None, cmd=None):
+    def my_ssh_cmd(
+        host=None, port=None, username=None, private_key=None, cmd=None, timeout=None
+    ):
         log_cmds.append(
             {
                 "host": host,
