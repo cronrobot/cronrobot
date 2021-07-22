@@ -11,6 +11,7 @@ from celery.utils.log import get_task_logger
 
 from .celery_tasks import http as http_task
 from .celery_tasks import socket_ping as socket_ping_task
+from .celery_tasks import ssh as ssh_task
 
 from dotenv import load_dotenv
 from .secrets import decrypt
@@ -130,10 +131,9 @@ def socket_ping(self, **kwargs):
 
 
 @app.task(bind=True)
+@handle_task
 def ssh(self, **kwargs):
-    # TODO: pass resource id
-
-    params = json.loads(decrypt(kwargs.get("encrypted_params")))
+    return ssh_task.task(**kwargs)
 
 
 @app.task(bind=True)

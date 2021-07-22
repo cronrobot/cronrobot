@@ -27,7 +27,7 @@ class Dashboard::SchedulersController < DashboardController
 
   def validate_param_type
     if params["type"].present?
-      valid_types = %w(SchedulerSocketPing SchedulerHttp)
+      valid_types = %w(SchedulerSocketPing SchedulerHttp SchedulerSsh)
 
       raise Exception.new("Invalid type") unless valid_types.include?(params["type"])
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_01_211712) do
+ActiveRecord::Schema.define(version: 2021_07_18_011542) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string "client_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_211712) do
     t.text "params"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "sub_type"
   end
 
   create_table "schedulers", force: :cascade do |t|
@@ -56,7 +57,9 @@ ActiveRecord::Schema.define(version: 2021_07_01_211712) do
     t.string "name"
     t.string "grafana_dashboard_id"
     t.text "notification_channels"
+    t.integer "updated_by_user_id"
     t.index ["project_id"], name: "index_schedulers_on_project_id"
+    t.index ["updated_by_user_id"], name: "index_schedulers_on_updated_by_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,4 +74,5 @@ ActiveRecord::Schema.define(version: 2021_07_01_211712) do
   add_foreign_key "notification_channels", "projects"
   add_foreign_key "projects", "users"
   add_foreign_key "schedulers", "projects"
+  add_foreign_key "schedulers", "users", column: "updated_by_user_id"
 end

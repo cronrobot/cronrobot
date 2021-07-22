@@ -4,7 +4,9 @@ class ResourceSchedulerSocketPingTest < ActiveSupport::TestCase
   test "Create with proper scheduler" do
     p = Project.last
 
-    sched = SchedulerSocketPing.create!(project: p, schedule: "* * * * *", name: 's')
+    sched = SchedulerSocketPing.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
 
     params = {"port" => "1234", "host" => "localhost"}
     resource = ResourceSchedulerSocketPing.create!(scheduler: sched, params: params)
@@ -18,7 +20,9 @@ class ResourceSchedulerSocketPingTest < ActiveSupport::TestCase
   test "Create with wrong scheduler" do
     p = Project.last
 
-    sched = Scheduler.create!(project: p, schedule: "* * * * *", name: 's')
+    sched = Scheduler.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
 
     params = {"port" => 1234, "host" => "localhost"}
     resource = ResourceSchedulerSocketPing.create(scheduler: sched, params: params)

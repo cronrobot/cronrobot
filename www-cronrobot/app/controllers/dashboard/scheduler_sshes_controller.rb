@@ -1,14 +1,14 @@
 
-class Dashboard::SchedulerHttpsController < DashboardController
+class Dashboard::SchedulerSshesController < DashboardController
   def create
-    @scheduler = SchedulerHttp.new(allowed_scheduler_http_params)
+    @scheduler = SchedulerSsh.new(allowed_params)
     @scheduler.updated_by_user_id = @current_user.id
     @scheduler.save && @scheduler.errors.count.zero? && @scheduler.touch!
 
     if @scheduler.errors.count.positive?
       if @scheduler.id.present?
         flash[:danger] = @scheduler.errors.full_messages
-        redirect_to dashboard_scheduler_http_path(@scheduler)
+        redirect_to dashboard_scheduler_ssh_path(@scheduler)
       else
         flash[:danger] = @scheduler.errors.full_messages
         redirect_back fallback_location: root_path
@@ -23,14 +23,14 @@ class Dashboard::SchedulerHttpsController < DashboardController
     @scheduler = Scheduler.find_by id: params["id"]
     @notification_channels = @current_user.notification_channels
 
-    render template: "dashboard/schedulers/SchedulerHttp"
+    render template: "dashboard/schedulers/SchedulerSsh"
   end
 
   private
 
-  def allowed_scheduler_http_params
+  def allowed_params
     params
-    .require(:scheduler_http)
+    .require(:scheduler_ssh)
     .permit(:name, :schedule, :project_id, params: {}, notification_channels: [])
   end
 end

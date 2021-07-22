@@ -4,7 +4,9 @@ class ResourceSchedulerHttpTest < ActiveSupport::TestCase
   test "Create with proper scheduler" do
     p = Project.last
 
-    sched = SchedulerHttp.create!(project: p, schedule: "* * * * *", name: 's')
+    sched = SchedulerHttp.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
 
     params = {"url" => "http://url.com/"}
     resource = ResourceSchedulerHttp.create!(scheduler: sched, params: params)
@@ -18,7 +20,9 @@ class ResourceSchedulerHttpTest < ActiveSupport::TestCase
   test "Create with wrong scheduler" do
     p = Project.last
 
-    sched = Scheduler.create!(project: p, schedule: "* * * * *", name: 's')
+    sched = Scheduler.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
 
     params = {}
     resource = ResourceSchedulerHttp.create(scheduler: sched, params: params)

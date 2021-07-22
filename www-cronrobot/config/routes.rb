@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
     resources :scheduler_socket_pings
     resources :scheduler_https
+    resources :scheduler_sshes
 
     resources :notification_channels
   end

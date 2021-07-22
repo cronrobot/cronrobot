@@ -4,6 +4,7 @@ python-dotenv==0.17.1
 gevent==21.1.2
 markdown
 django-celery-beat==2.2.0
+paramiko==2.7.2
 psycopg2-binary==2.9.1
 cryptography==3.4.7
 requests==2.25.1

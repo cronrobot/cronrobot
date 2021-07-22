@@ -9,6 +9,8 @@ class Scheduler < ApplicationRecord
   serialize :notification_channels, JSON
 
   validates :name, presence: true
+  validates :updated_by_user_id, presence: true
+  validate :verify_params_resource_access
 
   before_destroy :process_destroy
   before_save :clean_notification_channels
@@ -16,6 +18,43 @@ class Scheduler < ApplicationRecord
 
   def accessible_by_users
     [project.user]
+  end
+
+  def updated_by_user
+    User.find(updated_by_user_id)
+  end
+
+  def verify_params_resource_access
+    if self.params&.dig("resource_id").present?
+      resource = Resource.find(params["resource_id"])
+
+      if ! Resource.accessible_by(updated_by_user).include?(resource)
+        raise User::AuthorizationError.new("Unauthorized")
+      end
+    end
+  end
+
+  def store_params_from_template
+    # the template is passed in params["resource_id"]
+
+    if self.params.present?
+
+      # the parent resource has already been authorized here
+      template_resource = Resource.find(params["resource_id"])
+
+      if resources.exists?
+        resource = resources.first
+
+        resource.params = template_resource.params
+        
+        resource.save
+      else
+        klass = "Resource#{self.type}".constantize
+        resource = klass.create(reference_id: id, params: template_resource.params)
+      end
+      
+      errors.add(:params, "Invalid parameters: #{resource.errors.full_messages}") unless resource.valid?
+    end
   end
 
   def clean_notification_channels

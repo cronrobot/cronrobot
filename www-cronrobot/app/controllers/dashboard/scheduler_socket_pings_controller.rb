@@ -2,6 +2,7 @@
 class Dashboard::SchedulerSocketPingsController < DashboardController
   def create
     @scheduler = SchedulerSocketPing.new(allowed_scheduler_socket_ping_params)
+    @scheduler.updated_by_user_id = @current_user.id
     @scheduler.save && @scheduler.errors.count.zero? && @scheduler.touch!
 
     if @scheduler.errors.count.positive?
