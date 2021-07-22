@@ -19,6 +19,8 @@ def ssh_cmd(host=None, port=None, username=None, private_key=None, cmd=None):
     exit_code = channel.recv_exit_status()
     output = channel.recv(1000000000)
 
+    ssh_client.close()
+
     return {"exit_code": exit_code, "output": output}
 
 
