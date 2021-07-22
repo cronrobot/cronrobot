@@ -45,12 +45,12 @@ class Scheduler < ApplicationRecord
       if resources.exists?
         resource = resources.first
 
-        resource.params = template_resource.params
+        resource.params = params.merge(template_resource.params)
         
         resource.save
       else
         klass = "Resource#{self.type}".constantize
-        resource = klass.create(reference_id: id, params: template_resource.params)
+        resource = klass.create(reference_id: id, params: params.merge(template_resource.params))
       end
       
       errors.add(:params, "Invalid parameters: #{resource.errors.full_messages}") unless resource.valid?
