@@ -3,7 +3,9 @@ import paramiko
 import time
 
 
-def ssh_cmd(host=None, port=None, username=None, private_key=None, cmd=None, timeout=None):
+def ssh_cmd(
+    host=None, port=None, username=None, private_key=None, cmd=None, timeout=None
+):
     file_pk = io.StringIO(private_key)
     loaded_private_key = paramiko.RSAKey.from_private_key(file_pk)
 
@@ -25,6 +27,7 @@ def ssh_cmd(host=None, port=None, username=None, private_key=None, cmd=None, tim
 
     return {"exit_code": exit_code, "output": output}
 
+
 def ssh_wait_until_ready(channel, timeout):
     start = time.time()
 
@@ -34,7 +37,8 @@ def ssh_wait_until_ready(channel, timeout):
 
         time.sleep(0.5)
     else:
-        raise TimeoutError(f'{command} timed out on {hostname}')
+        raise TimeoutError(f"{command} timed out on {hostname}")
+
 
 def task(**kwargs):
     default_timeout = 30  # seconds
@@ -59,7 +63,7 @@ def task(**kwargs):
             username=username,
             private_key=private_key,
             cmd=command,
-            timeout=timeout
+            timeout=timeout,
         )
 
         exit_code = result.get("exit_code")
