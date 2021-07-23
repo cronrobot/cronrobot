@@ -1,20 +1,34 @@
 import io
 import paramiko
 import time
+from celery.utils.log import get_task_logger
 
+logger = get_task_logger(__name__)
+
+connections = {}
 
 def ssh_cmd(
     host=None, port=None, username=None, private_key=None, cmd=None, timeout=None
 ):
+    connection_id = f"{username}@{host}:{port}"
     file_pk = io.StringIO(private_key)
     loaded_private_key = paramiko.RSAKey.from_private_key(file_pk)
 
-    ssh_client = paramiko.SSHClient()
-    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    connection = connections.get(connection_id)
 
-    ssh_client.connect(
-        hostname=host, port=port, username=username, pkey=loaded_private_key
-    )
+    if not connection or not ssh_conn_active(connection["client"]):
+        ssh_client = paramiko.SSHClient()
+        connections[connection_id] = { "touched_at": time.time(), "client": ssh_client }
+        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+        ssh_client.connect(
+            hostname=host, port=port, username=username, pkey=loaded_private_key
+        )
+    else:
+        logger.debug(f"skipping connection for connection {connection_id}")
+
+    ssh_client = connections[connection_id]["client"]
+
     channel = ssh_client.get_transport().open_session()
 
     channel.exec_command(cmd)
@@ -22,11 +36,20 @@ def ssh_cmd(
 
     exit_code = channel.recv_exit_status()
     output = channel.recv(1000000000)
+    channel.close()
+    connection["touched_at"] = time.time()
 
-    ssh_client.close()
+    print(f"all connections -> {connections}")
+
+    #ssh_client.close()
 
     return {"exit_code": exit_code, "output": output}
 
+def ssh_conn_active(ssh_client):
+    if ssh_client.get_transport() is not None:
+        return ssh_client.get_transport().is_active()
+
+    return False
 
 def ssh_wait_until_ready(channel, timeout):
     start = time.time()
