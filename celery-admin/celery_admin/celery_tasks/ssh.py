@@ -37,7 +37,7 @@ def ssh_wait_until_ready(channel, timeout):
 
         time.sleep(0.5)
     else:
-        raise TimeoutError(f"{command} timed out on {hostname}")
+        raise TimeoutError(f"Command timed out")
 
 
 def task(**kwargs):
