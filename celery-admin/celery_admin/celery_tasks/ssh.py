@@ -7,6 +7,7 @@ logger = get_task_logger(__name__)
 
 connections = {}
 
+
 def ssh_cmd(
     host=None, port=None, username=None, private_key=None, cmd=None, timeout=None
 ):
@@ -18,7 +19,7 @@ def ssh_cmd(
 
     if not connection or not ssh_conn_active(connection["client"]):
         ssh_client = paramiko.SSHClient()
-        connections[connection_id] = { "touched_at": time.time(), "client": ssh_client }
+        connections[connection_id] = {"touched_at": time.time(), "client": ssh_client}
         ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         ssh_client.connect(
@@ -39,17 +40,38 @@ def ssh_cmd(
     channel.close()
     connection["touched_at"] = time.time()
 
-    print(f"all connections -> {connections}")
-
-    #ssh_client.close()
+    ssh_close_potential_inactive_connection(connection_id)
 
     return {"exit_code": exit_code, "output": output}
+
 
 def ssh_conn_active(ssh_client):
     if ssh_client.get_transport() is not None:
         return ssh_client.get_transport().is_active()
 
     return False
+
+
+def ssh_should_close_connection(connection):
+    return time.time() - connection.get("touched_at") > (60 * 60)
+
+
+def ssh_close_potential_inactive_connection(except_connection_id):
+    try:
+        for conn_id in connections:
+            if conn_id == except_connection_id:
+                continue
+
+            connection = connections[conn_id]
+
+            if ssh_should_close_connection(connection):
+                logger.info(f"ssh_close_potential_inactive: closing {conn_id}")
+                connection["client"].close()
+                del connections[conn_id]
+                break
+    except Exception as e:
+        logger.error(f"failed while closing potential inactive conns. {e}")
+
 
 def ssh_wait_until_ready(channel, timeout):
     start = time.time()

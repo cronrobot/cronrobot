@@ -1,5 +1,6 @@
 import pytest
 import json
+import time
 import copy
 from celery_admin import celery
 
@@ -126,6 +127,18 @@ def test_celery_http_exception_on_call(requests_mock):
 
 
 # SSH
+
+
+def test_celery_ssh_ssh_should_close_connection_happy_path():
+    conn = {"touched_at": time.time() - (60 * 90)}
+
+    assert celery.ssh_task.ssh_should_close_connection(conn)
+
+
+def test_celery_ssh_ssh_should_close_connection_recently_connected():
+    conn = {"touched_at": time.time()}
+
+    assert not celery.ssh_task.ssh_should_close_connection(conn)
 
 
 def test_celery_ssh_private_key_happy_path(requests_mock):
