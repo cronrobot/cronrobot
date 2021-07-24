@@ -1,0 +1,33 @@
+<h1>Project Resources</h1>
+
+<a href="/dashboard/resources/new">
+    Create
+</a>
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Name</th>
+        <th>actions</th>
+    </thead>
+
+    <tbody>
+        <% @resources.each do |resource| %>
+            <tr>
+                <td><%= resource.id %></td>
+                <td><%= resource.type %></td>
+                <td><%= resource.params.dig("name") %></td>
+                <td>
+                    <ul>
+                        <li>
+                            <%= link_to "Edit", "/dashboard/resources/#{resource.id}" %>
+                        </li>
+                        <li><%= link_to 'Destroy', "/dashboard/resources/#{resource.id}",
+                            data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
+                    </ul>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
