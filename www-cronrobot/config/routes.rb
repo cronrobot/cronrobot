@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :scheduler_sshes
 
     resources :notification_channels
+    resources :resources
   end
 
   

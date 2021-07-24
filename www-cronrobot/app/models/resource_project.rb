@@ -5,6 +5,7 @@ class ResourceProject < Resource
   validates :project, presence: true
   validates :sub_type, presence: true
 
-  validates :sub_type, :inclusion => {:in => %w(ResourceProjectSsh )}
+  SUB_TYPES = %w(ResourceProjectSsh )
+  validates :sub_type, :inclusion => {:in => SUB_TYPES}
 
 end
