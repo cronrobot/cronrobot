@@ -9,4 +9,15 @@ class Api::ResourceController < ApiController
     render :json => resource
   end
 
+  # get '/projects/:project_id/resources/:type'
+  def retrieve_project_resources
+    type = params[:type]
+    project_id = params[:project_id]
+
+    variables = ResourceProject.where(reference_id: project_id)
+      .and(ResourceProject.where(sub_type: type).or(ResourceProject.where(type: type)))
+
+    render :json => variables
+  end
+
 end
