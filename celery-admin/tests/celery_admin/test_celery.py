@@ -221,3 +221,58 @@ def test_celery_ssh_private_key_cmd_failing(requests_mock):
     assert result["status_int"] == 0
     assert result["body"] == orig_body
     assert "'exit_code': 110" in result["result"]["error"]
+
+
+# replace_attribute_secret_variables
+
+
+def test_celery_replace_attribute_secret_variables_happy_path():
+    variables = [{"params": {"name": "vv1", "value": "val"}}]
+
+    result = celery.replace_attribute_secret_variables("hello {{ vv1 }}!", variables)
+
+    assert result == "hello val!"
+
+
+def test_celery_replace_attribute_secret_variables_without_replacement():
+    variables = [{"params": {"name": "vv2", "value": "val"}}]
+
+    result = celery.replace_attribute_secret_variables("hello {{ vv1 }}!", variables)
+
+    assert result == "hello !"
+
+
+def test_celery_replace_attribute_secret_variables_with_many():
+    variables = [
+        {"params": {"name": "vv2", "value": "val"}},
+        {"params": {"name": "vv3", "value": "TEST"}},
+    ]
+
+    result = celery.replace_attribute_secret_variables(
+        "hello {{ vv2 }}-{{ vv3 }}!", variables
+    )
+
+    assert result == "hello val-TEST!"
+
+
+# replace_secret_variables
+
+
+def test_celery_replace_secret_variables_happy_path(requests_mock):
+    entity = {"command": "ls -la {{ directory }}", "hello": "any {{ var }} "}
+
+    response_body = [
+        {"params": {"name": "directory", "value": "/root/path"}},
+        {"params": {"name": "var", "value": "testtest"}},
+    ]
+
+    requests_mock.get(
+        f"http://localhost:3030/api/projects/1234/resources/ResourceProjectVariable",
+        json=response_body,
+        status_code=200,
+        headers={"content-type": "json"},
+    )
+
+    celery.replace_secret_variables(entity, 1234)
+
+    assert entity == {"command": "ls -la /root/path", "hello": "any testtest "}

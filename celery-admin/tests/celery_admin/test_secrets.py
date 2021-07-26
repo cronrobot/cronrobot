@@ -23,3 +23,16 @@ def test_secrets_decrypt_resource_not_found(requests_mock):
 
     with pytest.raises(Exception):
         secrets.decrypt(1234)
+
+
+# retrieve_secret_variables
+
+
+def test_secrets_decrypt_resource_happy_path(requests_mock):
+    requests_mock.get(
+        "http://localhost:3030/api/projects/1234/resources/MyType", text='{"id": 123}'
+    )
+
+    response = secrets.retrieve_secret_variables(1234, "MyType")
+
+    assert response == {"id": 123}

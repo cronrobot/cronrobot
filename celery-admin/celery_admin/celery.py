@@ -6,6 +6,7 @@ import copy
 import requests
 from functools import wraps
 
+import chevron
 from celery import Celery
 from celery.utils.log import get_task_logger
 
@@ -14,7 +15,7 @@ from .celery_tasks import socket_ping as socket_ping_task
 from .celery_tasks import ssh as ssh_task
 
 from dotenv import load_dotenv
-from .secrets import decrypt
+from .secrets import decrypt, retrieve_secret_variables
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "celery_admin.settings")
 
@@ -44,6 +45,28 @@ logger.info(f"Record task results path: {RECORD_TASK_RESULTS_PATH}")
 ### Global
 
 
+def replace_attribute_secret_variables(value, variables):
+    replacements = {
+        (v.get("params", {}) or {}).get("name"): (v.get("params", {}) or {}).get("value")
+        for v in variables
+    }
+
+    return chevron.render(value, replacements)
+
+
+def replace_secret_variables(entity, project_id):
+    if not project_id:
+        return entity
+
+    variables = retrieve_secret_variables(project_id, "ResourceProjectVariable")
+
+    for k in entity:
+        if type(entity[k]) == str:
+            entity[k] = replace_attribute_secret_variables(entity[k], variables)
+
+    return entity
+
+
 def handle_task(func):
     @wraps(func)
     def inner(*args, **kwargs):
@@ -67,6 +90,8 @@ def handle_task(func):
             decrypted_resource = decrypt(resource_id)
             resource_params = decrypted_resource.get("params") or {}
             body["params"] = {**resource_params, **params}
+
+            replace_secret_variables(body["params"], params.get("project_id"))
 
             result = func(*args, **kwargs)
             result["status"] = STATUS_SUCCESS_LABEL
