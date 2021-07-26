@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get '/test', to: 'test#index'
 
     get '/resources/:id', to: 'resource#retrieve'
+    get '/projects/:project_id/resources/:type', to: 'resource#retrieve_project_resources'
   end
 
 end

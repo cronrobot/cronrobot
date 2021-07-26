@@ -25,7 +25,6 @@ class Dashboard::ResourcesController < DashboardController
     new_params = allowed_resource_params
 
     if new_params["params"].dig("private_key").blank?
-      puts "private key blank!!"
       new_params["params"]["private_key"] = @resource.params["private_key"]
     end
 

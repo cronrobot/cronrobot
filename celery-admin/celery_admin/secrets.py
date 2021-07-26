@@ -9,6 +9,7 @@ from celery.utils.log import get_task_logger
 
 dotenv_values = dotenv_values(os.environ["DOTENV_PATH"])
 
+secret_base_url = dotenv_values["SECRETS_API_BASE_URL"]
 resource_secret_base_url = dotenv_values["RESOURCE_SECRETS_API_BASE_URL"]
 api_client_id = dotenv_values["RESOURCE_SECRETS_API_CLIENT_ID"]
 api_client_secret = dotenv_values["RESOURCE_SECRETS_API_CLIENT_SECRET"]
@@ -16,21 +17,31 @@ api_client_secret = dotenv_values["RESOURCE_SECRETS_API_CLIENT_SECRET"]
 logger = get_task_logger(__name__)
 
 
-def get_ttl_hash(seconds=80000):
-    """Return the same value withing `seconds` time period"""
-    return round(time.time() / seconds)
-
-
-def decrypt(resource_id):
-    resource_url = f"{resource_secret_base_url}/{resource_id}"
-    headers = {
+def build_headers():
+    return {
         "x-auth-client-id": api_client_id,
         "x-auth-client-secret": api_client_secret,
     }
 
-    decrypted = requests.get(resource_url, timeout=60, headers=headers)
 
-    if decrypted.status_code != 200:
-        raise Exception(f"Unable to retrieve resource")
+def api_get(url):
+    headers = build_headers()
 
-    return decrypted.json()
+    response = requests.get(url, timeout=60, headers=headers)
+
+    if response.status_code != 200:
+        raise Exception(f"Unable to retrieve the request")
+
+    return response.json()
+
+
+def decrypt(resource_id):
+    resource_url = f"{resource_secret_base_url}/{resource_id}"
+
+    return api_get(resource_url)
+
+
+def retrieve_secret_variables(project_id, type):
+    url = f"{secret_base_url}/projects/{project_id}/resources/{type}"
+
+    return api_get(url)

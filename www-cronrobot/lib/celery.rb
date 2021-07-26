@@ -34,6 +34,7 @@ class Celery
       task: scheduler.celery_task,
       schedule: scheduler.schedule,
       scheduler_id: scheduler.id,
+      project_id: scheduler.project_id,
       resource_id: scheduler.resources.first&.id
     }
 

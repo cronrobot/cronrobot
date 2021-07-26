@@ -14,4 +14,33 @@ class ResourceControllerTest < ActionDispatch::IntegrationTest
     assert_equal response.parsed_body["id"], resource.id
     assert_equal response.parsed_body["params"]["hello"], "world"
   end
+
+  test '/api/projects/project_id/resources/type' do
+    p = Project.last
+    p2 = Project.first
+
+    assert p != p2
+
+    Resource.create!(
+      type: "ResourceProject",
+      reference_id: p2.id,
+      params: {"name" => "VAR2", "value" => "v1"},
+      sub_type: "ResourceProjectVariable"
+    )
+
+    resource = Resource.create!(
+      type: "ResourceProject",
+      reference_id: p.id,
+      params: {"name" => "VAR", "value" => "v1"},
+      sub_type: "ResourceProjectVariable"
+    )
+
+    get "/api/projects/#{p.id}/resources/ResourceProjectVariable",
+      headers: api_headers,
+      as: :json
+
+    assert response.parsed_body.count == 1
+    assert response.parsed_body[0]["params"]["name"] == "VAR"
+    assert response.parsed_body[0]["params"]["value"] == "v1"
+  end
 end

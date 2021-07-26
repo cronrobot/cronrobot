@@ -39,6 +39,7 @@ def create(request):
         {
             "body": {
                 "params": {
+                    "project_id": body.get("project_id"),
                     "resource_id": body.get("resource_id"),
                     "scheduler_id": body.get("scheduler_id"),
                 }
