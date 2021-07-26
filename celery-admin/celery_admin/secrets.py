@@ -15,18 +15,15 @@ api_client_secret = dotenv_values["RESOURCE_SECRETS_API_CLIENT_SECRET"]
 
 logger = get_task_logger(__name__)
 
-
-def get_ttl_hash(seconds=80000):
-    """Return the same value withing `seconds` time period"""
-    return round(time.time() / seconds)
-
-
-def decrypt(resource_id):
-    resource_url = f"{resource_secret_base_url}/{resource_id}"
-    headers = {
+def build_headers():
+    return {
         "x-auth-client-id": api_client_id,
         "x-auth-client-secret": api_client_secret,
     }
+
+def decrypt(resource_id):
+    resource_url = f"{resource_secret_base_url}/{resource_id}"
+    headers = build_headers()
 
     decrypted = requests.get(resource_url, timeout=60, headers=headers)
 
@@ -34,3 +31,7 @@ def decrypt(resource_id):
         raise Exception(f"Unable to retrieve resource")
 
     return decrypted.json()
+
+# /api/projects/#{p.id}/resources/ResourceProjectVariable
+def secret_variables(project_id, type):
+    pass

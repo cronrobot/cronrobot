@@ -8,11 +8,6 @@ def run_around_tests(monkeypatch):
 
 
 def test_secrets_decrypt_resource_happy_path(requests_mock):
-    def my_access_token(ttl_hash=None):
-        return "access_token"
-
-    secrets.get_auth0_access_token = my_access_token
-
     requests_mock.get("http://localhost:3030/api/resources/1234", text='{"id": 123}')
 
     decrypted = secrets.decrypt(1234)
