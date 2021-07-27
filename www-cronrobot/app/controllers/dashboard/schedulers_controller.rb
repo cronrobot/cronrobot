@@ -1,6 +1,7 @@
 class Dashboard::SchedulersController < DashboardController
 
   before_action :validate_param_type
+  before_action :load_friendly_schedules
 
   def index
     @schedulers = @current_user.schedulers.order(id: :desc)
@@ -33,6 +34,20 @@ class Dashboard::SchedulersController < DashboardController
 
       @scheduler_klass = params["type"].constantize
     end
+  end
+
+  def load_friendly_schedules
+    @friendly_schedules = [
+      {
+        name: "Custom",
+        id: "custom"
+      },
+      {
+        name: "Every minute",
+        cron: "* * * * *",
+        id: "every_minute"
+      },
+    ]
   end
 
   def prepare_alerts_statuses(schedulers)
