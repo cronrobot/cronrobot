@@ -9,22 +9,31 @@
 </div>
 
 <div class="form-group" id="customScheduleBlock">
-    <%= form.label :schedule, "Schedule" %>
-    <%= form.text_field :schedule, class: "form-control" %>
+    <%= form.label :schedule, "Custom Schedule (crontab format)" %>
+    <%= form.text_field :schedule, class: "form-control", id: "schedule_field" %>
 </div>
 
-<pre><%= friendly_schedules().inspect %></pre>
 <script>
+    function getSchedules() {
+        return <%= friendly_schedules.to_json.html_safe %>
+    }
+
     (function() {
         window.formHide("customScheduleBlock")
         window.formShow("customScheduleBlock")
     })();
 
     function handleScheduleTypeChange(value) {
+        const schedules = getSchedules()
+
         if (value === "custom") {
             window.formShow("customScheduleBlock")
         } else {
             window.formHide("customScheduleBlock")
+
+            const schedule = schedules.find(s => s["id"] === value)
+            const scheduleTextField = document.getElementById("schedule_field")
+            scheduleTextField.value = schedule["cron"]
         }
     }
 </script>
