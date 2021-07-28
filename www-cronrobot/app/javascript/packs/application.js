@@ -18,3 +18,13 @@ import "../stylesheets/application"
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+window.formHide = function formHide(id) {
+    const customScheduleBlock = document.getElementById(id)
+    customScheduleBlock.style.display = 'none'
+}
+
+window.formShow = function formHide(id) {
+    const customScheduleBlock = document.getElementById(id)
+    customScheduleBlock.style.display = ''
+}

@@ -1,5 +1,5 @@
 
-class Dashboard::SchedulerSocketPingsController < DashboardController
+class Dashboard::SchedulerSocketPingsController < Dashboard::SchedulersController
   def create
     @scheduler = SchedulerSocketPing.new(allowed_scheduler_socket_ping_params)
     @scheduler.updated_by_user_id = @current_user.id
