@@ -1,7 +1,24 @@
 
 class Dashboard::SchedulerSocketPingsController < Dashboard::SchedulersController
+
   def create
-    @scheduler = SchedulerSocketPing.new(allowed_scheduler_socket_ping_params)
+    @scheduler = SchedulerSocketPing.new()
+    
+    handle_update
+  end
+
+  def show
+    @scheduler = Scheduler.find_by id: params["id"]
+
+    @notification_channels = @current_user.notification_channels
+
+    render template: "dashboard/schedulers/SchedulerSocketPing"
+  end
+
+  protected
+
+  def handle_update
+    @scheduler.attributes = allowed_scheduler_socket_ping_params
     @scheduler.updated_by_user_id = @current_user.id
     @scheduler.save && @scheduler.errors.count.zero? && @scheduler.touch!
 
@@ -18,15 +35,6 @@ class Dashboard::SchedulerSocketPingsController < Dashboard::SchedulersControlle
       redirect_to "/dashboard/schedulers"
     end
   end
-
-  def show
-    @scheduler = Scheduler.find_by id: params["id"]
-    @notification_channels = @current_user.notification_channels
-
-    render template: "dashboard/schedulers/SchedulerSocketPing"
-  end
-
-  private
 
   def allowed_scheduler_socket_ping_params
     params
