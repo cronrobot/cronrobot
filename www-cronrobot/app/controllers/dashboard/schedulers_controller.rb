@@ -1,6 +1,7 @@
 class Dashboard::SchedulersController < DashboardController
 
   before_action :validate_param_type
+  before_action :authorize_scheduler_access
 
   def index
     @schedulers = @current_user.schedulers.order(id: :desc)
@@ -21,6 +22,27 @@ class Dashboard::SchedulersController < DashboardController
 
     flash[:success] = "Scheduler removed successfully!"
     redirect_back fallback_location: root_path
+  end
+
+  def update
+    handle_update
+  end
+
+  protected
+
+  def authorize_scheduler_access
+    scheduler_id = params["id"]
+
+    if scheduler_id.present?
+      @scheduler = Scheduler.find(scheduler_id)
+      scheduler_accessible_to!(@scheduler)
+    end
+  end
+
+  def scheduler_accessible_to!(scheduler)
+    unless @current_user.schedulers.include?(scheduler)
+      raise User::AuthorizationError.new("Cannot access the scheduler")
+    end
   end
 
   private
