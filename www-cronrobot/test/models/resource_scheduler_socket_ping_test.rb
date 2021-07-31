@@ -9,7 +9,7 @@ class ResourceSchedulerSocketPingTest < ActiveSupport::TestCase
     )
 
     params = {"port" => "1234", "host" => "localhost"}
-    resource = ResourceSchedulerSocketPing.create!(scheduler: sched, params: params)
+    resource = ResourceSchedulerSocketPing.create!(reference_id: sched.id, params: params)
 
     assert resource
     assert sched.resources.count == 1
@@ -25,7 +25,7 @@ class ResourceSchedulerSocketPingTest < ActiveSupport::TestCase
     )
 
     params = {"port" => 1234, "host" => "localhost"}
-    resource = ResourceSchedulerSocketPing.create(scheduler: sched, params: params)
+    resource = ResourceSchedulerSocketPing.create(reference_id: sched.id, params: params)
 
     assert_equal resource.valid?, false
   end

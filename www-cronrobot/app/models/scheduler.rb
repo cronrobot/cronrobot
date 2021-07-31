@@ -1,9 +1,9 @@
 class Scheduler < ApplicationRecord
   belongs_to :project
-  has_many :resources,
-           foreign_key: :reference_id,
-           class_name: :ResourceScheduler,
-           dependent: :destroy
+
+  def resources
+    Resource.where(reference_id: id, type: ResourceScheduler::TYPES)
+  end
 
   attr_accessor :params
   serialize :notification_channels, JSON
@@ -15,6 +15,16 @@ class Scheduler < ApplicationRecord
   before_destroy :process_destroy
   before_save :clean_notification_channels
   after_save :store_params
+
+  def stored_params
+    resource = resources.first
+
+    resource&.params || {}
+  end
+
+  def plural_path_name
+    raise "Undefined"
+  end
 
   def accessible_by_users
     [project.user]

@@ -2,8 +2,9 @@
 <div class="form-group">
     <%= form.label "params[schedule_type]", "Schedule" %>
     <%= form.select "params[schedule_type]",
-        friendly_schedule_lister, {},
+        friendly_schedule_lister, { selected: @scheduler&.params&.dig("schedule_type") },
         multiple: false,
+        
         onchange: "handleScheduleTypeChange(this.value)",
         class: "form-control" %>
 </div>

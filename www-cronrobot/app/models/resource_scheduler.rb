@@ -1,11 +1,18 @@
 
 class ResourceScheduler < Resource
-  belongs_to :scheduler, foreign_key: :reference_id
-
-  validates :scheduler, presence: true
-
   validate :validate_scheduler_type
   validate :validate_required_params
+
+  def scheduler
+    Scheduler.find_by id: reference_id
+  end
+
+  TYPES = [
+    "ResourceScheduler",
+    "ResourceSchedulerHttp",
+    "ResourceSchedulerSocketPing",
+    "ResourceSchedulerSsh"
+  ]
 
   def expected_scheduler_type
   end

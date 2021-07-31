@@ -40,7 +40,11 @@ class ResourceTest < ActiveSupport::TestCase
 
     assert scheduler
 
-    resource = scheduler.resources.create!(params: {port: 3030, host: "localhost"})
+    resource = Resource.create!(
+      type: "ResourceScheduler",
+      reference_id: scheduler.id,
+      params: {port: 3030, host: "localhost"}
+    )
 
     assert resource.class == ResourceScheduler
     assert resource.scheduler == scheduler

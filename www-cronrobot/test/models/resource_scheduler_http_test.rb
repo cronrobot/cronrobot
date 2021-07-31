@@ -9,7 +9,7 @@ class ResourceSchedulerHttpTest < ActiveSupport::TestCase
     )
 
     params = {"url" => "http://url.com/"}
-    resource = ResourceSchedulerHttp.create!(scheduler: sched, params: params)
+    resource = ResourceSchedulerHttp.create!(reference_id: sched.id, params: params)
 
     assert resource
     assert sched.resources.count == 1
@@ -25,7 +25,7 @@ class ResourceSchedulerHttpTest < ActiveSupport::TestCase
     )
 
     params = {}
-    resource = ResourceSchedulerHttp.create(scheduler: sched, params: params)
+    resource = ResourceSchedulerHttp.create(reference_id: sched.id, params: params)
 
     assert_equal resource.valid?, false
   end

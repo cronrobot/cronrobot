@@ -18,7 +18,7 @@
   <div class="form-group">
     <%= form.label "params[command]", "Remote command" %>
 
-    <%= form.text_field "params[command]", class: "form-control" %>
+    <%= form.text_field "params[command]", class: "form-control", value: @scheduler.params["command"] %>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>

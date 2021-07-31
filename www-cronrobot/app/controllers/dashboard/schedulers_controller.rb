@@ -35,6 +35,7 @@ class Dashboard::SchedulersController < DashboardController
 
     if scheduler_id.present?
       @scheduler = Scheduler.find(scheduler_id)
+      @scheduler.params = @scheduler.stored_params
       scheduler_accessible_to!(@scheduler)
     end
   end
