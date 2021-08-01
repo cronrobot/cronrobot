@@ -42,7 +42,7 @@ def ssh_cmd(
 
     ssh_close_potential_inactive_connection(connection_id)
 
-    return {"exit_code": exit_code, "output": output}
+    return {"exit_code": exit_code, "output": output.decode('utf-8')}
 
 
 def ssh_conn_active(ssh_client):
