@@ -8,8 +8,6 @@ class Dashboard::SchedulerSocketPingsController < Dashboard::SchedulersControlle
   end
 
   def show
-    @scheduler = Scheduler.find_by id: params["id"]
-
     @notification_channels = @current_user.notification_channels
 
     render template: "dashboard/schedulers/SchedulerSocketPing"
