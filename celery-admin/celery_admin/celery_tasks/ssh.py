@@ -21,6 +21,7 @@ def ssh_cmd(
     if not connection or not ssh_conn_active(connection["client"]):
         ssh_client = paramiko.SSHClient()
         connections[connection_id] = {"touched_at": time.time(), "client": ssh_client}
+        connection = connections[connection_id]
         ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         ssh_client.connect(
