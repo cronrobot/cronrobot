@@ -4,6 +4,7 @@ import time
 from celery.utils.log import get_task_logger
 
 logger = get_task_logger(__name__)
+LIMIT_OUTPUT = 1000000000
 
 connections = {}
 
@@ -36,13 +37,14 @@ def ssh_cmd(
     ssh_wait_until_ready(channel, timeout)
 
     exit_code = channel.recv_exit_status()
-    output = channel.recv(1000000000)
+    stdout = channel.recv(LIMIT_OUTPUT).decode("utf-8")
+    stderr = channel.recv_stderr(LIMIT_OUTPUT).decode("utf-8")
     channel.close()
     connection["touched_at"] = time.time()
 
     ssh_close_potential_inactive_connection(connection_id)
 
-    return {"exit_code": exit_code, "output": output.decode('utf-8')}
+    return {"exit_code": exit_code, "stdout": stdout, "stderr": stderr}
 
 
 def ssh_conn_active(ssh_client):
@@ -112,12 +114,17 @@ def task(**kwargs):
         )
 
         exit_code = result.get("exit_code")
-        output = result.get("output")
 
         if exit_code == expected_exit_code:
             return {"exit_code": exit_code}
         else:
-            raise Exception({"exit_code": exit_code, "output": output})
+            raise Exception(
+                {
+                    "exit_code": exit_code,
+                    "stdout": result.get("stdout"),
+                    "stderr": result.get("stderr"),
+                }
+            )
     except Exception as e:
 
         raise e
