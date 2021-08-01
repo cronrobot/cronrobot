@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <%= form.label "params[url]", "URL" %>
-    <%= form.url_field "params[url]", class: "form-control", value: @scheduler.params["url"] %>
+    <%= form.url_field "params[url]", class: "form-control", value: @scheduler.params&.dig("url") %>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
