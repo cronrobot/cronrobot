@@ -112,11 +112,12 @@ def task(**kwargs):
         )
 
         exit_code = result.get("exit_code")
+        output = result.get("output")
 
         if exit_code == expected_exit_code:
             return {"exit_code": exit_code}
         else:
-            raise Exception({"exit_code": exit_code})
+            raise Exception({"exit_code": exit_code, "output": output})
     except Exception as e:
 
         raise e
