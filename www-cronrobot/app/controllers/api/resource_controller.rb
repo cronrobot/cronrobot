@@ -1,6 +1,8 @@
 
 class Api::ResourceController < ApiController
 
+  before_action :disable_json_escaping
+
   def retrieve
     # should be USER based if users are authorized to request that in the future    
     
@@ -19,5 +21,7 @@ class Api::ResourceController < ApiController
 
     render :json => variables
   end
+
+  protected
 
 end
