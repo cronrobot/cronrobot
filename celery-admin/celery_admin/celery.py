@@ -2,6 +2,7 @@ import os
 import json
 import time
 import copy
+import traceback
 
 import requests
 from functools import wraps
@@ -99,6 +100,7 @@ def handle_task(func):
             return record_task_result(LOG_LEVEL_INFO, orig_body, result, t_begin=t_begin)
 
         except Exception as e:
+            logger.error(f"Celery exception, e={e}, exception={traceback.format_exc()}")
             return record_task_result(
                 LOG_LEVEL_ERROR,
                 orig_body,
