@@ -16,25 +16,28 @@
             <h3>CronRobot</h3>
         </div>
 
-        <ul class="nav flex-column">
+        <ul class="nav flex-column" id="dashboard-sidebar-links">
           <li class="nav-item">
+            <a href="/dashboard/schedulers"></a>
             <a class="nav-link active" href="/dashboard/schedulers">
+              <i class="fas fa-2x fa-calendar" aria-hidden="true"></i>
+              <br />
               Schedulers
             </a>
           </li>
           <li class="nav-item">
-            <i class="fas fa-fw fa-user fa-2x"></i>
             <a class="nav-link" href="/dashboard/resources">
+              <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+              <br />
               Resource Configs
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/notification_channels">
+              <i class="fa fa-bell fa-2x" aria-hidden="true"></i>
+              <br />
               Notification Channels
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
           </li>
         </ul>
       </nav>

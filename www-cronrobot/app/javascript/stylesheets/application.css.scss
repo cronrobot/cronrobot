@@ -20,6 +20,11 @@ $dashboard-sidebar-width: 10rem;
     height: 100vh;
     z-index: 999;
     transition: all 0.3s;
+
+}
+
+#dashboard-sidebar-links {
+    text-align: center;
 }
 
 #dashboard-content {
