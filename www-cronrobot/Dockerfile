@@ -24,8 +24,8 @@ COPY . .
 # compile assets
 RUN apk add --no-cache npm
 RUN npm install -g yarn
-RUN yarn install --check-files
-RUN bin/rails assets:precompile
+RUN yarn
+RUN RAILS_ENV=production bin/rails assets:precompile
 
 RUN echo 'echo db:migrate' >> /boot.sh
 RUN echo 'bin/rails db:migrate' >> /boot.sh
