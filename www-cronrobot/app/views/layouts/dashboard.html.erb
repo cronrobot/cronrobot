@@ -10,21 +10,53 @@
   </head>
 
   <body>
-    <div class="pull-right"><%= button_to 'Logout', '/auth/logout', method: :get %></div>
-    <div>Project: <%= @project.name %> (<%= @project.id %>)</div>
+    <div class="dashboard-wrapper">
+      <nav id="dashboard-sidebar">
+        <div class="sidebar-header">
+            <h3>CronRobot</h3>
+        </div>
 
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>">
-        <% values = value.class == Array ? value : [value] %>
-        <ul>
-          <% values.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="/dashboard/schedulers">
+              Schedulers
+            </a>
+          </li>
+          <li class="nav-item">
+            <i class="fas fa-fw fa-user fa-2x"></i>
+            <a class="nav-link" href="/dashboard/resources">
+              Resource Configs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/notification_channels">
+              Notification Channels
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
         </ul>
-        
-      </div>
-    <% end %>
+      </nav>
 
-    <%= yield %>
+      <div id="dashboard-content" class="">
+        <div class="pull-right"><%= button_to 'Logout', '/auth/logout', method: :get %></div>
+        <div>Project: <%= @project.name %> (<%= @project.id %>)</div>
+
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <% values = value.class == Array ? value : [value] %>
+            <ul>
+              <% values.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+            
+          </div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
