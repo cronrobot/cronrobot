@@ -10,7 +10,11 @@ require("channels")
 
 // bootstrap
 import "bootstrap"
-import "../stylesheets/application"
+
+// https://dev.to/yarotheslav/how-to-install-fontawesome-with-yarn-and-webpacker-in-rails-6-2k62
+import "@fortawesome/fontawesome-free/css/all"
+
+import "../stylesheets/application.css"
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
