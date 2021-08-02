@@ -1,10 +1,5 @@
 
 
-$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-
-
-
 $dashboard-sidebar-width: 10rem;
 
 .dashboard-wrapper {
@@ -31,4 +26,7 @@ $dashboard-sidebar-width: 10rem;
 #dashboard-content {
     margin-left: $dashboard-sidebar-width;
 }
+
+$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
