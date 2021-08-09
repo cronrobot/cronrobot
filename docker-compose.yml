@@ -71,9 +71,9 @@ services:
       - .grafana.env
     #ports:
     #  - "3000:3000"
-  renderer:
-    image: grafana/grafana-image-renderer:latest
-    network_mode: "host"
+  #renderer:
+  #  image: grafana/grafana-image-renderer:latest
+  #  network_mode: "host"
 
   #flower:  
   #  image: mher/flower
