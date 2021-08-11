@@ -166,7 +166,7 @@
             "displayMode": "list",
             "placement": "bottom"
           },
-          "mergeValues": true,
+          "mergeValues": false,
           "rowHeight": 0.9,
           "showValue": "auto",
           "tooltip": {
