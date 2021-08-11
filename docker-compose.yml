@@ -42,7 +42,7 @@ services:
   loki: # https://github.com/grafana/loki/releases
     network_mode: "host"
     restart: always
-    image: grafana/loki:2.2.1
+    image: grafana/loki:2.3.0
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /secrets/sa-gcs.json
     volumes:
@@ -55,7 +55,7 @@ services:
   promtail: # https://github.com/grafana/loki/releases
     network_mode: "host"
     restart: always
-    image: grafana/promtail:2.2.1
+    image: grafana/promtail:2.3.0
     volumes:
       - ./grafana/promtail/etc:/etc/promtail
       - ./scheduler-logs:/logs
@@ -64,7 +64,7 @@ services:
   grafana: # https://github.com/grafana/grafana
     network_mode: "host"
     restart: always
-    image: grafana/grafana:8.0.5
+    image: grafana/grafana:8.1.1
     volumes:
       - ./grafana/grafana/etc:/etc/grafana
     env_file:
