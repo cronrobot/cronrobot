@@ -11,7 +11,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 // bootstrap
-import "bootstrap"
+//import "bootstrap"
 
 // https://dev.to/yarotheslav/how-to-install-fontawesome-with-yarn-and-webpacker-in-rails-6-2k62
 // import "@fortawesome/fontawesome-free/css/all"
