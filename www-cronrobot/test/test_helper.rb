@@ -107,6 +107,37 @@ class ActiveSupport::TestCase
     to_return(status: status_code, body: opts[:response], headers: {})
   end
 
+  def mock_grafana_dashboard_alerts(scheduler, status_code = 200, opts = {})
+    stub_request(:get,
+      "http://grafana.cronrobot.io/api/alerts?dashboardId=#{scheduler.grafana_dashboard_id}").
+    with(
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: status_code, body: opts[:response], headers: {})
+  end
+
+  def mock_grafana_dashboard_alert_pause(alert_id, status_code = 200, opts = {})
+    should_pause = opts[:should_pause]
+
+    stub_request(:post,
+      "http://grafana.cronrobot.io/api/alerts/#{alert_id}/pause").
+    with(
+      body: "{\"pause\":#{should_pause}}",
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Basic YWRtaW46U2lzaWJvaXJlMQ==',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: 200, body: opts[:response], headers: {})
+  end
+
   def mock_update_grafana_dashboard_permissions(scheduler, status_code = 200, opts = {})
     dashboard_id = opts[:dashboard_id]
 

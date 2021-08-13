@@ -117,4 +117,28 @@ class SchedulerTest < ActiveSupport::TestCase
     assert resource_scheduler.params["username"] == "user"
     assert resource_scheduler.params["private_key"] == "private_key"
   end
+
+  test "pause - happy path" do
+    s = Scheduler.last
+    s.updated_by_user_id = User.last.id
+    s.grafana_dashboard_id = "9"
+    s.save!
+
+    mock_grafana_dashboard_alerts(s, 200, response: '[{"id": 55}]')
+    mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: true)
+
+    s.pause
+  end
+
+  test "unpause - happy path" do
+    s = Scheduler.last
+    s.updated_by_user_id = User.last.id
+    s.grafana_dashboard_id = "9"
+    s.save!
+
+    mock_grafana_dashboard_alerts(s, 200, response: '[{"id": 56}]')
+    mock_grafana_dashboard_alert_pause(56, 200, response: '{}', should_pause: false)
+
+    s.unpause
+  end
 end
