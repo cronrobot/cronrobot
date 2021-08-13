@@ -127,7 +127,7 @@ class ActiveSupport::TestCase
     stub_request(:post,
       "http://grafana.cronrobot.io/api/alerts/#{alert_id}/pause").
     with(
-      body: "{\"pause\":#{should_pause}}",
+      body: "{\"paused\":#{should_pause}}",
       headers: {
       'Accept'=>'application/json',
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

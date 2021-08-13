@@ -75,7 +75,7 @@ class Grafana
 
   def self.pause_alert(alert_id, should_pause)
     body = {
-      "pause" => should_pause
+      "paused" => should_pause
     }
 
     Grafana.post("/alerts/#{alert_id}/pause", body.to_json, Grafana.headers)
