@@ -73,6 +73,14 @@ class Grafana
     result_get.code == 200 ? JSON.parse(result_get.body) : nil
   end
 
+  def self.pause_alert(alert_id, should_pause)
+    body = {
+      "pause" => should_pause
+    }
+
+    Grafana.post("/alerts/#{alert_id}/pause", body.to_json, Grafana.headers)
+  end
+
   ### Dashboard
 
   def self.dashboard_url(model)
