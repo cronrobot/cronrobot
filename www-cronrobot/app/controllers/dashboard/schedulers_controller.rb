@@ -28,7 +28,7 @@ class Dashboard::SchedulersController < DashboardController
     scheduler = access_param_scheduler(params["id"])
     scheduler.unpause
 
-    flash[:success] = "Scheduler successfully paused!"
+    flash[:success] = "Scheduler successfully resumed!"
     redirect_back fallback_location: root_path
   end
 
