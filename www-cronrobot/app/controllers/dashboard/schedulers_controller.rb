@@ -16,8 +16,24 @@ class Dashboard::SchedulersController < DashboardController
     render template: "dashboard/schedulers/#{@scheduler_klass}"
   end
 
+  def pause
+    scheduler = access_param_scheduler(params["id"])
+    scheduler.pause
+
+    flash[:success] = "Scheduler successfully paused!"
+    redirect_back fallback_location: root_path
+  end
+
+  def unpause
+    scheduler = access_param_scheduler(params["id"])
+    scheduler.unpause
+
+    flash[:success] = "Scheduler successfully paused!"
+    redirect_back fallback_location: root_path
+  end
+
   def delete
-    scheduler = @current_user.schedulers.where(id: params["id"]).first
+    scheduler = access_param_scheduler(params["id"])
     scheduler.destroy!
 
     flash[:success] = "Scheduler removed successfully!"
@@ -29,6 +45,10 @@ class Dashboard::SchedulersController < DashboardController
   end
 
   protected
+
+  def access_param_scheduler(id)
+    @current_user.schedulers.where(id: id).first
+  end
 
   def authorize_scheduler_access
     scheduler_id = params["id"]

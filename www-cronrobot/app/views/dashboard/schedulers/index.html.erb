@@ -42,8 +42,19 @@ scheds!
                         <li>
                             <%= link_to "Access Dashboard (Grafana)", Grafana.dashboard_url(scheduler) %>
                         </li>
-                        <li><%= link_to 'Destroy', "/dashboard/schedulers/#{scheduler.id}",
-                            data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
+                        <li>
+                            <% if @alerts_statuses[scheduler.id]&.dig("state") != "paused" %>
+                                <%= link_to 'Pause', "/dashboard/schedulers/#{scheduler.id}/pause",
+                                data: {:confirm => 'Are you sure?'}, :method => :post %>
+                            <% else %>
+                                <%= link_to 'Resume', "/dashboard/schedulers/#{scheduler.id}/unpause",
+                                data: {:confirm => 'Are you sure?'}, :method => :post %>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to 'Destroy', "/dashboard/schedulers/#{scheduler.id}",
+                            data: {:confirm => 'Are you sure?'}, :method => :delete %>
+                        </li>
                     </ul>
                 </td>
             </tr>
