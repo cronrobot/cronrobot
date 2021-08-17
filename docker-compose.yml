@@ -9,6 +9,7 @@ services:
     #ports:
     #  - 3030:3030
     environment:
+      ENVIRONMENT: production
       RAILS_LOG_TO_STDOUT: "true"
       RAILS_SERVE_STATIC_FILES: "true"
     env_file:

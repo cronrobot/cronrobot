@@ -1,0 +1,16 @@
+version: "3"
+services:
+  www-api:
+    network_mode: "host"
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #ports:
+    #  - 3030:3030
+    environment:
+      ENVIRONMENT: development
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_SERVE_STATIC_FILES: "true"
+    env_file:
+      - ./.env
