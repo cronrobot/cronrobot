@@ -1,6 +1,5 @@
 # README
 
-
 ## Running in dev
 
 Make sure to have a .env file, if it is missing:
