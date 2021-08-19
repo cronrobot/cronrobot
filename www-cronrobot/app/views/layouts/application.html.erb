@@ -1,20 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>CronRobot</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>CronRobot</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  <body>
-    <% if @current_user %>
-      <%= button_to 'Logout', '/auth/logout', method: :get %>
-    <% else %>
-      <%= button_to 'Login', '/auth/auth0', method: :post %>
-    <% end %>
-    <%= yield %>
-  </body>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <section id="home">
+
+    <!-- The Navbar of the website, will contain the logo, and the links -->
+    <nav>
+      <a href="#home">
+        <img id="logo" alt="Logo" src="images/Big Logo.svg">
+      </a>
+      <div id="center-nav">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="/docs">Docs</a>
+      </div>
+      <a href="/dashboard" class="center" id="dashboard">
+        <img src="images/icons/dashboard.svg">
+        <p class="text-medium">Dashboard</p>
+      </a>
+      <!-- Add hidden menu icon here -->
+    </nav>
+
+    <!-- Responsive Menu Bar -->
+    <!-- Add menu bar here -->
+
+    <h1 id="heading">
+      The world's leading uptime monitoring service<blue>.</blue>
+    </h1>
+
+    <p id="tagline">
+      Downtime happens even to the best of us. But it’s important to know it before customers are affected!
+    </p>
+
+    <a id="btn-start">
+      <p>GET STARTED NOW</p>
+      <img src="images/icons/arrow-right.svg">
+    </a>
+
+  </section>
+
+  <section id="features">
+    <h1 id="feature-tag">Features</h1>
+  </section>
+  # <% if @current_user %>
+  # <%= button_to 'Logout', '/auth/logout', method: :get %>
+  # <% else %>
+  # <%= button_to 'Login', '/auth/auth0', method: :post %>
+  # <% end %>
+  # <%= yield %>
+</body>
+
 </html>
