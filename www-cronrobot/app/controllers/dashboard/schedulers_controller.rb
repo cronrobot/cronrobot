@@ -18,7 +18,7 @@ class Dashboard::SchedulersController < DashboardController
 
   def pause
     scheduler = access_param_scheduler(params["id"])
-    scheduler.pause
+    scheduler.pause!(true, "manual")
 
     flash[:success] = "Scheduler successfully paused!"
     redirect_back fallback_location: root_path
@@ -26,7 +26,7 @@ class Dashboard::SchedulersController < DashboardController
 
   def unpause
     scheduler = access_param_scheduler(params["id"])
-    scheduler.unpause
+    scheduler.unpause!
 
     flash[:success] = "Scheduler successfully resumed!"
     redirect_back fallback_location: root_path
@@ -47,7 +47,9 @@ class Dashboard::SchedulersController < DashboardController
   protected
 
   def access_param_scheduler(id)
-    @current_user.schedulers.where(id: id).first
+    scheduler = @current_user.schedulers.where(id: id).first
+    scheduler.updated_by_user_id = @current_user.id
+    scheduler
   end
 
   def authorize_scheduler_access
