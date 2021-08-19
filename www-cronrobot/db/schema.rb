@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_18_011542) do
+ActiveRecord::Schema.define(version: 2021_08_19_010212) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string "client_id"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_07_18_011542) do
     t.string "grafana_dashboard_id"
     t.text "notification_channels"
     t.integer "updated_by_user_id"
+    t.string "pause_state"
     t.index ["project_id"], name: "index_schedulers_on_project_id"
     t.index ["updated_by_user_id"], name: "index_schedulers_on_updated_by_user_id"
   end

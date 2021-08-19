@@ -136,16 +136,21 @@ class Scheduler < ApplicationRecord
     end
   end
 
-  def pause(should_pause = true)
+  def pause!(should_pause = true, pause_state="")
     alert_id = Grafana.dashboards_alerts([self.grafana_dashboard_id]).first&.dig("id")
 
     return unless alert_id
 
-    Grafana.pause_alert(alert_id, should_pause)
+    result = Grafana.pause_alert(alert_id, should_pause)
+
+    self.pause_state = pause_state
+    save!
+
+    result
   end
 
-  def unpause()
-    pause(false)
+  def unpause!(pause_state="")
+    pause!(false, pause_state)
   end
 
 end

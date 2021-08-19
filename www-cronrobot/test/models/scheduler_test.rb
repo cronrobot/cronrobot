@@ -127,7 +127,48 @@ class SchedulerTest < ActiveSupport::TestCase
     mock_grafana_dashboard_alerts(s, 200, response: '[{"id": 55}]')
     mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: true)
 
-    s.pause
+    s.pause!
+  end
+
+  test "pause - with pause state" do
+    s = Scheduler.last
+    s.updated_by_user_id = User.last.id
+    s.grafana_dashboard_id = "9"
+    s.save!
+
+    mock_grafana_dashboard_alerts(s, 200, response: '[{"id": 55}]')
+    mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: true)
+
+    s.pause!(true, "manual")
+
+    s.reload
+
+    assert s.pause_state == "manual"
+  end
+
+  test "pause - with pause, unpause should reset pause_state" do
+    s = Scheduler.last
+    s.updated_by_user_id = User.last.id
+    s.grafana_dashboard_id = "9"
+    s.save!
+
+    mock_grafana_dashboard_alerts(s, 200, response: '[{"id": 55}]')
+    mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: true)
+    mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: false)
+
+    s.pause!(true, "manual")
+
+    s.reload
+
+    assert s.pause_state == "manual"
+
+    # then unpause should remove the pause state
+
+    s.unpause!
+
+    s.reload
+
+    assert s.pause_state == ""
   end
 
   test "unpause - happy path" do
@@ -139,6 +180,6 @@ class SchedulerTest < ActiveSupport::TestCase
     mock_grafana_dashboard_alerts(s, 200, response: '[{"id": 56}]')
     mock_grafana_dashboard_alert_pause(56, 200, response: '{}', should_pause: false)
 
-    s.unpause
+    s.unpause!
   end
 end
