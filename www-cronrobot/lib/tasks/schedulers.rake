@@ -25,7 +25,10 @@ namespace :schedulers do
       Scheduler.all.each do |scheduler|
         begin
           Rails.logger.info "[#{name}] pausing scheduler #{scheduler.id}..."
-          scheduler.unpause!
+          
+          if scheduler.pause_state != "manual"
+            scheduler.unpause!
+          end
         rescue StandardError => e
           Rails.logger.error "[#{name}] failed to pause scheduler #{scheduler.id} error = #{e}"
         end
