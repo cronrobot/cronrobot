@@ -9,7 +9,6 @@ class Scheduler < ApplicationRecord
   serialize :notification_channels, JSON
 
   validates :name, presence: true
-  validates :updated_by_user_id, presence: true
   validate :verify_params_resource_access
 
   before_destroy :process_destroy
