@@ -25,5 +25,7 @@ urlpatterns = [
     path("api/periodic-tasks/latest", periodic_tasks.latest),
     path("api/periodic-tasks/find", periodic_tasks.find),
     path("api/periodic-tasks/<id>/", periodic_tasks.manage),
+    path("api/periodic-tasks/<id>/enable", periodic_tasks.enable),
+    path("api/periodic-tasks/<id>/disable", periodic_tasks.disable),
     path("api/periodic-tasks/", periodic_tasks.create),
 ]

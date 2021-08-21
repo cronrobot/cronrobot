@@ -32,3 +32,21 @@ result_find=$(curl $API_BASE_URL/periodic-tasks/find\?name=taskname)
 echo $result_find | grep '"task":"hello2"'
 echo $result_find | grep '333'
 echo $result_find | grep '444'
+
+# POST /periodic-tasks/id/disable
+
+task_id=$(echo $result_find | jq .id)
+
+curl -X POST -H "Content-Type: application/json" \
+    -d "{}" \
+    $API_BASE_URL/periodic-tasks/$task_id/disable
+
+curl $API_BASE_URL/periodic-tasks/find\?name=taskname | grep '"enabled":false'
+
+# POST /periodic-tasks/id/enable
+
+curl -X POST -H "Content-Type: application/json" \
+    -d "{}" \
+    $API_BASE_URL/periodic-tasks/$task_id/enable
+
+curl $API_BASE_URL/periodic-tasks/find\?name=taskname | grep '"enabled":true'
