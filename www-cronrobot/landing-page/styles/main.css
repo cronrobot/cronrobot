@@ -159,6 +159,7 @@ blue {
 }
 
 .sub-heading {
+    text-align: center;
     font-weight: bold;
     font-size: calc(18px + 1vw);
     color: rgba(255, 255, 255, 1);
@@ -242,20 +243,20 @@ blue {
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background: rgba(90, 110, 248, 0.2);
 }
 #pricing-heading {
     margin-top: calc(20px + 1vw);
 }
-#pricing-tagline { 
+.sub-tagline { 
     font-weight: 500;
     font-size: calc(10px + 0.5vw);
     color: rgba(187, 196, 255, 0.5);
     text-align: center;
 }
 #pricing-grid {
-    margin-top: calc(3% + 0.5vw);
+    margin-top: calc(1.5% + 3vw);
     margin-bottom: calc(5% + 0.5vw);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -266,7 +267,7 @@ blue {
 }
 .pricing-tag {
     text-align: center;
-    margin-top: 20%;
+    margin-top: calc(15px + 1vw);
     font-weight: bold;
     font-size: calc(12px + 0.6vw);
     color: white;
@@ -306,10 +307,36 @@ blue {
     line-height: 29px;
     text-align: center;
     color: rgba(187, 196, 255, 0.5);
+    margin-bottom: 20%;
+}
+.price-details {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: bold;
+    font-size: calc(10px + 0.4vw);
+}
+.divider { 
+    background: rgba(187, 196, 255, 0.25);
+    height: 1px;
+    width: 80%;
 }
 #center-btn { 
     background: #03DDA6;
     box-shadow: -4px 8px 16px rgba(20, 204, 158, 0.5);
+}
+#beta-green-tag { 
+    color: #03DDA6;
+}
+
+
+/* FAQ Section Styling */
+#faq { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#faq-heading { 
+    margin-top: calc(20px + 2vw);
+    max-width: 80%;
 }
 
 
@@ -335,8 +362,15 @@ blue {
 @media only screen and (max-width: 1480px) {
     #pricing-grid {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
         grid-row-gap: 5%;
-        height: calc(700px + 100vh);
+        height: calc(350px + 20vw);
+        width: calc(200px + 10vw);
+    }
+    #free, #pro {
+        display: none;
+    }
+    #pricing { 
+        min-height: 70vh;
     }
 }

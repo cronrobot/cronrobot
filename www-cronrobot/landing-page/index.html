@@ -11,7 +11,7 @@
 <body>
 
   <section id="home">
-    
+
     <!-- The Navbar of the website, will contain the logo, and the links -->
     <nav>
       <a href="#home">
@@ -98,10 +98,10 @@
 
   <section id="pricing">
     <h1 class="sub-heading" id="pricing-heading">Choose your pricing</h1>
-    <p id="pricing-tagline">Simple pricing — 7 days free trial. Cancel Anytime</p>
+    <p class="sub-tagline">Simple pricing — 7 days free trial. Cancel Anytime</p>
     <div id="pricing-grid">
-      
-      <div class="pricing-card">
+
+      <div class="pricing-card" id="free">
         <div class="pricing-card-content">
           <p class="pricing-tag">PERSONAL</p>
           <p class="price">FREE</p>
@@ -114,19 +114,19 @@
         </button>
       </div>
 
-      <div class="pricing-card">
+      <div class="pricing-card" id="beta">
         <div class="pricing-card-content">
           <p class="pricing-tag">BETA</p>
-          <p class="price">FREE</p>
+          <p class="price" id="beta-green-tag">FREE</p>
           <p class="per-month">per month</p>
           <p class="price-info">(special plan for beta users)</p>
 
-          <p class="price-details"></p>
+          <p class="price-details">Advanced Cron Schedulers</p>
           <div class="divider"></div>
-          <p class="price-details"></p>
+          <p class="price-details">Monitor Connectivity</p>
           <div class="divider"></div>
-          <p class="price-details"></p>
-          
+          <p class="price-details">Cron-Based Tasks</p>
+
         </div>
         <button class="btn-start" id="center-btn">
           <p>START FOR FREE</p>
@@ -134,7 +134,7 @@
         </button>
       </div>
 
-      <div class="pricing-card">
+      <div class="pricing-card" id="pro">
         <div class="pricing-card-content">
           <p class="pricing-tag">PRO</p>
           <p class="price">$20</p>
@@ -151,12 +151,24 @@
     </div>
   </section>
 
+  <section id="faq">
+    <h1 class="sub-heading" id="faq-heading">Frequently Asked Questions</h1>
+    <p class="sub-tagline">Answer to the most asked questions</p>
+
+    <div>
+      
+    </div>
+  </section>
+
   <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
-  <script>addBackToTop({
-    diameter: 56,
-    backgroundColor: 'rgb(90, 110, 248)',
-    textColor: '#00130E'
-  })</script> 
+  <script>
+    addBackToTop({
+      diameter: 56,
+      backgroundColor: 'rgb(90, 110, 248)',
+      textColor: '#00130E'
+    })
+  </script>
 
 </body>
+
 </html>
