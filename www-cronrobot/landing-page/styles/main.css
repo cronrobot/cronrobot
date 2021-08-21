@@ -338,7 +338,12 @@ blue {
     margin-top: calc(20px + 2vw);
     max-width: 80%;
 }
-
+#faq-grid {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10%;
+}
 
 /* Media Queries, do not touch */
 @media only screen and (max-width: 900px) {
