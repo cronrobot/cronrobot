@@ -13,6 +13,10 @@ body {
     margin-bottom: 100vh;
 }
 
+a {
+    text-decoration: none;
+}
+
 a:active {
     color: inherit;
 }
@@ -171,7 +175,7 @@ blue {
     display: flex;
     align-items: center;
     flex-direction: column;
-    min-height: 90vh;
+    min-height: 100vh;
 }
 
 
@@ -182,7 +186,7 @@ blue {
     /* min-height: 500px; */
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10%;
-    grid-row-gap: 50%;
+    grid-row-gap: calc(40px + 2vw);
     grid-template-rows: 1fr 1fr;
     /* justify-items: center; */
 }
@@ -344,7 +348,8 @@ blue {
     display: grid;
     width: 80%;
     grid-template-columns: 1fr 1fr;
-    grid-row-gap: 20%;
+    grid-row-gap: 50;
+    margin-bottom: 100px;
     grid-column-gap: 10%;
     height: 80%;
 }
@@ -366,7 +371,8 @@ blue {
     height: 35vh;
 }
 #discord-tagline { 
-    margin-top: 2.5%;
+    margin-top: calc(40px + 2vw);
+    font-size: calc(12px + 0.3vw);
 }
 
 /* Media Queries, do not touch */
@@ -381,20 +387,17 @@ blue {
         width: 95%;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
-        grid-row-gap: 20%;
     }
     .feature-details {
         width: 70%;
     }
     #faq-grid { 
         grid-template-columns: 100%;
-        grid-row-gap: 10%;
-    }
-    #contact {
-        margin-top: 25%;
+        grid-row-gap: 10px;
     }
 }
 
+/* Edit this only when the paid plans are dropped */
 @media only screen and (max-width: 1480px) {
     #pricing-grid {
         grid-template-columns: 1fr;
