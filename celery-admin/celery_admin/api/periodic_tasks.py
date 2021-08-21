@@ -88,6 +88,7 @@ def manage(request, id):
 
     return Response({})
 
+
 @api_view(["POST"])
 def enable(request, id):
     task = PeriodicTask.objects.filter(id=id).first()
@@ -96,6 +97,7 @@ def enable(request, id):
     task.save()
 
     return Response({})
+
 
 @api_view(["POST"])
 def disable(request, id):
