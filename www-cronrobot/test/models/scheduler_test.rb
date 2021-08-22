@@ -155,6 +155,9 @@ class SchedulerTest < ActiveSupport::TestCase
     mock_grafana_dashboard_alerts(s, 200, response: '[{"id": 55}]')
     mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: true)
     mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: false)
+    mock_find_celery_periodic_task(s.id, 200, '{"id": 115}')
+    mock_disable_celery_periodic_task(115)
+    mock_enable_celery_periodic_task(115)
 
     s.pause!(true, "manual")
 

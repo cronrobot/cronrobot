@@ -136,16 +136,33 @@ class Scheduler < ApplicationRecord
   end
 
   def pause!(should_pause = true, pause_state="")
+    # Grafana alert:
     alert_id = Grafana.dashboards_alerts([self.grafana_dashboard_id]).first&.dig("id")
 
     return unless alert_id
 
     result = Grafana.pause_alert(alert_id, should_pause)
 
+    enable_periodic_task(!should_pause)
+
     self.pause_state = pause_state
     save!
 
     result
+  end
+
+  def enable_periodic_task(should_enable = true)
+    # celery periodic task
+    periodic_task = Celery.get_json(
+      "/periodic-tasks/find?name=#{Celery.periodic_task_name(id)}"
+    )
+
+    periodic_task_id = periodic_task&.dig("id")
+
+    enable_route = should_enable ? "enable" : "disable"
+
+    # enable or disable
+    Celery.post("/periodic-tasks/#{periodic_task_id}/#{enable_route}", '{}')
   end
 
   def unpause!(pause_state="")

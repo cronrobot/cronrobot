@@ -11,7 +11,14 @@ class Celery
   end
 
   def self.get(path)
+    Rails.logger.info("Celery GET #{path}")
     HTTParty.get(Celery.api_url(path))
+  end
+
+  def self.get_json(path)
+    result = Celery.get(path)
+
+    JSON.parse(result.body)
   end
 
   def self.post(path, body)

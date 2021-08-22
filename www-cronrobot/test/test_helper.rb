@@ -11,7 +11,7 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  def mock_find_celery_periodic_task(id, status_code = 200)
+  def mock_find_celery_periodic_task(id, status_code = 200, response_body="")
     stub_request(:get,
       "http://localhost:8000/api/periodic-tasks/find?name=scheduler-#{id}").
     with(
@@ -20,7 +20,31 @@ class ActiveSupport::TestCase
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
       'User-Agent'=>'Ruby'
       }).
-    to_return(status: status_code, body: "", headers: {})
+    to_return(status: status_code, body: response_body, headers: {})
+  end
+
+  def mock_disable_celery_periodic_task(id, status_code = 200, response_body="")
+    stub_request(:post, "http://localhost:8000/api/periodic-tasks/#{id}/disable").
+    with(
+      body: "{}",
+      headers: {
+      'Accept'=>'*/*',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: 200, body: response_body, headers: {})
+  end
+
+  def mock_enable_celery_periodic_task(id, status_code = 200, response_body="")
+    stub_request(:post, "http://localhost:8000/api/periodic-tasks/#{id}/enable").
+    with(
+      body: "{}",
+      headers: {
+      'Accept'=>'*/*',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'User-Agent'=>'Ruby'
+      }).
+    to_return(status: 200, body: response_body, headers: {})
   end
 
   def mock_delete_celery_periodic_task(id, status_code = 200)
