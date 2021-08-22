@@ -414,6 +414,70 @@ blue {
     margin-top: calc(30px + 1vw);
 }
 
+/* Sidebar stuff */
+
+ /* The sidebar menu */
+ .sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: inherit; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.2s linear; /* 0.5 second transition effect to slide in the sidebar */
+  }
+  
+  /* The sidebar links */
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: calc(18px + 0.4vw);
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  /* The button used to open the sidebar */
+  .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    display: none;
+    background: transparent;
+    border-radius: calc(4px + 0.2vw);
+  }
+  
+  .openbtn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+
+
+
 /* Media Queries, do not touch */
 @media only screen and (max-width: 900px) {
     #center-nav {
@@ -438,6 +502,13 @@ blue {
         grid-template-columns: 1fr;
         justify-items: flex-start;
     }
+    .openbtn {
+        display: block;
+    }
+}
+
+#sidebar-links {
+    margin-top: calc(30px + 1vw);
 }
 
 /* Edit this only when the paid plans are dropped */

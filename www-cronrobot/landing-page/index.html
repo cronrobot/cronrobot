@@ -10,6 +10,18 @@
 
 <body>
 
+  <!-- The responsive sidebar of the website, will only appear in mobile devices -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="sidebar-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://discord.gg/ZxYq7SK5Xb" rel="noopener noferrer" target="_blank">Contact</a>
+    </div>
+  </div>
+
   <section id="home">
 
     <!-- The Navbar of the website, will contain the logo, and the links -->
@@ -21,17 +33,14 @@
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="/docs">Docs</a>
+        <a href="https://docs.cronrobot.io">Docs</a>
       </div>
       <a href="/dashboard" class="center" id="dashboard">
         <img src="images/icons/dashboard.svg">
         <p class="text-medium">Dashboard</p>
       </a>
-      <!-- Add hidden menu icon here -->
+      <button class="openbtn" onclick="openNav()">☰</button>
     </nav>
-
-    <!-- Responsive Menu Bar -->
-    <!-- Add menu bar here -->
 
     <h1 id="heading">
       The world's leading uptime monitoring service<blue>.</blue>
@@ -128,10 +137,12 @@
           <p class="price-details">Cron-Based Tasks</p>
 
         </div>
-        <button class="btn-start" id="center-btn">
-          <p>START FOR FREE</p>
-          <img src="images/icons/arrow-right.svg">
-        </button>
+        <a>
+          <button class="btn-start" id="center-btn">
+            <p>START FOR FREE</p>
+            <img src="images/icons/arrow-right.svg">
+          </button>
+        </a>
       </div>
 
       <div class="pricing-card" id="pro">
@@ -174,7 +185,8 @@
 
       <div class="faq-child">
         <p class="question">My credit card isn’t working</p>
-        <p class="answer">Please, contact your bank first to see if there are any issues with the payment and let us know.</p>
+        <p class="answer">Please, contact your bank first to see if there are any issues with the payment and let us
+          know.</p>
       </div>
 
     </div>
@@ -183,7 +195,8 @@
 
   <section id="discord">
     <p id="discord-tagline" class="sub-tagline">Still have questions? Join our Discord to get more info</p>
-    <a href="https://discord.gg/ZxYq7SK5Xb" rel="noopener noreferrer" target="_blank"><button class="btn-start">JOIN SERVER</button></a>
+    <a href="https://discord.gg/ZxYq7SK5Xb" rel="noopener noreferrer" target="_blank"><button class="btn-start">JOIN
+        SERVER</button></a>
   </section>
 
   <section id="footer">
@@ -209,8 +222,10 @@
       <div class="footer-grid-child">
         <p class="footer-grid-title">SOCIAL</p>
         <a href="#home" rel="noopener noferrer" target="_blank" class="footer-grid-content footer-hover">Twitter</a>
-        <a href="https://github.com/cronrobot/" rel="noopener noferrer" target="_blank" class="footer-grid-content footer-hover">GitHub</a>
-        <a href="https://discord.gg/ZxYq7SK5Xb" rel="noopener noferrer" target="_blank" class="footer-grid-content footer-hover">Discord</a>
+        <a href="https://github.com/cronrobot/" rel="noopener noferrer" target="_blank"
+          class="footer-grid-content footer-hover">GitHub</a>
+        <a href="https://discord.gg/ZxYq7SK5Xb" rel="noopener noferrer" target="_blank"
+          class="footer-grid-content footer-hover">Discord</a>
       </div>
 
     </div>
@@ -223,8 +238,12 @@
       backgroundColor: 'rgb(90, 110, 248)',
       textColor: '#00130E'
     })
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
   </script>
-
 </body>
-
 </html>

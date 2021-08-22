@@ -1,10 +1,3 @@
-// @import './bootswatch-variables.scss';
-// @import './bootstrap.css';
-// @import './bootswatch-core.scss';
-
-// @import './font-awesome.scss';
-
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
 html {
@@ -17,12 +10,17 @@ body {
     margin: 0 auto;
     transition: .3s linear;
     overflow-x: hidden;
-    margin-bottom: 100vh;
+}
+
+a {
+    text-decoration: none;
 }
 
 a:active {
     color: inherit;
 }
+
+/* General Home Styling */
 
 #home {
     width: 100vw;
@@ -76,7 +74,7 @@ nav {
 #center-nav {
     display: flex;
     justify-content: space-evenly;
-    width: calc(55% - 4vw);
+    width: calc(45% - 4vw);
 }
 
 #center-nav>* {
@@ -121,7 +119,7 @@ blue {
     max-width: calc(250px + 20vw);
 }
 
-#btn-start {
+.btn-start {
     margin-top: calc(10px + 1vw);
     background: #5A6EF8;
     box-shadow: -4px 8px 16px rgba(90, 110, 248, 0.5);
@@ -136,35 +134,348 @@ blue {
     align-items: center;
     justify-content: center;
     transition: .25s linear;
+    font-family: 'Montserrat', sans-serif;
+    color: #00130E;
 }
 
-#btn-start:hover {
+.btn-start:disabled { 
+    background: rgba(90, 110, 248, 0.4);
+    color: #00130E;
+    cursor: default;
+    box-shadow: none;
+}
+
+.btn-start:hover:enabled {
     background: rgba(90, 110, 248, 0.85);
     color: rgba(255, 255, 255);
 }
 
-#btn-start:hover>img {
+.btn-start:hover:enabled > img {
     filter: invert(99%) sepia(0%) saturate(278%) hue-rotate(89deg) brightness(118%) contrast(100%);
     margin-left: calc(3px + 0.4vw);
 }
 
-#btn-start>img {
+.btn-start > img {
     width: calc(10px + 1vw);
     margin-left: calc(2px + 0.2vw);
     transition: .25s linear;
 }
 
-#features {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-#feature-tag {
+.sub-heading {
+    text-align: center;
     font-weight: bold;
     font-size: calc(18px + 1vw);
     color: rgba(255, 255, 255, 1);
 }
+
+/* Features Styles */
+
+#features {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 75vh;
+}
+
+
+#features-container {
+    margin-top: calc(20px + 2vw);
+    display: grid;
+    width: 80%;
+    /* min-height: 500px; */
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10%;
+    grid-row-gap: calc(40px + 2vw);
+    grid-template-rows: 1fr 1fr;
+    /* justify-items: center; */
+}
+
+.feature {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.feature-icon-parent { 
+    width: calc(50px + 4vw);
+    height: calc(50px + 4vw);
+    border-radius: calc(5px + 0.25vw);
+}
+.feature-icon {
+    width: 50%;
+}
+
+.feature-details {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.feature-title {
+    color: white;
+    font-weight: bold;
+    font-size: calc(12px + 0.5vw);
+}
+.feature-tagline {
+    font-size: calc(10px + 0.4vw);
+    font-weight: 500;
+    color: rgba(187, 196, 255, 0.5);
+    margin-top: 0px;
+}
+#cron {
+    background: rgba(90, 110, 248, 0.2);
+}
+#monitoring {
+    background: rgba(248, 90, 109, 0.2);
+}
+#github {
+    background: rgba(84, 148, 98, 0.2);
+}
+#cloud {
+    background: rgba(90, 210, 248, 0.2);
+}
+
+/* Pricing Styles */
+
+#pricing {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(90, 110, 248, 0.2);
+}
+#pricing-heading {
+    margin-top: calc(20px + 1vw);
+}
+.sub-tagline { 
+    font-weight: 500;
+    font-size: calc(10px + 0.5vw);
+    color: rgba(187, 196, 255, 0.5);
+    text-align: center;
+}
+#pricing-grid {
+    margin-top: calc(1.5% + 3vw);
+    margin-bottom: calc(5% + 0.5vw);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 5%;
+    width: 60%;
+    min-height: calc(300px + 15vw);
+}
+.pricing-tag {
+    text-align: center;
+    margin-top: calc(15px + 1vw);
+    font-weight: bold;
+    font-size: calc(12px + 0.6vw);
+    color: white;
+}
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: .25s linear;
+    background:rgba(90, 110, 248, 0.3);
+    border-radius: calc(8px + 0.2vw);
+    height: 100%;
+}
+.pricing-card:hover { 
+    box-shadow: 0px 24px 16px 8px rgba(0, 0, 0, 0.25);
+}
+.pricing-card-content {
+    height: 80%;
+}
+.price { 
+    font-weight: bold;
+    font-size: calc(24px + 1.2vw);
+    margin-top: 5%;
+    margin-bottom: 0px;
+    color: #5A6EF8;
+    text-align: center;
+}
+.per-month {
+    font-weight: bold;
+    font-size: calc(12px + 0.5vw);
+    line-height: 29px;
+    text-align: center;
+    color: rgba(187, 196, 255, 0.5);
+}
+.price-info { 
+    font-size: calc(9px + 0.3vw);
+    line-height: 29px;
+    text-align: center;
+    color: rgba(187, 196, 255, 0.5);
+    margin-bottom: 20%;
+}
+.price-details {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: bold;
+    font-size: calc(10px + 0.4vw);
+}
+.divider { 
+    background: rgba(187, 196, 255, 0.25);
+    height: 1px;
+    width: 80%;
+}
+#center-btn { 
+    background: #03DDA6;
+    box-shadow: -4px 8px 16px rgba(20, 204, 158, 0.5);
+}
+#beta-green-tag { 
+    color: #03DDA6;
+}
+
+
+/* FAQ Section Styling */
+#faq { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 75vh;
+}
+#faq-heading { 
+    margin-top: calc(40px + 2vw);
+    max-width: 80%;
+}
+#faq-grid {
+    margin-top: calc(20px + 2vw);
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 50;
+    margin-bottom: 100px;
+    grid-column-gap: 10%;
+    height: 80%;
+}
+.question { 
+    font-weight: bold;
+    color: rgb(255, 255, 255, 0.85);
+}
+.answer {
+    color: rgba(187, 196, 255, 0.5);
+}
+
+/* Contact Section Styling */
+#discord {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(90, 110, 248, 0.2);
+    width: 100%;
+    height: 35vh;
+}
+#discord-tagline {
+    font-size: calc(12px + 0.3vw);
+    max-width: 75%;
+}
+
+/* Footer Section Styling */
+#footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 75%;
+    padding: calc(40px + 5vw);
+    justify-items: center;
+}
+.footer-grid-child { 
+    display: grid;
+}
+.footer-grid-title { 
+    font-weight: bold;
+    color: rgb(255, 255, 255, 0.85);
+    font-size: calc(10px + 0.5vw);
+}
+.footer-grid-content {
+    color: rgba(187, 196, 255, 0.5);
+    font-size: calc(12px + 0.5vw);
+    font-weight: medium;
+    transition: .25s linear;
+}
+.footer-hover:hover { 
+    color: rgb(255, 255, 255, 0.85);
+}
+.logo-footer {
+    width: calc(25% + 1vw);
+    margin-top: calc(10px + 0.5vw);
+}
+#copyright {
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: calc(30px + 1vw);
+}
+
+/* Sidebar stuff */
+
+ /* The sidebar menu */
+ .sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: inherit; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.2s linear; /* 0.5 second transition effect to slide in the sidebar */
+  }
+  
+  /* The sidebar links */
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: calc(18px + 0.4vw);
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  /* The button used to open the sidebar */
+  .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    display: none;
+    background: transparent;
+    border-radius: calc(4px + 0.2vw);
+  }
+  
+  .openbtn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+
 
 
 /* Media Queries, do not touch */
@@ -174,5 +485,45 @@ blue {
     }
     #dashboard {
         display: none;
+    }
+    #features-container {
+        width: 95%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
+    .feature-details {
+        width: 70%;
+    }
+    #faq-grid { 
+        grid-template-columns: 100%;
+        grid-row-gap: 10px;
+    }
+    #footer-grid {
+        grid-template-columns: 1fr;
+        justify-items: flex-start;
+    }
+    .openbtn {
+        display: block;
+    }
+}
+
+#sidebar-links {
+    margin-top: calc(30px + 1vw);
+}
+
+/* Edit this only when the paid plans are dropped */
+@media only screen and (max-width: 1480px) {
+    #pricing-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        grid-row-gap: 5%;
+        height: calc(350px + 20vw);
+        width: calc(200px + 10vw);
+    }
+    #free, #pro {
+        display: none;
+    }
+    #pricing { 
+        min-height: 70vh;
     }
 }
