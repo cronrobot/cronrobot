@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  resume-schedulers:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       -
-        name: deploy
+        name: resume
         env:
           MAIN_SERVER_SSH_B64: ${{secrets.MAIN_SERVER_SSH_B64}}
           MAIN_SERVER_HOST: ${{secrets.MAIN_SERVER_HOST}}
