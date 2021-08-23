@@ -22,7 +22,9 @@ jobs:
           DOTENV_CELERY_ADMIN_B64: ${{ secrets.DOTENV_CELERY_ADMIN_B64 }}
           DOTENV_DJANGO_B64: ${{ secrets.DOTENV_DJANGO_B64 }}
         run: |
+          echo "test1"
           go_home="cd /var/www/cronrobot"
+          echo "test2"
 
           # .env
           echo "$DOTENV_DJANGO_B64" | base64 -d > .env
@@ -43,7 +45,9 @@ jobs:
           ssh_in="ssh -o StrictHostKeyChecking=no -i .ssh/main_server_pk $MAIN_SERVER_USERNAME@$MAIN_SERVER_HOST"
 
           # pause all schedulers
+          echo "test3"
           $ssh_in "$go_home ; sudo docker-compose exec www-api bin/rails schedulers:pause_all"
+          echo "test4"
 
           # git pull
           $ssh_in "$go_home ; git pull"

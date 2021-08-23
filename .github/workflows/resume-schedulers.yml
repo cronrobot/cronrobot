@@ -14,17 +14,22 @@ jobs:
           MAIN_SERVER_SSH_B64: ${{secrets.MAIN_SERVER_SSH_B64}}
           MAIN_SERVER_HOST: ${{secrets.MAIN_SERVER_HOST}}
           MAIN_SERVER_USERNAME: ${{secrets.MAIN_SERVER_USERNAME}}
-          GRAFANA_DOTENV: ${{secrets.GRAFANA_DOTENV}}
         run: |
+          echo "hello1"
           go_home="cd /var/www/cronrobot"
+          echo "hello2"
 
           # ssh setup
           mkdir .ssh
           echo $MAIN_SERVER_SSH_B64 | base64 -d > .ssh/main_server_pk
           chmod 400 .ssh/main_server_pk
           ssh_in="ssh -o StrictHostKeyChecking=no -i .ssh/main_server_pk $MAIN_SERVER_USERNAME@$MAIN_SERVER_HOST"
+          
+          echo "hello3"
 
           # resume schedulers
           $ssh_in "$go_home ; sudo docker-compose exec www-api bin/rails schedulers:resume_all"
+
+          echo "hello4"
 
           
