@@ -68,7 +68,6 @@ class ResourceControllerTest < ActionDispatch::IntegrationTest
       headers: api_headers,
       as: :json
 
-    puts "#{response.parsed_body.inspect}"
     assert response.parsed_body.count == 1
     assert response.parsed_body[0]["params"]["name"] == "VAR && nice"
     assert response.parsed_body[0]["params"]["value"] == "v1 && yes"

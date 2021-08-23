@@ -19,6 +19,8 @@ class SchedulersControllerTest < ActionDispatch::IntegrationTest
 
     mock_grafana_dashboard_alerts(scheduler, 200, response: '[{"id": 55}]')
     mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: true)
+    mock_find_celery_periodic_task(scheduler.id, 200, '{"id": 115}')
+    mock_disable_celery_periodic_task(115)
 
     post "/dashboard/schedulers/#{scheduler.id}/pause", params: body, as: :json
 
@@ -47,10 +49,11 @@ class SchedulersControllerTest < ActionDispatch::IntegrationTest
     mock_grafana_dashboard_alerts(scheduler, 200, response: '[{"id": 55}]')
     mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: true)
     mock_grafana_dashboard_alert_pause(55, 200, response: '{}', should_pause: false)
+    mock_find_celery_periodic_task(scheduler.id, 200, '{"id": 115}')
+    mock_enable_celery_periodic_task(115)
 
     post "/dashboard/schedulers/#{scheduler.id}/unpause", params: body, as: :json
 
-    puts response.parsed_body.inspect
     assert response.parsed_body.include?("redirected")
 
     scheduler.reload
