@@ -25,7 +25,6 @@ jobs:
           ssh_in="ssh -o StrictHostKeyChecking=no -i .ssh/main_server_pk $MAIN_SERVER_USERNAME@$MAIN_SERVER_HOST"
 
           # resume schedulers
-          $go_home
-          $ssh_in "sudo docker-compose exec www-api bin/rails schedulers:resume_all"
+          $ssh_in "$go_home ; sudo docker-compose exec www-api bin/rails schedulers:resume_all"
 
           
