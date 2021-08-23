@@ -16,6 +16,7 @@ jobs:
           MAIN_SERVER_USERNAME: ${{secrets.MAIN_SERVER_USERNAME}}
           GRAFANA_DOTENV: ${{secrets.GRAFANA_DOTENV}}
         run: |
+          go_home="cd /var/www/cronrobot"
 
           # ssh setup
           mkdir .ssh
@@ -24,6 +25,7 @@ jobs:
           ssh_in="ssh -o StrictHostKeyChecking=no -i .ssh/main_server_pk $MAIN_SERVER_USERNAME@$MAIN_SERVER_HOST"
 
           # resume schedulers
+          $go_home
           $ssh_in "sudo docker-compose exec www-api bin/rails schedulers:resume_all"
 
           
