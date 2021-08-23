@@ -42,7 +42,7 @@ jobs:
           ssh_in="ssh -o StrictHostKeyChecking=no -i .ssh/main_server_pk $MAIN_SERVER_USERNAME@$MAIN_SERVER_HOST"
 
           # pause all schedulers
-          $ssh_in "sudo docker-compose exec www-api bin/rails schedulers:pause_all"
+          $ssh_in "$go_home ; sudo docker-compose exec www-api bin/rails schedulers:pause_all"
 
           # git pull
           go_home="cd /var/www/cronrobot"
