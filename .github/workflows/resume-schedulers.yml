@@ -1,0 +1,29 @@
+name: Resume schedulers
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      -
+        name: deploy
+        env:
+          MAIN_SERVER_SSH_B64: ${{secrets.MAIN_SERVER_SSH_B64}}
+          MAIN_SERVER_HOST: ${{secrets.MAIN_SERVER_HOST}}
+          MAIN_SERVER_USERNAME: ${{secrets.MAIN_SERVER_USERNAME}}
+          GRAFANA_DOTENV: ${{secrets.GRAFANA_DOTENV}}
+        run: |
+
+          # ssh setup
+          mkdir .ssh
+          echo $MAIN_SERVER_SSH_B64 | base64 -d > .ssh/main_server_pk
+          chmod 400 .ssh/main_server_pk
+          ssh_in="ssh -o StrictHostKeyChecking=no -i .ssh/main_server_pk $MAIN_SERVER_USERNAME@$MAIN_SERVER_HOST"
+
+          # resume schedulers
+          $ssh_in "sudo docker-compose exec www-api bin/rails schedulers:resume_all"
+
+          
