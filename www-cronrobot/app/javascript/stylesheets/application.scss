@@ -174,7 +174,7 @@ blue {
     display: flex;
     align-items: center;
     flex-direction: column;
-    min-height: 75vh;
+    min-height: calc(800px - 10vw);
 }
 
 
