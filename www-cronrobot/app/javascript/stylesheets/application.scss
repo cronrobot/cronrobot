@@ -407,6 +407,7 @@ nav {
 #footer-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-row-gap: 20px;
     width: 75%;
     height: 60%;
     padding: calc(40px + 5vw);
@@ -444,10 +445,11 @@ nav {
     align-items: center;
     justify-content: center;
     & > img {
-        height: calc(10px + 0.3vw);
+        height: calc(10px + 0.5vw);
+        width: calc(10px + 0.5vw);
     }
     & > span {
-        margin-left: calc(3px + 0.1vw);
+        margin-left: calc(5px + 0.2vw);
     }
 }
 
