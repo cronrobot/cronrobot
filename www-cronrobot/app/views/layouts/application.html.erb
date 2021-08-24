@@ -21,7 +21,7 @@
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <div id="sidebar-links">
-      <a href="/auth/auth0">Dashboard</a>
+      <a onclick="handleLogin()">Dashboard</a>
       <a href="#home">Home</a>
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
@@ -42,7 +42,7 @@
         <a href="#faq">FAQ</a>
         <a href="https://docs.cronrobot.io">Docs</a>
       </div>
-      <a href="/auth/auth0" class="center" id="dashboard">
+      <a onclick="handleLogin()" class="center" id="dashboard">
         <img src="images/icons/dashboard.svg">
         <p class="text-medium">Dashboard</p>
       </a>
@@ -57,7 +57,7 @@
       Downtime happens even to the best of us. But it’s important to know it before customers are affected!
     </p>
 
-    <a href="/auth/auth0">
+    <a onclick="handleLogin()">
       <button class="btn-start">
         <p>GET STARTED NOW</p>
         <img src="images/icons/arrow-right.svg">
@@ -144,7 +144,7 @@
           <p class="price-details">Cron-Based Tasks</p>
 
         </div>
-        <a href="/auth/auth0">
+        <a onclick="handleLogin()">
             <button class="btn-start" id="center-btn">
               <p>START FOR FREE</p>
               <img src="images/icons/arrow-right.svg">
@@ -238,6 +238,13 @@
     </div>
   </section>
 
+  <% if @current_user %>
+  <%= button_to 'Logout', '/auth/logout', method: :get %>
+  <% else %>
+  <%= button_to 'Login', '/auth/auth0', method: :post %>
+  <% end %>
+  <%= yield %>
+
   <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
   <script>
     addBackToTop({
@@ -251,6 +258,10 @@
     function closeNav() {
       document.getElementById("mySidebar").style.width = "0";
     }
+    function handleLogin() {
+      document.querySelector('.button_to').submit();
+    }
   </script>
+
 </body>
 </html>

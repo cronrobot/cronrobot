@@ -511,6 +511,11 @@ blue {
     margin-top: calc(30px + 1vw);
 }
 
+/* Login Form */
+.button_to {
+    display: none;
+}
+
 /* Edit this only when the paid plans are dropped */
 @media only screen and (max-width: 1480px) {
     #pricing-grid {
