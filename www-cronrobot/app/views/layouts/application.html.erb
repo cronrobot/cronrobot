@@ -21,7 +21,11 @@
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <div id="sidebar-links">
+      <% if @current_user %>
       <a onclick="handleLogin()">Dashboard</a>
+      <% else %>
+      <a onclick="handleLogin()">Login</a>
+      <% end %>
       <a href="#home">Home</a>
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
@@ -72,6 +76,7 @@
   <% else %>
   <%= button_to 'Login', '/auth/auth0', method: :post %>
   <% end %>
+
   <%= yield %>
 
   <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
