@@ -1,16 +1,18 @@
 <section id="home">
 
-    <!-- The Navbar of the website, will contain the logo, and the links -->
+    <!-- The Navbar of the website, contains the logo, and main links -->
     <nav>
       <a href="#home">
-        <img id="logo" alt="Logo" src="images/Big Logo.svg">
+        <img id="logo" alt="Logo" src="images/BigLogo.svg">
       </a>
+
       <div id="center-nav">
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
         <a href="https://docs.cronrobot.io">Docs</a>
       </div>
+
       <a onclick="handleLogin()" class="center" id="dashboard">
         <img src="images/icons/dashboard.svg">
         <p class="text-medium">Dashboard</p>
@@ -19,11 +21,11 @@
     </nav>
 
     <h1 id="heading">
-      The world's leading uptime monitoring service<blue>.</blue>
+      The open task scheduling and monitoring service<blue>.</blue>
     </h1>
 
     <p id="tagline">
-      Downtime happens even to the best of us. But it’s important to know it before customers are affected!
+      Define your monitoring and recurring tasks in one simple system. Get notified when predefined/downtime events happen. Easy.
     </p>
 
     <a onclick="handleLogin()">
@@ -44,8 +46,10 @@
           <img class="feature-icon" src="images/icons/monitor.svg">
         </div>
         <div class="feature-details">
-          <p class="feature-title">Cron-Job Monitoring</p>
-          <p class="feature-tagline">Also known as heartbeat monitoring. Monitor recurring background jobs.</p>
+            <p class="feature-title">Run Recurring (Cron) Tasks</p>
+            <p class="feature-tagline">
+                Automate your processes with recurring cron-based tasks. Run your tasks with ease over HTTP or remote SSH commands. Goodbye messy crontabs!
+            </p>
         </div>
       </div>
 
@@ -60,12 +64,25 @@
       </div>
 
       <div class="feature">
+        <div class="feature-icon-parent center" id="monitoring">
+          <img class="feature-icon" src="images/icons/clock.svg">
+          <b>[Change image]</b>
+        </div>
+        <div class="feature-details">
+          <p class="feature-title">Advanced Scheduler Dashboards</p>
+          <p class="feature-tagline">View your scheduler metrics on automatically deployed <strong>Grafana</strong> dashboards.</p>
+        </div>
+      </div>
+
+      <div class="feature">
         <div class="feature-icon-parent center" id="github">
           <img class="feature-icon" src="images/icons/github.svg">
         </div>
         <div class="feature-details">
           <p class="feature-title">Open Source by Design</p>
-          <p class="feature-tagline">Also known as heartbeat monitoring. Monitor recurring background jobs.</p>
+            <p class="feature-tagline">
+                Our philosophy is simple: everything we do is open source by default. Have a look at our <a href="https://github.com/cronrobot">GitHub organization</a> and <a href="https://github.com/cronrobot/cronrobot">core repository CronRobot</a>.
+            </p>
         </div>
       </div>
 
@@ -74,16 +91,35 @@
           <img class="feature-icon" src="images/icons/cloud.svg">
         </div>
         <div class="feature-details">
-          <p class="feature-title">Cloud Solutions</p>
-          <p class="feature-tagline">Also known as heartbeat monitoring. Monitor recurring background jobs.</p>
+          <p class="feature-title">Cloud or On Premise</p>
+            <p class="feature-tagline">
+                <ul>
+                    <li>Use our easy to use <strong>cloud-based solution</strong> and get started in few minutes.</li>
+                    <li><strong>On Premise.</strong> Deploy it yourself with our <a href="https://github.com/cronrobot/cronrobot">open source solution.</a> </li>
+                </ul>
+            </p>
         </div>
       </div>
+
+      <div class="feature">
+        <div class="feature-icon-parent center" id="cloud">
+          <img class="feature-icon" src="images/icons/cloud.svg">
+          <b>[Change image]</b>
+        </div>
+        <div class="feature-details">
+            <p class="feature-title">Notification Channels</p>
+            <p class="feature-tagline">
+                When downtimes/predefined events occur, get notified instantly via a variety of notification mediums/technologies. <br />Currently supported: email. <br /><strong>Coming soon:</strong> Discord, Slack, MS Teams, PagerDuty, Webhooks, and many more!
+            </p>
+        </div>
+      </div>
+
     </div>
 </section>
 
 <section id="pricing">
-    <h1 class="sub-heading" id="pricing-heading">Choose your pricing</h1>
-    <p class="sub-tagline">Simple pricing — 7 days free trial. Cancel Anytime</p>
+    <h1 class="sub-heading" id="pricing-heading">Pricing and Plans</h1>
+    <p class="sub-tagline">Simple pricing — Cancel Anytime.</p>
     <div id="pricing-grid">
 
       <div class="pricing-card" id="free">
@@ -110,7 +146,14 @@
           <div class="divider"></div>
           <p class="price-details">Monitor Connectivity</p>
           <div class="divider"></div>
-          <p class="price-details">Cron-Based Tasks</p>
+          <p class="price-details">
+            Notification Channels: Email.
+          </p>
+
+          <div class="divider"></div>
+          <p class="price-details">
+            Unlimited Number of schedulers.
+          </p>
 
         </div>
         <a onclick="handleLogin()">
@@ -124,12 +167,12 @@
       <div class="pricing-card" id="pro">
         <div class="pricing-card-content">
           <p class="pricing-tag">PRO</p>
-          <p class="price">$20</p>
+          <p class="price"></p>
           <p class="per-month">per month</p>
           <p class="price-info">(coming soon)</p>
         </div>
         <button class="btn-start" disabled>
-          <p>START FREE TRIAL</p>
+          <p>SIGN UP FREE</p>
           <img src="images/icons/arrow-right.svg">
         </button>
       </div>
@@ -163,6 +206,75 @@
         <p class="question">My credit card isn’t working</p>
         <p class="answer">Please, contact your bank first to see if there are any issues with the payment and let us
           know.</p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a></p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a> 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            
+        </p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a> 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            
+        </p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a> 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            
+        </p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a> 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            
+        </p>
       </div>
 
     </div>
