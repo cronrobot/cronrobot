@@ -24,7 +24,7 @@
       <% if @current_user %>
       <a onclick="handleLogin()">Dashboard</a>
       <% else %>
-      <a onclick="handleLogin()">Login</a>
+      <a onclick="handleLogin()">Login / Signup</a>
       <% end %>
       <a href="#home">Home</a>
       <a href="#features">Features</a>
@@ -76,8 +76,6 @@
   <% else %>
   <%= button_to 'Login', '/auth/auth0', method: :post %>
   <% end %>
-
-  <%= yield %>
 
   <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
   <script>

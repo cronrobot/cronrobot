@@ -20,6 +20,7 @@ body {
 a {
     text-decoration: none;
     color: rgb(255, 255, 255, 0.85);
+    cursor: pointer;
 }
 
 a:active {
@@ -200,7 +201,7 @@ nav {
 .feature {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-evenly;
 }
 
@@ -226,6 +227,7 @@ nav {
     color: white;
     font-weight: bold;
     font-size: calc(12px + 0.5vw);
+    margin-top: 0px;
 }
 .feature-tagline {
     font-size: calc(10px + 0.4vw);

@@ -15,7 +15,11 @@
 
       <a onclick="handleLogin()" class="center" id="dashboard">
         <img src="images/icons/dashboard.svg">
+        <% if @current_user %>
         <p class="text-medium">Dashboard</p>
+        <% else %>
+        <p class="text-medium">Login / Signup</p>
+        <% end %>
       </a>
       <button class="openbtn" onclick="openNav()">☰</button>
     </nav>
