@@ -19,6 +19,7 @@ body {
 
 a {
     text-decoration: none;
+    color: rgb(255, 255, 255, 0.85);
 }
 
 a:active {
@@ -179,7 +180,7 @@ nav {
     display: flex;
     align-items: center;
     flex-direction: column;
-    min-height: calc(800px - 10vw);
+    min-height: calc(1200px - 10vw);
 }
 
 
@@ -192,6 +193,7 @@ nav {
     grid-column-gap: 10%;
     grid-row-gap: calc(40px + 2vw);
     grid-template-rows: 1fr 1fr;
+    padding-bottom: 100px;
     /* justify-items: center; */
 }
 
@@ -270,8 +272,8 @@ nav {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-column-gap: 5%;
-    width: 60%;
-    min-height: calc(300px + 15vw);
+    width: 75%;
+    min-height: calc(420px + 15vw);
 }
 .pricing-tag {
     text-align: center;
@@ -390,6 +392,7 @@ nav {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 75%;
+    height: 60%;
     padding: calc(40px + 5vw);
     justify-items: center;
 }
