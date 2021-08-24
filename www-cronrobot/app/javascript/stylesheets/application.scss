@@ -177,6 +177,14 @@ nav {
 
 /* Features Styles */
 
+
+.feature-list { 
+    padding-left: 4%;
+    color: $text-grey;
+    font-size: calc(10px + 0.4vw);
+    margin-top: 0px;
+}
+
 #features {
     display: flex;
     align-items: center;
