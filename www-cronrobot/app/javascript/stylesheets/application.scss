@@ -439,6 +439,17 @@ nav {
     color: rgba(255, 255, 255, 0.7);
     margin-top: calc(30px + 1vw);
 }
+.social-links { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > img {
+        height: calc(10px + 0.3vw);
+    }
+    & > span {
+        margin-left: calc(3px + 0.1vw);
+    }
+}
 
 /* Sidebar stuff */
 
