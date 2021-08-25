@@ -19,8 +19,11 @@ body {
 
 a {
     text-decoration: none;
-    color: rgb(255, 255, 255, 0.85);
+    color: rgb(255, 255, 255, 0.75);
     cursor: pointer;
+    &:hover {
+        color: rgb(255, 255, 255, 9);
+    }
 }
 
 a:active {
