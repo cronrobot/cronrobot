@@ -1,1 +1,288 @@
-welcome to CronRobot
+<section id="home">
+
+    <!-- The Navbar of the website, contains the logo, and main links -->
+    <nav>
+      <a href="#home">
+        <img id="logo" alt="Logo" src="images/BigLogo.svg">
+      </a>
+
+      <div id="center-nav">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://docs.cronrobot.io">Docs</a>
+      </div>
+
+      <a onclick="handleLogin()" class="center" id="dashboard">
+        <img src="images/icons/dashboard.svg">
+        <% if @current_user %>
+        <p class="text-medium">Dashboard</p>
+        <% else %>
+        <p class="text-medium">Login / Signup</p>
+        <% end %>
+      </a>
+      <button class="openbtn" onclick="openNav()">☰</button>
+    </nav>
+
+    <h1 id="heading">
+      The open task scheduling and monitoring service<span class="text-green">.</span>
+    </h1>
+
+    <p id="tagline">
+      Define your monitoring and recurring tasks in one simple system. Get notified when predefined/downtime events happen. Easy.
+    </p>
+
+    <a onclick="handleLogin()">
+      <button class="btn-start">
+        <p>GET STARTED NOW</p>
+        <img src="images/icons/arrow-right.svg">
+      </button>
+    </a>
+
+</section>
+
+<section id="features">
+    <h1 class="sub-heading">Features</h1>
+    <div id="features-container">
+
+      <div class="feature">
+        <div class="feature-icon-parent center" id="cron">
+          <img class="feature-icon" src="images/icons/monitor.svg">
+        </div>
+        <div class="feature-details">
+            <p class="feature-title">Run Recurring (Cron) Tasks</p>
+            <p class="feature-tagline">
+                Automate your processes with recurring cron-based tasks. Run your tasks with ease over HTTP or remote SSH commands. Goodbye messy crontabs!
+            </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon-parent center" id="monitoring">
+          <img class="feature-icon" src="images/icons/clock.svg">
+        </div>
+        <div class="feature-details">
+          <p class="feature-title">Monitor Connectivity</p>
+          <p class="feature-tagline">Also known as heartbeat monitoring. Monitor recurring background jobs.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon-parent center" id="box">
+          <img class="feature-icon" src="images/icons/box.svg">
+        </div>
+        <div class="feature-details">
+          <p class="feature-title">Advanced Scheduler Dashboards</p>
+          <p class="feature-tagline">View your scheduler metrics on automatically deployed <strong>Grafana</strong> dashboards.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon-parent center" id="github">
+          <img class="feature-icon" src="images/icons/github.svg">
+        </div>
+        <div class="feature-details">
+          <p class="feature-title">Open Source by Design</p>
+            <p class="feature-tagline">
+                Our philosophy is simple: everything we do is open source by default. Have a look at our <a href="https://github.com/cronrobot">GitHub organization</a> and <a href="https://github.com/cronrobot/cronrobot">core repository CronRobot</a>.
+            </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon-parent center" id="cloud">
+          <img class="feature-icon" src="images/icons/cloud.svg">
+        </div>
+        <div class="feature-details">
+          <p class="feature-title">Cloud or On Premise</p>
+          <ul class="feature-list">
+              <li>Use our easy to use <strong>cloud-based solution</strong> and get started in few minutes.</li>
+              <li><strong>On Premise.</strong> Deploy it yourself with our <a href="https://github.com/cronrobot/cronrobot">open source solution.</a> </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon-parent center" id="bell">
+          <img class="feature-icon" src="images/icons/bell.svg">
+        </div>
+        <div class="feature-details">
+            <p class="feature-title">Notification Channels</p>
+            <p class="feature-tagline">
+                When downtimes/predefined events occur, get notified instantly via a variety of notification mediums/technologies. <br />Currently supported: email. <br /><strong>Coming soon:</strong> Discord, Slack, MS Teams, PagerDuty, Webhooks, and many more!
+            </p>
+        </div>
+      </div>
+
+    </div>
+</section>
+
+<section id="pricing">
+    <h1 class="sub-heading" id="pricing-heading">Pricing and Plans</h1>
+    <p class="sub-tagline">Simple pricing — Cancel Anytime.</p>
+    <div id="pricing-grid">
+
+      <div class="pricing-card" id="free">
+        <div class="pricing-card-content">
+          <p class="pricing-tag">PERSONAL</p>
+          <p class="price">FREE</p>
+          <p class="per-month">per month</p>
+          <p class="price-info">(coming soon)</p>
+        </div>
+        <button class="btn-start" disabled>
+          <p>SIGN UP FREE</p>
+          <img src="images/icons/arrow-right.svg">
+        </button>
+      </div>
+
+      <div class="pricing-card" id="beta">
+        <div class="pricing-card-content">
+          <p class="pricing-tag">BETA</p>
+          <p class="price" id="beta-green-tag">FREE</p>
+          <p class="per-month">per month</p>
+          <p class="price-info">(special plan during the beta phase)</p>
+
+          <p class="price-details">Advanced Cron Schedulers</p>
+          <div class="divider"></div>
+          <p class="price-details">Monitor Connectivity</p>
+          <div class="divider"></div>
+          <p class="price-details">
+            Notification Channels: Email.
+          </p>
+
+          <div class="divider"></div>
+          <p class="price-details">
+            Unlimited Number of schedulers.
+          </p>
+
+        </div>
+        <a onclick="handleLogin()">
+            <button class="btn-start" id="center-btn">
+              <p>START FOR FREE</p>
+              <img src="images/icons/arrow-right.svg">
+            </button>
+        </a>
+      </div>
+
+      <div class="pricing-card" id="pro">
+        <div class="pricing-card-content">
+          <p class="pricing-tag">PRO</p>
+          <p class="price"></p>
+          <p class="per-month"><!--per month--></p>
+          <p class="price-info">(coming soon)</p>
+        </div>
+        <button class="btn-start" disabled>
+          <p>SIGN UP FREE</p>
+          <img src="images/icons/arrow-right.svg">
+        </button>
+      </div>
+
+
+    </div>
+</section>
+
+<section id="faq">
+    <h1 class="sub-heading" id="faq-heading">Frequently Asked Questions</h1>
+    <p class="sub-tagline">Answers to the most frequently asked questions</p>
+
+    <div id="faq-grid">
+
+      <div class="faq-child">
+        <p class="question">Can I try it for free?</p>
+        <p class="answer">Yes, you can. We are currently on the free beta, paid plans will be here soon</p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">Are there any hidden charges?</p>
+        <p class="answer">No.</p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is your uptime?</p>
+        <p class="answer">We have a 99.965% uptime guarantee.</p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">My credit card isn’t working</p>
+        <p class="answer">Please, contact your bank first to see if there are any issues with the payment and let us
+          know.</p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a></p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a> 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            
+        </p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a> 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            
+        </p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a> 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            
+        </p>
+      </div>
+
+      <div class="faq-child">
+        <p class="question">What is this question?</p>
+        <p class="answer">I do not know <a href="/">test link</a> 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            long text long text long text long text long text long text long text 
+            
+        </p>
+      </div>
+
+    </div>
+
+</section>
+
+<section id="discord">
+    <p id="discord-tagline" class="sub-tagline">Still have questions? <a href="">Join</a> our Discord to get more info</p>
+    <a href="https://discord.gg/ZxYq7SK5Xb" rel="noopener noreferrer" target="_blank"><button class="btn-start">JOIN
+        SERVER</button></a>
+</section>

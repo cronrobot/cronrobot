@@ -1,20 +1,107 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>CronRobot</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en" dir="ltr">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <!-- The header of the website, will contain title, description and meta tags with 3D images -->
+  <meta charset="utf-8">
+  <title>CronRobot: The open task scheduling and monitoring service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="robots" content="index, follow" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <% if @current_user %>
-      <%= button_to 'Logout', '/auth/logout', method: :get %>
-    <% else %>
-      <%= button_to 'Login', '/auth/auth0', method: :post %>
-    <% end %>
-    <%= yield %>
-  </body>
+<body>
+
+  <!-- The responsive sidebar of the website, will only appear in mobile devices -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="sidebar-links">
+      <% if @current_user %>
+      <a onclick="handleLogin()">Dashboard</a>
+      <% else %>
+      <a onclick="handleLogin()">Login / Signup</a>
+      <% end %>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://discord.gg/ZxYq7SK5Xb" rel="noopener noferrer" target="_blank">Contact</a>
+    </div>
+  </div>
+
+  <%= yield %>
+
+  <section id="footer">
+    <div id="footer-grid">
+
+      <div class="footer-grid-child">
+        <p class="footer-grid-title">ABOUT CRONROBOT</p>
+        <p class="footer-grid-content">
+          Define your monitoring and recurring tasks in one simple system. Get notified when predefined/downtime events happen. Easy.
+        </p>
+        <img src="images/footer.svg" class="logo-footer">
+        <p class="footer-grid-title" id="copyright">© 2021 CronRobot — All Rights Reserved</p>
+      </div>
+
+      <div class="footer-grid-child">
+        <p class="footer-grid-title">LINKS</p>
+        <a href="#home" class="footer-grid-content footer-hover">Home</a>
+        <a href="#pricing" class="footer-grid-content footer-hover">Pricing</a>
+        <a href="#faq" class="footer-grid-content footer-hover">FAQ</a>
+        <a href="https://docs.cronrobot.io" class="footer-grid-content footer-hover">Docs</a>
+      </div>
+
+      <div class="footer-grid-child">
+        <p class="footer-grid-title">SOCIAL</p>
+        
+        <!--
+        <a href="#home" rel="noopener noferrer" target="_blank" class="footer-grid-content footer-hover social-links">
+          <img src="images/icons/socials/twitter.svg">
+          <span>Twitter</span>
+        </a>
+        -->
+
+        <a href="https://github.com/cronrobot/" rel="noopener noferrer" target="_blank" class="footer-grid-content footer-hover social-links">
+          <img src="images/icons/socials/github.svg">
+          <span>GitHub</span>
+        </a>
+        <a href="https://discord.gg/ZxYq7SK5Xb" rel="noopener noferrer" target="_blank" class="footer-grid-content footer-hover social-links">
+          <img src="images/icons/socials/discord.svg">
+          <span>Discord</span>
+        </a>
+        
+      </div>
+
+    </div>
+  </section>
+
+  <% if @current_user %>
+  <%= button_to 'Logout', '/auth/logout', method: :get %>
+  <% else %>
+  <%= button_to 'Login', '/auth/auth0', method: :post %>
+  <% end %>
+
+  <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+  <script>
+    addBackToTop({
+      diameter: 56,
+      backgroundColor: 'rgb(90, 110, 248)',
+      textColor: '#00130E'
+    })
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+    function handleLogin() {
+      document.querySelector('.button_to').submit();
+    }
+  </script>
+
+</body>
 </html>
