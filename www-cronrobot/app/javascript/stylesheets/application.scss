@@ -21,6 +21,7 @@ a {
     text-decoration: none;
     color: rgb(255, 255, 255, 0.75);
     cursor: pointer;
+    transition: .2s linear;
     &:hover {
         color: rgb(255, 255, 255, 9);
     }
