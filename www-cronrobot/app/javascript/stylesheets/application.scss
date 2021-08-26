@@ -193,7 +193,6 @@ nav {
     display: flex;
     align-items: center;
     flex-direction: column;
-    min-height: calc(1200px - 10vw);
 }
 
 
@@ -291,7 +290,7 @@ nav {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 5%;
+    grid-column-gap: 50px;
     width: 75%;
     min-height: calc(420px + 15vw);
 }
@@ -563,14 +562,20 @@ nav {
 @media only screen and (max-width: 1480px) {
     #pricing-grid {
         grid-template-columns: 1fr;
-        grid-row-gap: 5%;
-        height: calc(350px + 20vw);
         width: calc(200px + 10vw);
+        grid-row-gap: 50px;
+        margin-bottom: 50px;
+        & .btn-start {
+            margin-bottom: 50px;
+        }
+    }
+    .pricing-card-content {
+        height: min-content;
     }
     // #free, #pro {
     //     display: none;
     // }
-    #pricing { 
-        min-height: 70vh;
-    }
+    // #pricing { 
+    //     min-height: 70vh;
+    // }
 }
