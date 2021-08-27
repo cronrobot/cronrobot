@@ -13,15 +13,20 @@ class DashboardController < ApplicationController
       project = @current_user.projects.create!(name: "Default")
     end
 
-    obj_session = Rails.env.test? ? params : session
+    selected_project_id = project.id
 
-    obj_session["selected_project_id"] ||= project.id
-
-    unless Project.exists?(id: obj_session["selected_project_id"])
-      obj_session["selected_project_id"] = project.id
+    if params["selected_project_id"]
+      selected_project_id = params["selected_project_id"]
+    elsif session["selected_project_id"]
+      selected_project_id = session["selected_project_id"]
     end
 
-    @project = Project.find_by id: obj_session["selected_project_id"]
+    unless Project.exists?(id: selected_project_id)
+      selected_project_id = project.id
+    end
+
+    @project = Project.find_by id: selected_project_id
+    User.can_access_project(@current_user, @project)
   end
 
 end
