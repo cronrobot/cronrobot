@@ -5,6 +5,10 @@ class DashboardController < ApplicationController
   
   before_action :ensure_project_selected
 
+  def requires_auth
+    true
+  end
+
   private
 
   def ensure_project_selected
