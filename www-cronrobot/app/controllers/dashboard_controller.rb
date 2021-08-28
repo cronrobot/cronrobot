@@ -1,6 +1,7 @@
 class DashboardController < ApplicationController
   layout "dashboard"
   include WwwSecured
+  include DashboardExceptionHandler
   
   before_action :ensure_project_selected
 
@@ -8,7 +9,7 @@ class DashboardController < ApplicationController
 
   def ensure_project_selected
     project = @current_user.projects.first
-
+    
     unless project
       project = @current_user.projects.create!(name: "Default")
     end
