@@ -13,6 +13,14 @@ class User < ApplicationRecord
     PASSWORD_CHARS.sort_by { rand }.join[0...length]
   end
 
+  def self.can_access_project(user, project)
+    unless user.projects.include?(project)
+      raise User::AuthorizationError.new("Can't access project")
+    end
+
+    true
+  end
+
   def schedulers
     project_ids = projects.pluck(:id)
     Scheduler.where(project_id: project_ids)
