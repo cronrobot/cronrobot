@@ -40,15 +40,28 @@ a:active {
     align-items: center;
     /* justify-content: center; */
     flex-direction: column;
+    height: 100%;
 }
 
-#heading {
+h1 {
     color: white;
     margin-top: calc(180px + 1.5vw);
     font-size: calc(25px + 1.5vw);
     text-align: center;
     max-width: calc(400px + 25vw);
     font-weight: bold;
+}
+
+h2 {
+    color: white;
+}
+
+.text {
+    color: $text-grey;
+}
+
+.box {
+    max-width: calc(500px + 20vw);
 }
 
 .center {
@@ -65,7 +78,8 @@ a:active {
     text-decoration: none;
 }
 
-.text-medium:hover {
+
+.btn:hover {
     color: rgba(255, 255, 255, 1);
     transition: .2s linear;
 }
@@ -409,7 +423,7 @@ nav {
 }
 #footer-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-row-gap: 20px;
     width: 75%;
     height: 60%;

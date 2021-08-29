@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root :to => 'home#index'
 
   get '/', to: 'home#index'
+  get '/privacy-policy', to: 'home#privacy_policy'
 
   get '/auth/auth0/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'
@@ -28,8 +29,6 @@ Rails.application.routes.draw do
     get '/support', to: 'support#index'
     post '/support', to: 'support#contact'
   end
-
-  
 
   namespace :api do
     get '/test', to: 'test#index'
