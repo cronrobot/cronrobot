@@ -64,3 +64,5 @@ jobs:
           sleep 5
           $ssh_in "$go_home ; pm2 list"
           
+          # resume all schedulers
+          $ssh_in "$go_home ; sudo docker-compose exec -T www-api bin/rails schedulers:resume_all"

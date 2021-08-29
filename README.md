@@ -8,13 +8,6 @@ CronRobot is an open source cron-based scheduler system consisting of the follow
 - [promtail](https://grafana.com/docs/loki/latest/clients/promtail/): For reading (stream) logs. Forward logs to the loki instance.
 - [loki](https://grafana.com/oss/loki/): Aggregate logs and streamed to an external storage system.
 
-## Running CronRobot
+## Documentation
 
-The whole CronRobot system can be boot up via the following steps:
-
-        todo
-
-- Boot up with docker-compose
-
-        docker-compose up -d
-
+The documentation is available at [http://docs.cronrobot.io/](http://docs.cronrobot.io/).
