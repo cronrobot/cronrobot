@@ -1,28 +1,6 @@
 <section id="home">
 
-    <!-- The Navbar of the website, contains the logo, and main links -->
-    <nav>
-      <a href="#home">
-        <img id="logo" alt="Logo" src="images/BigLogo.svg">
-      </a>
-
-      <div id="center-nav">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-        <a href="https://docs.cronrobot.io">Docs</a>
-      </div>
-
-      <a onclick="handleLogin()" class="center" id="dashboard">
-        <img src="images/icons/dashboard.svg">
-        <% if @current_user %>
-        <p class="text-medium">Dashboard</p>
-        <% else %>
-        <p class="text-medium">Login / Signup</p>
-        <% end %>
-      </a>
-      <button class="openbtn" onclick="openNav()">☰</button>
-    </nav>
+    <%= render "navbar" %>
 
     <h1 id="heading">
       The open task scheduling and monitoring service<span class="text-green">.</span>
