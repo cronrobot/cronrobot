@@ -7,4 +7,7 @@ htmlcov/
 scheduler-logs/*.json
 node_modules
 secrets/*.json
+
+.env
 .grafana.env
+www-cronrobot/.env
