@@ -10,12 +10,21 @@
       Define your monitoring and recurring tasks in one simple system. Get notified when predefined/downtime events happen. Easy.
     </p>
 
+    <% if @current_user %>
+    <a href="/dashboard">
+      <button class="btn-start">
+        <p>GET STARTED NOW</p>
+        <img src="images/icons/arrow-right.svg">
+      </button>
+    </a>
+    <% else %>
     <a onclick="handleLogin()">
       <button class="btn-start">
         <p>GET STARTED NOW</p>
         <img src="images/icons/arrow-right.svg">
       </button>
     </a>
+    <% end %>
 
 </section>
 
