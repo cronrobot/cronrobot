@@ -91,11 +91,7 @@
     </div>
   </section>
 
-  <% if @current_user %>
-  <%= button_to 'Logout', '/auth/logout', method: :get %>
-  <% else %>
   <%= button_to 'Login', '/auth/auth0', method: :post %>
-  <% end %>
 
   <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
   <script>
