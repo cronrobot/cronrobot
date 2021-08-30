@@ -30,4 +30,9 @@ class Auth0ControllerTest < ActionDispatch::IntegrationTest
     assert user
     assert user.uid == "123456"
   end
+
+  test "redirect if no callback param" do
+    get "/auth/auth0/callback", params: {}
+    assert_response :found
+  end
 end
