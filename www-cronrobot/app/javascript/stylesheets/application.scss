@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+@import url('errors.scss');
 
 // Variables:
 $main-blue: #5A6EF8;
@@ -592,28 +593,4 @@ nav {
     // #pricing { 
     //     min-height: 70vh;
     // }
-}
-
-// Error Styling
-
-.error-grid {
-    display: grid;
-    width: 100%;
-    grid-gap: 20px;
-    color: white;
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 0;
-}
-
-.alert-error {
-    background: red;
-}
-
-.alert-info {
-    background: $main-blue;
-}
-
-.alert-warning {
-    background: yellow;
 }
