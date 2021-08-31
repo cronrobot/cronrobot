@@ -11,13 +11,16 @@
     <a href="https://docs.cronrobot.io">Docs</a>
   </div>
 
-  <a onclick="handleLogin()" class="center" id="dashboard">
-    <img src="images/icons/dashboard.svg">
     <% if @current_user %>
-    <p class="btn text-medium">Dashboard</p>
+      <a href="/dashboard" class="center" id="dashboard">
+        <img src="images/icons/dashboard.svg">
+        <p class="btn text-medium">Dashboard</p>
+      </a>
     <% else %>
-    <p class="btn text-medium">Login / Signup</p>
+    <a onclick="handleLogin()" class="center" id="dashboard">
+      <img src="images/icons/dashboard.svg">
+      <p class="btn text-medium">Login / Signup</p>
+    </a>
     <% end %>
-  </a>
   <button class="openbtn" onclick="openNav()">☰</button>
 </nav>
