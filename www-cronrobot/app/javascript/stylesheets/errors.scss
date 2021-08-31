@@ -1,5 +1,3 @@
-// Error Styling
-
 .error-grid {
     display: grid;
     width: 100%;
@@ -23,11 +21,6 @@
 }
 
 .alert {
-    padding: 10px;
-    & li {
-        color: white;
-    }
-    & ul {
-        margin: 0px;
-    }
+    padding: 2px;
+    color: white;
 }
