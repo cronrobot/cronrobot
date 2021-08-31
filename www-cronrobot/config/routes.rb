@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get '/', to: 'home#index'
   get '/privacy-policy', to: 'home#privacy_policy'
+  get '/terms', to: 'home#terms'
 
   get '/auth/auth0/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'
