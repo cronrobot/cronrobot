@@ -13,10 +13,16 @@ body {
 nav {
     width: 90%;
     margin-top: calc(20px + 1vw);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 #main {
     width: 90%;
+}
+
+#logo {
+    width: calc(100px + 20%);
 }
 
 .sidebar {
