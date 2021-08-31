@@ -1,0 +1,26 @@
+.error-grid {
+    display: grid;
+    width: 100%;
+    grid-gap: 20px;
+    color: white;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+.alert-error {
+    background: #F85C70;
+}
+
+.alert-info {
+    background: #5A6EF8;
+}
+
+.alert-warning {
+    background: #FEDC56;
+}
+
+.alert {
+    padding: 2px;
+    color: white;
+}

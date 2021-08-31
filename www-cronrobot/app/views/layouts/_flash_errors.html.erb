@@ -1,11 +1,13 @@
-<% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>">
-        <% values = value.class == Array ? value : [value] %>
-        <ul>
-          <% values.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-        
-      </div>
-    <% end %>
+<div class="error-grid">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <% values = value.class == Array ? value : [value] %>
+      <ul>
+        <% values.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+      
+    </div>
+  <% end %>
+  </div>
