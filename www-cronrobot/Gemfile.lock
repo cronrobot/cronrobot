@@ -189,6 +189,7 @@ GEM
     omniauth-rails_csrf_protection (1.0.0)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    pg (1.2.3)
     popper_js (2.9.2)
     public_suffix (4.0.6)
     puma (4.3.8)
@@ -293,6 +294,7 @@ DEPENDENCIES
   mailgun-ruby
   omniauth-auth0 (~> 3.0)
   omniauth-rails_csrf_protection (~> 1.0)
+  pg
   puma (~> 4.1)
   rails!
   rexml

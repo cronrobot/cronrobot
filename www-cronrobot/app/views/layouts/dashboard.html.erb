@@ -13,14 +13,32 @@
   </head>
 
   <body>
-  
+  <%= render "layouts/flash_errors" %>
   <nav>
-    <img src="/images/BigLogo.svg">
-  </nav>
-  <div id="main">
-    <div class="sidebar">
-      
+    <div>
+      <img id="logo" src="/images/BigLogo.svg">
     </div>
+    <div class="menubar">
+    <a href="/dashboard/schedulers" class="menu-icon-parent">
+        <img src="/images/dashboard/calendar.svg" class="menu-icon">
+    </a>
+    <a href="/dashboard/resources" class="menu-icon-parent">
+        <img src="/images/dashboard/settings.svg" class="menu-icon">
+    </a>
+    <a href="/dashboard/notification_channels" class="menu-icon-parent">
+        <img src="/images/dashboard/bell.svg" class="menu-icon">
+    </a>
+    <a href="/dashboard/support" class="menu-icon-parent">
+        <img src="/images/dashboard/help-circle.svg" class="menu-icon">
+    </a>
+    <a href="/auth/logout" class="menu-icon-parent">
+        <img src="/images/dashboard/log-out.svg" class="menu-icon">
+    </a>
+    </div>
+  </nav>
+
+  <div id="main">
+    <%= yield %>
   </div>
 
 
