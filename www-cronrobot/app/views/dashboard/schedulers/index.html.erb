@@ -1,27 +1,16 @@
 <h1>Schedulers</h1>
 
-<a class="create-btn">
-    <span>Create</span>
-    <img src="/images/dashboard/icons/create.svg">
-</a>
-
-<ul>
-    <li>
-        <a href="/dashboard/schedulers/new/SchedulerSocketPing">
-            Create Socket ping scheduler
-        </a>
-    </li>
-    <li>
-        <a href="/dashboard/schedulers/new/SchedulerHttp">
-            Create HTTP scheduler
-        </a>
-    </li>
-    <li>
-        <a href="/dashboard/schedulers/new/SchedulerSsh">
-            Create SSH scheduler
-        </a>
-    </li>
-</ul>
+<form id="scheduler-select">
+    <select required="true">
+        <option value="SocketPing">Socket Ping</option>
+        <option value="Http">HTTP</option>
+        <option value="Ssh">SSH</option>
+    </select>
+    <a class="create-btn" onclick="submitForm()">
+        <span>Create</span>
+        <img src="/images/dashboard/icons/create.svg">
+    </a>
+</form>
 
 <table>
     <thead>
@@ -66,3 +55,10 @@
         <% end %>
     </tbody>
 </table>
+
+<script>
+    function submitForm() {
+        let value = document.getElementById('scheduler-select').elements[0].value;
+        window.location.href = `/dashboard/schedulers/new/Scheduler${value}`
+    }
+</script>
