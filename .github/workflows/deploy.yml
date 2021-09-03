@@ -21,6 +21,7 @@ jobs:
           WWW_CREDENTIALS_PRODUCTION_KEY: ${{secrets.WWW_CREDENTIALS_PRODUCTION_KEY}}
           DOTENV_CELERY_ADMIN_B64: ${{ secrets.DOTENV_CELERY_ADMIN_B64 }}
           DOTENV_DJANGO_B64: ${{ secrets.DOTENV_DJANGO_B64 }}
+          LOKI_LOCAL_CONFIG_YAML_B64: ${{ secrets.LOKI_LOCAL_CONFIG_YAML_B64 }}
         run: |
           go_home="cd /var/www/cronrobot"
 
@@ -35,6 +36,9 @@ jobs:
 
           # .env for celery-admin
           echo "$DOTENV_CELERY_ADMIN_B64" | base64 -d > .celery-admin.env
+
+          # loki config file
+          echo "$LOKI_LOCAL_CONFIG_YAML_B64" | base64 -d > grafana/loki/etc/local-config.yaml
 
           # ssh setup
           mkdir .ssh
@@ -51,6 +55,9 @@ jobs:
           cat .grafana.env | $ssh_in -T "cat > /var/www/cronrobot/.grafana.env"
           cat .www-cronrobot.env | $ssh_in -T "cat > /var/www/cronrobot/www-cronrobot/.env"
           cat .celery-admin.env | $ssh_in -T "cat > /var/www/cronrobot/celery-admin/.env"
+
+          # copy loki config
+          cat grafana/loki/etc/local-config.yaml | $ssh_in -T "cat > /var/www/cronrobot/grafana/loki/etc/local-config.yaml"
 
           # python deps
           $ssh_in "cd /var/www/cronrobot/celery-admin ; pip install -r requirements.txt"
