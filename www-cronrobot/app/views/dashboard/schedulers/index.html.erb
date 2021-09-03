@@ -1,4 +1,8 @@
+<% if @schedulers.empty? %>
+<h1>Create your first Scheduler</h1>
+<% else %>
 <h1>Schedulers</h1>
+<% end %>
 
 <form id="scheduler-select">
     <select required="true">

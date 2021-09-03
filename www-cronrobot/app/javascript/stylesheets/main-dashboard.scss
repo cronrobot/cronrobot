@@ -117,3 +117,17 @@ a, a:active {
         width: 13.5%;
     }
 }
+
+// Schedulers Section
+
+#scheduler-select > select {
+    width: calc(180px + 6vw);
+    background: white;
+    color: rgb(0, 0, 0, 0.75);
+    font-size: calc(10px + 0.5vw);
+    padding-left: 15px;
+    height: calc(40px + 1vw);
+    border: none;
+    border-radius: calc(3px + 0.3vw);
+    margin-bottom: calc(15px + 1vw);
+}
