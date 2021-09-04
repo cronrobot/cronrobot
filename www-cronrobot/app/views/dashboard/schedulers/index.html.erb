@@ -16,14 +16,18 @@
     </a>
 </form>
 
+<div class="table-grid">
+    <% @schedulers.each do |scheduler| %>
+        <div class="table-grid-row">
+            <p><%= scheduler.id %></p>
+            <p><%= scheduler.type %></p>
+            <p><%= scheduler.name %></p>
+            <p><%= @alerts_statuses[scheduler.id]&.dig("state") %></p>
+        </div>
+    <% end %>
+</div>
+
 <table>
-    <thead>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Actions</th>
-    </thead>
 
     <tbody>
         <% @schedulers.each do |scheduler| %>
