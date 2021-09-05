@@ -5,16 +5,16 @@ module SshResource
   end
 
   def validate_params
-    unless params["host"].present?
+    unless params&.dig("host").present?
       errors.add(:host, "missing")
     end
 
-    unless params["username"].present?
+    unless params&.dig("username").present?
       errors.add(:username, "missing")
     end
 
     # private key OR password-based (todo)
-    if params["private_key"].blank?
+    if params&.dig("private_key").blank?
       errors.add(:ssh_credentials, "missing")
     end
   end
