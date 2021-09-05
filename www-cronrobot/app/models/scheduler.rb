@@ -55,7 +55,7 @@ class Scheduler < ApplicationRecord
         resource = resources.first
 
         resource.params = params.merge(template_resource.params) || {}
-        params["template_resource_id"] = template_resource.id
+        resource.params["template_resource_id"] = template_resource.id
         
         resource.save
       else
