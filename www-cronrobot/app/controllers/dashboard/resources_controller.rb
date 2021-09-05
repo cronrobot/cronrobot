@@ -2,6 +2,7 @@
 class Dashboard::ResourcesController < DashboardController
   def index
     @resources = Resource.accessible_by(@current_user)
+      .select { |r| r.type == "ResourceProject" }
   end
 
   def new
