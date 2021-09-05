@@ -121,10 +121,8 @@ a, a:active {
     }
 }
 
-// Schedulers Section
-
-#scheduler-select > select {
-    width: calc(180px + 6vw);
+.select-input {
+    min-width: calc(180px + 6vw);
     background: white;
     color: rgb(0, 0, 0, 0.75);
     font-size: calc(10px + 0.5vw);
@@ -134,6 +132,30 @@ a, a:active {
     border: none;
     border-radius: calc(3px + 0.3vw);
     margin-bottom: calc(15px + 1vw);
+}
+
+.form-grid {
+    display: grid;
+    width: max-content;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 15px;
+}
+
+.form-input {
+    width: calc(165px + 6vw);
+    background: white;
+    color: rgb(0, 0, 0, 0.85);
+    font-size: calc(10px + 0.5vw);
+    padding-left: 15px;
+    line-height: 1px;
+    height: calc(40px + 1vw);
+    border: none;
+    border-radius: calc(3px + 0.3vw);
+    margin-bottom: calc(15px + 1vw);
+    &::placeholder {
+        color: rgb(0, 0, 0, 0.75);
+        font-size: calc(10px + 0.5vw);
+    }
 }
 
 // Tables

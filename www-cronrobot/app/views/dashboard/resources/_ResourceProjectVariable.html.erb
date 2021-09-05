@@ -1,4 +1,3 @@
 <div class="form-group">
-    <%= form.label "params[value]", "Value" %>
-    <%= form.text_field "params[value]", value: @resource.params.dig("value"), class: "form-control" %>
+    <%= form.text_field "params[value]", value: @resource.params.dig("value"), class: "form-input", placeholder: "Value" %>
 </div>
