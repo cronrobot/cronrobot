@@ -18,6 +18,7 @@ class ResourceTest < ActiveSupport::TestCase
     assert resource.params["host"] == "localhost"
     assert resource.params["private_key"] == "private_key"
     assert resource.params["username"] == "user"
+    
     assert resource.params["port"] == 22
 
     assert ResourceProject.last.id == resource.id
