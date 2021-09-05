@@ -8,6 +8,7 @@ class ResourceProject < Resource
   SUB_TYPES = %w(ResourceProjectSsh ResourceProjectVariable)
   validates :sub_type, :inclusion => {:in => SUB_TYPES}
 
+  after_save :update_scheduler_resources
   before_destroy :ensure_not_used
 
   def ensure_not_used
@@ -17,6 +18,22 @@ class ResourceProject < Resource
           raise Exception.new("Resource currently used by scheduler #{scheduler.name}")
         end
       end
+    end
+  end
+
+  def update_scheduler_resources
+    resources = Resource.where(parent_resource_id: self.id)
+
+    resources.each do |resource|
+      scheduler = resource.scheduler
+
+      unless scheduler.present?
+        next
+      end
+
+      scheduler.params ||= {}
+      scheduler.params["resource_id"] = self.id
+      scheduler.store_params
     end
   end
 
