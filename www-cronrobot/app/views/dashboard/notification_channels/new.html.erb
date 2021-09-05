@@ -1,20 +1,14 @@
-
+<h1>Create a notification channel</h1>
 <%= form_with model: [:dashboard, @notification_channel] do |form| %>
   <%= form.hidden_field :project_id %>
 
   <div class="form-group mb-2">
-    <%= form.label :name, "Name" %>
-    <%= form.text_field :name, class: "form-control" %>
+    <%= form.text_field :name, class: "form-input", placeholder: "Name" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :type, "Type" %>
-    <%= form.select :type, NotificationChannel::NOTIFICATION_CHANNEL_TYPES, {}, class: "form-control" %>
+    <%= form.select :type, NotificationChannel::NOTIFICATION_CHANNEL_TYPES, {}, class: "form-input", placeholder: "Type" %>
   </div>
 
-  <div class="form-group">
-    
-  </div>
-
-  <%= form.submit %>
+  <%= form.submit :Create, class: "create-btn" %>
 <% end %>
