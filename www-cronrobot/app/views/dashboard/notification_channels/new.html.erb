@@ -1,5 +1,5 @@
 <h1>Create a notification channel</h1>
-<%= form_with model: [:dashboard, @notification_channel] do |form| %>
+<%= form_with class: "form-grid", model: [:dashboard, @notification_channel] do |form| %>
   <%= form.hidden_field :project_id %>
 
   <div class="form-group mb-2">

@@ -19,10 +19,14 @@
 <div class="table-grid">
     <% @schedulers.each do |scheduler| %>
         <div class="table-grid-row">
-            <p><%= scheduler.id %></p>
+            <div class="state state-<%= @alerts_statuses[scheduler.id]&.dig("state") %>">
+                <p><%= scheduler.id %></p>
+            </div>
             <p><%= scheduler.type %></p>
             <p><%= scheduler.name %></p>
-            <p><%= @alerts_statuses[scheduler.id]&.dig("state") %></p>
+            <div class="action-icons">
+                <p class=""><%= @alerts_statuses[scheduler.id]&.dig("state") %></p>
+            </div>
         </div>
     <% end %>
 </div>
