@@ -53,9 +53,12 @@ class ResourceProjectTest < ActiveSupport::TestCase
       params: { "resource_id" => resource.id }
     )
 
+    sched_resource = sched.resources.first
     sched.reload
 
-    sched_resource = sched.resources.first
+    sched_resource.params["command"] = "ls -la"
+    sched_resource.save!
+    
     assert sched_resource.params["private_key"] == "--"
     assert sched_resource.params["port"] == 22
 
@@ -67,6 +70,7 @@ class ResourceProjectTest < ActiveSupport::TestCase
     sched_resource.reload
     assert sched_resource.params["private_key"] == "--key"
     assert sched_resource.params["port"] == 22222
+    assert sched_resource.params["command"] == "ls -la"
 
   end
 end
