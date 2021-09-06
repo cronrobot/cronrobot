@@ -122,7 +122,7 @@ a, a:active {
 }
 
 .select-input {
-    min-width: calc(180px + 6vw);
+    min-width: calc(255px + 8vw);
     background: white;
     color: rgb(0, 0, 0, 0.75);
     font-size: calc(10px + 0.5vw);
@@ -139,10 +139,22 @@ a, a:active {
     width: max-content;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 15px;
+    & {
+        @media only screen and (max-width: 700px) {
+            width: 80%;
+            grid-template-columns: 1fr;
+            & input {
+                width: 94.5%;
+            }
+            & select {
+                width: 100%;
+            }
+        }
+    }
 }
 
 .form-input {
-    width: calc(165px + 6vw);
+    width: calc(240px + 8vw);
     background: white;
     color: rgb(0, 0, 0, 0.85);
     font-size: calc(10px + 0.5vw);
@@ -172,9 +184,28 @@ a, a:active {
     background: white;
     display: grid;
     text-align: center;
+    overflow: hidden;
     font-size: calc(13px + 0.3vw);
     grid-template-columns: 0.3fr 1.7fr 1fr 1fr;
     width: 100%;
     min-height: calc(15px + 0.3vw);
     border-radius: calc(5px + 0.2vw);
+}
+
+// Status
+
+.state-unknown, .state-paused {
+    background: #FEDC56;
+}
+
+.state-alerting, .state-OK {
+    background: #03DDA6;
+}
+
+.state-ALL, .state-pending {
+    background: $main-blue;
+}
+
+.state-no_data {
+    background: #F85C70;
 }

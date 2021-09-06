@@ -1,20 +1,18 @@
-
-<%= form_with model: [:dashboard, @scheduler] do |form| %>
+<h1>Create HTTP Scheduler</h1>
+<%= form_with class: "form-grid", model: [:dashboard, @scheduler] do |form| %>
   <%= form.hidden_field :project_id %>
 
   <div class="form-group">
-    <%= form.label :name, "Name" %>
-    <%= form.text_field :name, class: "form-control" %>
+    <%= form.text_field :name, placeholder: "Name", class: "form-input" %>
   </div>
 
   <%= render "dashboard/schedulers/form_schedule", form: form %>
 
   <div class="form-group">
-    <%= form.label "params[url]", "URL" %>
-    <%= form.text_field "params[url]", class: "form-control", value: @scheduler.params&.dig("url") %>
+    <%= form.text_field "params[url]", class: "form-input", placeholder: "URL", value: @scheduler.params&.dig("url") %>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
 
-  <%= form.submit %>
+  <%= form.submit :Create, class: "create-btn" %>
 <% end %>

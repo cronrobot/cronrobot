@@ -8,9 +8,8 @@
 
   <!-- TODO - split into partials -->
   <div class="form-group">
-    <%= form.label "configs[addresses]", "Email addresses (comma delimited)" %>
-    <%= form.text_field "configs[addresses]", value: @notification_channel.configs&.dig("addresses"), class: "form-control" %>
+    <%= form.text_field "configs[addresses]", placeholder: "Email addresses (comma separated)", value: @notification_channel.configs&.dig("addresses"), class: "form-input" %>
   </div>
 
-  <%= form.submit %>
+  <%= form.submit :Submit, class: "create-btn" %>
 <% end %>

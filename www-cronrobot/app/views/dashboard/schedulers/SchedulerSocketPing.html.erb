@@ -1,25 +1,22 @@
-
-<%= form_with model: [:dashboard, @scheduler] do |form| %>
+<h1>Create Socket Ping Scheduler</h1>
+<%= form_with class: "form-grid", model: [:dashboard, @scheduler] do |form| %>
   <%= form.hidden_field :project_id %>
 
   <div class="form-group">
-    <%= form.label :name, "Name" %>
-    <%= form.text_field :name, class: "form-control" %>
+    <%= form.text_field :name, class: "form-input", placeholder: "Name" %>
   </div>
 
   <%= render "dashboard/schedulers/form_schedule", form: form %>
 
   <div class="form-group">
-    <%= form.label "params[port]", "Port" %>
-    <%= form.number_field "params[port]", class: "form-control", value: @scheduler&.params&.dig("port") %>
+    <%= form.number_field "params[port]", class: "form-input", placeholder: "Port", value: @scheduler&.params&.dig("port") %>
   </div>
 
   <div class="form-group">
-    <%= form.label "params[host]", "Hostname" %>
-    <%= form.text_field "params[host]", class: "form-control", value: @scheduler&.params&.dig("host") %>
+    <%= form.text_field "params[host]", class: "form-input", placeholder: "Host", value: @scheduler&.params&.dig("host") %>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
 
-  <%= form.submit %>
+  <%= form.submit :Create, class: "create-btn" %>
 <% end %>
