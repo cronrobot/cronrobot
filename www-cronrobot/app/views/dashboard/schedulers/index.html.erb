@@ -25,48 +25,28 @@
             <p><%= scheduler.type %></p>
             <p><%= scheduler.name %></p>
             <div class="action-icons">
-                <p class=""><%= @alerts_statuses[scheduler.id]&.dig("state") %></p>
+                <a href="/dashboard/<%= scheduler.plural_path_name %>/<%= scheduler.id %>">
+                    <img src="/images/dashboard/icons/edit.svg"></img>
+                </a>
+                <a href="<%= Grafana.dashboard_url(scheduler) %>">
+                    <img src="/images/dashboard/icons/dashboard.svg"></img>
+                </a>
+                <% if @alerts_statuses[scheduler.id]&.dig("state") != "paused" %>
+                    <a data-confirm="Are you sure?" rel="nofollow" href="/dashboard/schedulers/<%= scheduler.id %>/pause" data-method="post">
+                        <img src="/images/dashboard/icons/pause.svg">
+                    </a>
+                <% else %>
+                    <a data-confirm="Are you sure?" rel="nofollow" href="/dashboard/schedulers/<%= scheduler.id %>/unpause" data-method="post">
+                        <img src="/images/dashboard/icons/resume.svg">
+                    </a>
+                <% end %>
+                <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/schedulers/<%= scheduler.id %>">
+                    <img src="/images/dashboard/icons/delete.svg">
+                </a>
             </div>
         </div>
     <% end %>
 </div>
-
-<table>
-
-    <tbody>
-        <% @schedulers.each do |scheduler| %>
-            <tr>
-                <td><%= scheduler.id %></td>
-                <td><%= scheduler.type %></td>
-                <td><%= scheduler.name %></td>
-                <td><%= @alerts_statuses[scheduler.id]&.dig("state") %>
-                <td>
-                    <ul>
-                        <li>
-                            <%= link_to "Edit", "/dashboard/#{scheduler.plural_path_name}/#{scheduler.id}" %>
-                        </li>
-                        <li>
-                            <%= link_to "Access Dashboard (Grafana)", Grafana.dashboard_url(scheduler) %>
-                        </li>
-                        <li>
-                            <% if @alerts_statuses[scheduler.id]&.dig("state") != "paused" %>
-                                <%= link_to 'Pause', "/dashboard/schedulers/#{scheduler.id}/pause",
-                                data: {:confirm => 'Are you sure?'}, :method => :post %>
-                            <% else %>
-                                <%= link_to 'Resume', "/dashboard/schedulers/#{scheduler.id}/unpause",
-                                data: {:confirm => 'Are you sure?'}, :method => :post %>
-                            <% end %>
-                        </li>
-                        <li>
-                            <%= link_to 'Destroy', "/dashboard/schedulers/#{scheduler.id}",
-                            data: {:confirm => 'Are you sure?'}, :method => :delete %>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
 
 <script>
     function submitForm() {
