@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_010212) do
+ActiveRecord::Schema.define(version: 2021_09_05_204014) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string "client_id"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_010212) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "sub_type"
+    t.integer "parent_resource_id"
+    t.index ["parent_resource_id"], name: "index_resources_on_parent_resource_id"
   end
 
   create_table "schedulers", force: :cascade do |t|
@@ -74,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_010212) do
 
   add_foreign_key "notification_channels", "projects"
   add_foreign_key "projects", "users"
+  add_foreign_key "resources", "resources", column: "parent_resource_id"
   add_foreign_key "schedulers", "projects"
   add_foreign_key "schedulers", "users", column: "updated_by_user_id"
 end
