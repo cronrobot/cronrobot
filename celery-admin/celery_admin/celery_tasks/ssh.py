@@ -1,6 +1,7 @@
 import io
 import paramiko
 import time
+import hashlib
 from celery.utils.log import get_task_logger
 
 logger = get_task_logger(__name__)
@@ -9,10 +10,19 @@ LIMIT_OUTPUT = 1000000000
 connections = {}
 
 
+def ssh_connection_key(host=None, port=None, username=None, private_key=None):
+    key_content = f"{username}@{host}:{port}--{private_key}"
+
+    return hashlib.sha256(key_content.encode()).hexdigest()
+
+
 def ssh_cmd(
     host=None, port=None, username=None, private_key=None, cmd=None, timeout=None
 ):
-    connection_id = f"{username}@{host}:{port}"
+    connection_id = ssh_connection_key(
+        host=host, port=port, username=username, private_key=private_key
+    )
+
     file_pk = io.StringIO(private_key)
     loaded_private_key = paramiko.RSAKey.from_private_key(file_pk)
 
