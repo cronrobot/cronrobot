@@ -176,7 +176,7 @@ a, a:active {
     display: grid;
     width: 100%;
     grid-template-columns: 1fr;
-    grid-row-gap: 10px;
+    grid-row-gap: 20px;
     margin-bottom: 80px;
 }
 
@@ -185,20 +185,42 @@ a, a:active {
     display: grid;
     text-align: center;
     overflow: hidden;
-    font-size: calc(13px + 0.3vw);
-    grid-template-columns: 0.3fr 1.7fr 1fr 1fr;
+    font-size: calc(9px + 0.5vw);
+    grid-template-columns: 0.3fr 2fr 1.2fr 0.5fr;
     width: 100%;
     min-height: calc(15px + 0.3vw);
     border-radius: calc(5px + 0.2vw);
+    transition: .25s linear;
+    &:hover {
+        box-shadow: 0px 8px 12px 12px rgba(0, 0, 0, 0.25);
+    }
+    & {
+        @media only screen and (max-width: 700px) {
+            grid-template-columns: 0.3fr 1.7fr 1fr 1fr;
+        }
+    }
+}
+
+.action-icons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    & img {
+        width: calc(15px + 0.4vw);
+    }
 }
 
 // Status
+
+.state {
+    background: $main-blue;
+}
 
 .state-unknown, .state-paused {
     background: #FEDC56;
 }
 
-.state-alerting, .state-OK {
+.state-OK {
     background: #03DDA6;
 }
 
@@ -206,6 +228,6 @@ a, a:active {
     background: $main-blue;
 }
 
-.state-no_data {
+.state-alerting, .state-no_data {
     background: #F85C70;
 }
