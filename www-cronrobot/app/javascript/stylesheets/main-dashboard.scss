@@ -190,7 +190,7 @@ a, a:active {
     text-align: center;
     overflow: hidden;
     font-size: calc(9px + 0.5vw);
-    grid-template-columns: 0.3fr 2fr 1.2fr 0.5fr;
+    grid-template-columns: 0.5fr 1fr 2fr 0.5fr;
     width: 100%;
     min-height: calc(15px + 0.3vw);
     border-radius: calc(5px + 0.2vw);
@@ -205,7 +205,7 @@ a, a:active {
     }
     & {
         @media only screen and (max-width: 700px) {
-            grid-template-columns: 0.3fr 1.7fr 1fr 1fr;
+            grid-template-columns: 0.5fr 1fr 1.5fr 1fr;
         }
     }
 }
