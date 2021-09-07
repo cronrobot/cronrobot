@@ -4,7 +4,7 @@
 
 CronRobot is an open source cron-based scheduler system. Define your monitoring and recurring tasks in one simple system. Get notified when things go wrong. Easy.
 
-It consists of the following pieces:
+CronRobot consists of the following pieces:
 
 - A front site with administration dashboard ([www-cronrobot](/www-cronrobot)): Allows to login, manage, and view cron schedulers.
 - A job runner ([celery-admin](/celery-admin)): Based on the python celery system. Currently setup to use rabbitmq as the queuing system.
