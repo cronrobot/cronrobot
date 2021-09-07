@@ -1,4 +1,4 @@
-<h1>Create Socket Ping Scheduler</h1>
+<h1 id="header"></h1>
 <%= form_with class: "form-grid", model: [:dashboard, @scheduler] do |form| %>
   <%= form.hidden_field :project_id %>
 
@@ -18,5 +18,13 @@
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
 
-  <%= form.submit :Create, class: "create-btn" %>
+  <%= form.submit :Submit, class: "create-btn" %>
 <% end %>
+
+<script>
+  if (window.location.href.includes('new')) {
+    document.getElementById("header").innerHTML = "Create Socket Ping Scheduler"; 
+  } else {
+    document.getElementById("header").innerHTML = "Update Socket Ping Scheduler";
+  }
+</script>
