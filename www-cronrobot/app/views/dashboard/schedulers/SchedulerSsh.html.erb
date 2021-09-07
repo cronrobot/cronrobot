@@ -1,21 +1,19 @@
 <h1 id="header"></h1>
-<%= form_with class: "form-grid", model: [:dashboard, @scheduler] do |form| %>
+<%= form_with model: [:dashboard, @scheduler] do |form| %>
   <%= form.hidden_field :project_id %>
 
-  <div class="form-group">
+  <div class="form-grid">
     <%= form.text_field :name, class: "form-input", placeholder: "Name" %>
   </div>
 
   <%= render "dashboard/schedulers/form_schedule", form: form %>
 
-  <% if false %>
   <div class="form-group">
-    <%= form.label "params[resource_id]", "Ssh credentials" %>
+    <p class="sub-heading">SSH Credentials</p>
     <%= form.select "params[resource_id]", (Resource.accessible_by(@current_user, "ResourceProjectSsh").collect {|p| [ p.params["name"], p.id ] }), {}, multiple: false, class: "select-input" %>
   </div>
-  <% end %>
 
-  <div class="form-group">
+  <div class="form-grid">
     <%= form.text_field "params[command]", class: "form-input", placeholder: "Remote Command", value: @scheduler.params&.dig("command") %>
   </div>
 

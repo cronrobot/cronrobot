@@ -147,14 +147,14 @@ a, a:active {
                 width: 94.5%;
             }
             & select {
-                width: 100%;
+                width: 98.5%;
             }
         }
     }
 }
 
 .form-input {
-    width: calc(240px + 8vw);
+    min-width: calc(240px + 8vw);
     background: white;
     color: rgb(0, 0, 0, 0.85);
     font-size: calc(10px + 0.5vw);
@@ -216,6 +216,35 @@ a, a:active {
     align-items: center;
     & img {
         width: calc(15px + 0.4vw);
+    }
+}
+
+.sub-heading {
+    font-size: calc(12px + 0.8vw);
+    color: white;
+    font-weight: bold;
+}
+
+.options-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: .25s all;
+    width: max-content;
+    background: $main-blue;
+    border-radius: calc(3px + 0.1vw);
+    font-size: calc(10px + 0.5vw);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 35px;
+    cursor: pointer;
+    & img {
+        width: calc(7px + 0.3vw);
+        margin-left: calc(3px + 0.1vw);
+    }
+    &:hover {
+        background: rgb(90, 110, 248, 0.8);
     }
 }
 
