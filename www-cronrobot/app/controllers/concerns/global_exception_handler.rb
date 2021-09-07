@@ -9,7 +9,6 @@ module GlobalExceptionHandler
     end
 
     rescue_from Exception do |e|
-      puts "err --> #{e.inspect}"
       flash[:error] = "Error: #{e}"
       redirect_back fallback_location: root_path
     end

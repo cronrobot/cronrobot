@@ -20,10 +20,10 @@
     <% @schedulers.each do |scheduler| %>
         <div class="table-grid-row">
             <div class="state state-<%= @alerts_statuses[scheduler.id]&.dig("state") %>">
-                <p><%= scheduler.id %></p>
+                <p><%= @alerts_statuses[scheduler.id]&.dig("state") %> (todo)</p>
             </div>
-            <p><%= scheduler.type %></p>
-            <p><%= scheduler.name %></p>
+            <p><%= scheduler.schedule %> (todo)</p>
+            <p><%= scheduler.name %> (display type)</p>
             <div class="action-icons">
                 <a href="/dashboard/<%= scheduler.plural_path_name %>/<%= scheduler.id %>">
                     <img src="/images/dashboard/icons/edit.svg"></img>
