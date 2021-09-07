@@ -4,6 +4,11 @@
 <h1>Schedulers</h1>
 <% end %>
 
+<a id="display-form" class="create-btn" onclick="displayForm()">
+    <span>Create</span>
+    <img src="/images/dashboard/icons/create.svg">
+</a>
+
 <form id="scheduler-select" class="form-grid">
     <select required="true" class="select-input">
         <option value="SocketPing">Socket Ping</option>
@@ -49,6 +54,10 @@
 </div>
 
 <script>
+    function displayForm() {
+        document.getElementById('display-form').style.display = 'none';
+        document.getElementById('scheduler-select').style.display = 'grid';
+    }
     function submitForm() {
         let value = document.getElementById('scheduler-select').elements[0].value;
         window.location.href = `/dashboard/schedulers/new/Scheduler${value}`
