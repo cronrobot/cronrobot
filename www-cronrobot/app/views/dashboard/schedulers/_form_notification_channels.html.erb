@@ -9,13 +9,15 @@
 <% end %>
 
 <script>
+    document.getElementById('chevron').style.transform = 'rotate(90deg)'
+    document.getElementById('notification-form').style.display = 'none';
     function displayOptions() {
         if (document.getElementById('notification-form').style.display !== 'none') {
             document.getElementById('chevron').style.transform = 'rotate(90deg)'
             document.getElementById('notification-form').style.display = 'none';
         } else {
-            document.getElementById('chevron').style.transform = 'rotate(0deg)'
             document.getElementById('notification-form').style.display = 'block';
+            document.getElementById('chevron').style.transform = 'rotate(0deg)'
         }
     }
 </script>
