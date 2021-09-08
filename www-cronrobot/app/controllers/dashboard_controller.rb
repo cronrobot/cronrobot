@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
   include DashboardExceptionHandler
   
   before_action :ensure_project_selected
+  before_action :populate_accessible_projects
 
   def requires_auth
     true
@@ -32,6 +33,10 @@ class DashboardController < ApplicationController
 
     @project = Project.find_by id: selected_project_id
     User.can_access_project(@current_user, @project)
+  end
+
+  def populate_accessible_projects
+    @accessible_projects = @current_user.projects
   end
 
 end
