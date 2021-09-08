@@ -248,6 +248,29 @@ a, a:active {
     }
 }
 
+fieldset {
+    width: max-content;
+    margin-bottom: calc(15px + 1vw);
+    border-radius: calc(4px + 0.2vw);
+    & .form-grid {
+        padding: calc(10px + 0.4vw) calc(4px + 0.1vw) calc(10px + 0.4vw) calc(4px + 0.1vw);
+    }
+    & .sub-heading {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    & input, .form-input, .select-input {
+        margin-bottom: 0px;
+    }
+    & .select-input {
+        & {
+            @media only screen and (max-width: 700px) {
+                margin-bottom: calc(15px + 1vw);
+            }
+        }
+    }
+}
+
 // Status
 
 .state {
