@@ -1,4 +1,5 @@
-<p class="sub-heading">Schedule</p>
+<fieldset>
+<legend class="sub-heading">Schedule</legend>
 <div class="form-grid">
     <%= form.select "params[schedule_type]",
         friendly_schedule_lister, { selected: @scheduler&.params&.dig("schedule_type") },
@@ -10,7 +11,7 @@
         <%= form.text_field :schedule, class: "form-input", id: "schedule_field", placeholder: "Custom Schedule (Crontab format)" %>
     </div>
 </div>
-
+</fieldset>
 
 <script>
     function getSchedules() {
