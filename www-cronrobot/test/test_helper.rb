@@ -1,4 +1,5 @@
 ENV['RAILS_ENV'] ||= 'test'
+ENV["AUTH_SCHEME"] = "auth0"
 require_relative '../config/environment'
 require 'rails/test_help'
 
@@ -10,6 +11,10 @@ class ActiveSupport::TestCase
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+
+  def set_auth0
+    ENV["AUTH_SCHEME"] = "auth0"
+  end
 
   def mock_find_celery_periodic_task(id, status_code = 200, response_body="")
     stub_request(:get,

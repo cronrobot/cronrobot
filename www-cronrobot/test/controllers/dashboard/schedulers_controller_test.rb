@@ -1,6 +1,11 @@
 require "test_helper"
 
 class SchedulersControllerTest < ActionDispatch::IntegrationTest
+
+  setup do
+    set_auth0
+  end
+
   test "pause" do
     current_user = User.last
     current_user.uid = "1234"
