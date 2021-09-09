@@ -1,6 +1,11 @@
 require "test_helper"
 
 class SchedulerHttpControllerTest < ActionDispatch::IntegrationTest
+
+  setup do
+    set_auth0
+  end
+
   test "post" do
     project = Project.last
     project.user = User.last

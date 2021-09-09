@@ -31,6 +31,8 @@ class DashboardController < ApplicationController
       selected_project_id = project.id
     end
 
+
+
     @project = Project.find_by id: selected_project_id
     User.can_access_project(@current_user, @project)
   end

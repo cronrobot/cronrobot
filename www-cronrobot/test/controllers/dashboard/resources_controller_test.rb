@@ -1,6 +1,11 @@
 require "test_helper"
 
 class DashboardResourcesControllerTest < ActionDispatch::IntegrationTest
+
+  setup do
+    set_auth0
+  end
+
   test "happy path" do
     current_user = User.last
     current_user.uid = "1234"
