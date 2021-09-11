@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
     resources :notification_channels
     resources :resources
+    resources :projects
 
     get '/support', to: 'support#index'
     post '/support', to: 'support#contact'
