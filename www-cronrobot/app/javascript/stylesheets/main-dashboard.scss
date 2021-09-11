@@ -1,17 +1,6 @@
 $bg-color: #222121;
 $main-blue: #5A6EF8;
 
-body {
-    margin: 0px;
-    background: $bg-color;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Montserrat', sans-serif;
-}
-
-
 nav {
     width: 90%;
     margin-top: calc(20px + 1vw);
@@ -24,6 +13,22 @@ h1 {
     color: white;
     font-size: calc(24px + 1vw);
     font-weight: bold;
+}
+
+p, li {
+    color: rgb(255, 255, 255, 0.85);
+    font-size: calc(11px + 0.6vw);
+    font-weight: bold;
+}
+
+body {
+    margin: 0px;
+    background: $bg-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 a, a:active {
@@ -90,6 +95,7 @@ a, a:active {
 
 #discord-banner {
     cursor: pointer;
+    width: calc(200px + 50%);
     max-width: 100%;
     border-radius: calc(20px + 0.5vw);
     transition: .25s linear;
@@ -186,6 +192,7 @@ a, a:active {
 
 .table-grid {
     display: grid;
+    color: black;
     width: 100%;
     grid-template-columns: 1fr;
     grid-row-gap: 20px;
@@ -207,6 +214,7 @@ a, a:active {
         display: flex;
         align-items: center;
         justify-content: center;
+        color: rgb(0, 0, 0, 0.75);
     }
     &:hover {
         box-shadow: 0px 8px 12px 12px rgba(0, 0, 0, 0.25);
