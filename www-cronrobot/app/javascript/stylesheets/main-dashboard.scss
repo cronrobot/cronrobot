@@ -54,6 +54,9 @@ a, a:active {
     overflow: hidden;
     font-weight: 600;
     font-size: calc(10px + 0.6vw);
+    & .active {
+        background: rgba(255, 255, 255, 0.15);
+    }
     & a {
         width: calc(100% / 3.5);
         height: 100%;
@@ -61,6 +64,7 @@ a, a:active {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        border-left: calc(1px + 0.1vw) solid #FFFFFF;
         &:hover {
             background: rgba(255, 255, 255, 0.15);
         }
@@ -76,6 +80,10 @@ a, a:active {
             }
         }
     }
+}
+
+#first-item-nav {
+    border-left: none;
 }
 
 // Support Section
