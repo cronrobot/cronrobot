@@ -1,0 +1,87 @@
+version: "3"
+services:
+  www-api:
+    network_mode: "host"
+    restart: always
+    build:
+      args: 
+        - ENVIRONMENT=production
+      context: ./www-cronrobot
+      dockerfile: Dockerfile
+    #ports:
+    #  - 3030:3030
+    environment:
+      ENVIRONMENT: production
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_SERVE_STATIC_FILES: "true"
+    env_file:
+      - ./www-cronrobot/.env
+
+  rabbitmq:
+    network_mode: "host"
+    restart: always
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    #ports:
+    #  - 5672:5672
+    #  - 15672:15672
+    volumes:
+        - ./rabbitmq-disk/data/:/var/lib/rabbitmq/
+        - ./rabbitmq-disk/log/:/var/log/rabbitmq
+
+  celery-admin:
+    network_mode: "host"
+    restart: always
+    build:
+      context: ./celery-admin
+      dockerfile: Dockerfile.api
+    #ports:
+    #  - 8000:8000
+    env_file:
+      - .env
+    volumes:
+      - ./celery-admin/:/app/
+
+  loki: # https://github.com/grafana/loki/releases
+    network_mode: "host"
+    restart: always
+    image: grafana/loki:2.3.0
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /secrets/sa-gcs.json
+    volumes:
+      - ./grafana/loki/etc:/etc/loki
+      - ./secrets:/secrets
+    #ports:
+    #  - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail: # https://github.com/grafana/loki/releases
+    network_mode: "host"
+    restart: always
+    image: grafana/promtail:2.3.0
+    volumes:
+      - ./grafana/promtail/etc:/etc/promtail
+      - ./scheduler-logs:/logs
+    command: -config.file=/etc/promtail/config.yml
+
+  grafana: # https://github.com/grafana/grafana
+    network_mode: "host"
+    restart: always
+    image: grafana/grafana:8.1.1
+    volumes:
+      - ./grafana/grafana/etc:/etc/grafana
+    env_file:
+      - .grafana.env
+    #ports:
+    #  - "3000:3000"
+  #renderer:
+  #  image: grafana/grafana-image-renderer:latest
+  #  network_mode: "host"
+
+  #flower:  
+  #  image: mher/flower
+  #  command: ["flower", "--broker=amqp://guest:guest@localhost:5672//", "--port=5555"] 
+  #  depends_on:
+  #    - rabbitmq
+  #  ports:
+  #     - 5555:5555 
