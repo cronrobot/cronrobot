@@ -290,7 +290,7 @@ fieldset {
 .head-grid {
     display: flex;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 18px;
     & {
         @media only screen and (max-width: 700px) {
             flex-direction: column;
@@ -303,8 +303,31 @@ fieldset {
         & {
             @media only screen and (max-width: 700px) {
                 margin-left: 0%;
+                margin-bottom: 25px;
             }
         }
+    }
+}
+
+.resource-info {
+    margin-bottom: 45px;
+    max-width: calc(290px + 18vw);
+    background: $main-blue;
+    border-radius: calc(5px + 0.2vw);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: .2s linear;
+    &:hover {
+        box-shadow: 0px 8px 12px 12px rgba(0, 0, 0, 0.25);
+    }
+    & img {
+        width: calc(20px + 1vw);
+    }
+    & p {
+        font-size: calc(10px + 0.5vw);
+        max-width: 85%;
     }
 }
 
