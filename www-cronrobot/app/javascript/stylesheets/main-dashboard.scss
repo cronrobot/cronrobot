@@ -173,7 +173,6 @@ a, a:active {
     color: rgb(0, 0, 0, 0.85);
     font-size: calc(10px + 0.5vw);
     padding-left: 15px;
-    line-height: 1px;
     height: calc(40px + 1vw);
     border: none;
     border-radius: calc(3px + 0.3vw);
@@ -305,6 +304,19 @@ fieldset {
                 margin-left: 0%;
                 margin-bottom: 25px;
             }
+        }
+    }
+}
+
+textarea {
+    padding-top: 35px;
+    width: calc(300px + 10vw);
+    max-width: 100%;
+    min-height: calc(80px + 8vw);
+    & {
+        @media only screen and (max-width: 700px) {
+            min-width: calc(240px + 8vw);
+            width: 75.5%;
         }
     }
 }
