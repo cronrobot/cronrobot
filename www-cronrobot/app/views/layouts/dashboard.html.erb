@@ -15,10 +15,20 @@
   <body>
   <%= render "layouts/flash_errors" %>
   <nav>
-    <div>
+    <div class="nav-top">
       <a href="/dashboard">
         <img id="logo" src="/images/BigLogo.svg">
       </a>
+      <div class="project-selection">
+        <a href="/dashboard/projects/new">
+          <img id="new-project-icon" src="/images/dashboard/icons/new.svg">
+        </a>
+        <select class="project-select-input">
+            <% @accessible_projects.each do |projects| %>
+              <option value="<%= projects.id %>"><%= projects.name %></option>
+            <% end %>
+        </select>
+      </div>
     </div>
     <div class="menubar">
     <a id="first-item-nav" href="/dashboard/schedulers" class="menu-icon-parent active">

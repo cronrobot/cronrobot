@@ -42,7 +42,7 @@ a, a:active {
 }
 
 #logo {
-    width: calc(100px + 10%);
+    width: calc(110px + 5vw);
 }
 
 .menubar {
@@ -341,6 +341,30 @@ textarea {
         font-size: calc(10px + 0.5vw);
         max-width: 85%;
     }
+}
+
+.nav-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-selection {
+    display: flex;
+    align-items: center;
+}
+
+#new-project-icon {
+    width: calc(15px + 1vw);
+    margin-right: calc(20px + 1vw);
+}
+
+.project-select-input {
+    height: calc(20px + 1vw);
+    width: calc(110px + 5vw);
+    padding-left: 5px;
+    border: none;
+    border-radius: calc(3px + 0.3vw);
 }
 
 // Status
