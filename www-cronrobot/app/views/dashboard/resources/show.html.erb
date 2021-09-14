@@ -1,18 +1,19 @@
-
-<%= form_with url: "/dashboard/resources/#{@resource.id}", model: [:dashboard, @resource] do |form| %>
+<h1>Resource Details</h1>
+<%= form_with url: "/dashboard/resources/#{@resource.id}",  model: [:dashboard, @resource] do |form| %>
 
   <input type="hidden" name="_method" value="patch">
 
-  <div class="form-group">
-    <%= form.label "params[name]", "Name" %>
-    <%= form.text_field "params[name]", value: @resource.params.dig("name"), class: "form-control" %>
+  <div class="form-grid">
+    <%= form.text_field "params[name]", value: @resource.params.dig("name"), class: "form-input", placeholder: "Name" %>
+    <%= render "dashboard/resources/#{@resource.sub_type}", form: form %>
   </div>
-
-  <%= render "dashboard/resources/#{@resource.sub_type}", form: form %>
-
-  <div class="form-group">
-    
+  
+  <% if @resource.sub_type == "ResourceProjectSsh" %>
+  <div class="form-group" id="private-key">
+    <%= form.text_area "params[private_key]", class: "form-input", placeholder: "Private Key" %>
   </div>
+  <% end %>
 
-  <%= form.submit %>
+  <%= form.submit :Submit, class: "create-btn" %>
+
 <% end %>

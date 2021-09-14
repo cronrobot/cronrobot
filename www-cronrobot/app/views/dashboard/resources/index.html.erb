@@ -1,36 +1,33 @@
+<div class="head-grid">
 <h1>Project Resources</h1>
 
-<div>
-<a href="/dashboard/resources/new">
-    Create
+<a href="/dashboard/resources/new" class="create-btn">
+    <span>Create</span>
+    <img src="/images/dashboard/icons/create.svg">
 </a>
-<br />
 </div>
 
-<table>
-    <thead>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Name</th>
-        <th>actions</th>
-    </thead>
+<div class="resource-info">
+    <img src="/images/dashboard/icons/info.png">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+</div>
 
-    <tbody>
-        <% @resources.each do |resource| %>
-            <tr>
-                <td><%= resource.id %></td>
-                <td><%= resource.sub_type %></td>
-                <td><%= resource.params.dig("name") %></td>
-                <td>
-                    <ul>
-                        <li>
-                            <%= link_to "Edit", "/dashboard/resources/#{resource.id}" %>
-                        </li>
-                        <li><%= link_to 'Destroy', "/dashboard/resources/#{resource.id}",
-                            data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
-                    </ul>
-                </td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+<div class="table-grid">
+    <% @resources.each do |resource| %>
+        <div class="table-grid-row">
+            <div class="state">
+                <p><%= resource.id %></p>
+            </div>
+            <p><%= resource.sub_type %></p>
+            <p><%= resource.params.dig("name") %></p>
+            <div class="action-icons">
+                <a href="/dashboard/resources/<%= resource.id %>">
+                    <img src="/images/dashboard/icons/edit.svg"></img>
+                </a>
+                <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/resources/<%= resource.id %>">
+                    <img src="/images/dashboard/icons/delete.svg">
+                </a>
+            </div>
+        </div>
+    <% end %>
+</div>

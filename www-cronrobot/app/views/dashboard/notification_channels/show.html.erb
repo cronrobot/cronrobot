@@ -1,21 +1,15 @@
-
-<%= form_with model: [:dashboard, @notification_channel] do |form| %>
+<h1>Edit Notification Channel</h1>
+<%= form_with class: "form-grid", model: [:dashboard, @notification_channel] do |form| %>
   <%= form.hidden_field :project_id %>
 
   <div class="form-group">
-    <%= form.label :name, "Name" %>
-    <%= form.text_field :name, class: "form-control" %>
+    <%= form.text_field :name, class: "form-input", placeholder: "Name" %>
   </div>
 
   <!-- TODO - split into partials -->
   <div class="form-group">
-    <%= form.label "configs[addresses]", "Email addresses (comma delimited)" %>
-    <%= form.text_field "configs[addresses]", value: @notification_channel.configs&.dig("addresses"), class: "form-control" %>
+    <%= form.text_field "configs[addresses]", placeholder: "Email addresses (comma separated)", value: @notification_channel.configs&.dig("addresses"), class: "form-input" %>
   </div>
 
-  <div class="form-group">
-    
-  </div>
-
-  <%= form.submit %>
+  <%= form.submit :Submit, class: "create-btn" %>
 <% end %>

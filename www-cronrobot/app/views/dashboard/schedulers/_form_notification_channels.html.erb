@@ -1,3 +1,23 @@
-<div class="form-group">
-<%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, multiple: true, class: "form-control" %>
+<% if @notification_channels.empty? %>
+<div></div>
+<% else %>
+<p class="options-text" onclick="displayOptions()">Options <span><img id="chevron" src="/images/dashboard/icons/chevron.svg"></span></p>
+<div class="form-group" id="notification-form">
+    <p class="sub-heading">Notification Channels</p>
+    <%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, class: "select-input" %>
 </div>
+<% end %>
+
+<script>
+    document.getElementById('chevron').style.transform = 'rotate(90deg)'
+    document.getElementById('notification-form').style.display = 'none';
+    function displayOptions() {
+        if (document.getElementById('notification-form').style.display !== 'none') {
+            document.getElementById('chevron').style.transform = 'rotate(90deg)'
+            document.getElementById('notification-form').style.display = 'none';
+        } else {
+            document.getElementById('notification-form').style.display = 'block';
+            document.getElementById('chevron').style.transform = 'rotate(0deg)'
+        }
+    }
+</script>

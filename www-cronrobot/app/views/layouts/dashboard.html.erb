@@ -4,60 +4,60 @@
     <title>CronRobot Dashboard</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="robots" content="index, follow" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
     <%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'dashboard', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div class="dashboard-wrapper">
-      <nav id="dashboard-sidebar">
-        <div class="sidebar-header">
-            <h3>CronRobot</h3>
-        </div>
-
-        <ul class="nav flex-column" id="dashboard-sidebar-links">
-          <li class="nav-item">
-            <a href="/dashboard/schedulers"></a>
-            <a class="nav-link active" href="/dashboard/schedulers">
-              <i class="fas fa-2x fa-calendar" aria-hidden="true"></i>
-              <br />
-              Schedulers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard/resources">
-              <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
-              <br />
-              Resource Configs
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard/notification_channels">
-              <i class="fa fa-bell fa-2x" aria-hidden="true"></i>
-              <br />
-              Notification Channels
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard/support">
-              <i class="fa fa-question-circle fa-2x"></i>
-              <br />
-              Support
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <div id="dashboard-content" class="">
-        <div class="pull-right"><%= button_to 'Logout', '/auth/logout', method: :get %></div>
-        <div>Project: <%= @project.name %> (<%= @project.id %>)</div>
-
-        <%= render "layouts/flash_errors" %>
-
-        <%= yield %>
+  <%= render "layouts/flash_errors" %>
+  <nav>
+    <div class="nav-top">
+      <a href="/dashboard">
+        <img id="logo" src="/images/BigLogo.svg">
+      </a>
+      <div class="project-selection">
+        <a href="/dashboard/projects/new">
+          <img id="new-project-icon" src="/images/dashboard/icons/new.svg">
+        </a>
+        <select class="project-select-input">
+            <% @accessible_projects.each do |projects| %>
+              <option value="<%= projects.id %>"><%= projects.name %></option>
+            <% end %>
+        </select>
       </div>
     </div>
+    <div class="menubar">
+    <a id="first-item-nav" href="/dashboard/schedulers" class="menu-icon-parent active">
+      <img src="/images/dashboard/calendar.svg" class="menu-icon">
+      <p>Schedulers</p>
+    </a>
+    <a href="/dashboard/resources" class="menu-icon-parent">
+      <img src="/images/dashboard/settings.svg" class="menu-icon">
+      <p>Resources</p>
+    </a>
+    <a href="/dashboard/notification_channels" class="menu-icon-parent">
+      <img src="/images/dashboard/bell.svg" class="menu-icon">
+      <p>Notifications</p>
+    </a>
+    <a href="/dashboard/support" class="menu-icon-parent">
+      <img src="/images/dashboard/help-circle.svg" class="menu-icon">
+      <p>Support</p>
+    </a>
+    <a href="/auth/logout" class="menu-icon-parent">
+      <img src="/images/dashboard/log-out.svg" class="menu-icon">
+      <p>Logout</p>
+    </a>
+    </div>
+  </nav>
+
+  <div id="main">
+    <%= yield %>
+  </div>
+
+
   </body>
 </html>

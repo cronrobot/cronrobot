@@ -1,33 +1,28 @@
-notification channels!
+<div class="head-grid">
+<h1>Notification Channels</h1>
 
-<a href="/dashboard/notification_channels/new">
-    Create
+<a href="/dashboard/notification_channels/new" class="create-btn">
+    <span>Create</span>
+    <img src="/images/dashboard/icons/create.svg">
 </a>
+</div>
 
-<table>
-    <thead>
-        <th>ID</th>
-        <th>Type</th>
-        <th>name</th>
-        <th>actions</th>
-    </thead>
-
-    <tbody>
-        <% @notification_channels.each do |notification_channel| %>
-            <tr>
-                <td><%= notification_channel.id %></td>
-                <td><%= notification_channel.type %></td>
-                <td><%= notification_channel.name %></td>
-                <td>
-                    <ul>
-                        <li>
-                            <%= link_to "Edit", "/dashboard/notification_channels/#{notification_channel.id}" %>
-                        </li>
-                        <li><%= link_to 'Destroy', "/dashboard/notification_channels/#{notification_channel.id}",
-                            data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
-                    </ul>
-                </td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+<div class="table-grid">
+    <% @notification_channels.each do |notification_channels| %>
+        <div class="table-grid-row">
+            <div class="state">
+                <p><%= notification_channels.id %></p>
+            </div>
+            <p><%= notification_channels.type %></p>
+            <p><%= notification_channels.name %></p>
+            <div class="action-icons">
+                <a href="/dashboard/notification_channels/<%= notification_channels.id %>">
+                    <img src="/images/dashboard/icons/edit.svg"></img>
+                </a>
+                <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/notification_channels/<%= notification_channels.id %>">
+                    <img src="/images/dashboard/icons/delete.svg">
+                </a>
+            </div>
+        </div>
+    <% end %>
+</div>

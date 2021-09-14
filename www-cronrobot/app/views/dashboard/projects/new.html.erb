@@ -1,0 +1,12 @@
+<h1>Create a new project</h1>
+
+<%= form_with class: "form-grid", model: [:dashboard, @project] do |form| %>
+  <%= form.hidden_field :reference_id %>
+
+  <div class="form-group mb-2">
+    <%= form.text_field "name", class: "form-input", placeholder: "Name" %>
+  </div>
+
+
+  <%= form.submit :Create, class: "create-btn" %>
+<% end %>

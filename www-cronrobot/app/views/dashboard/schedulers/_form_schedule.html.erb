@@ -1,18 +1,17 @@
-
-<div class="form-group">
-    <%= form.label "params[schedule_type]", "Schedule" %>
+<fieldset>
+<legend class="sub-heading">Schedule</legend>
+<div class="form-grid">
     <%= form.select "params[schedule_type]",
         friendly_schedule_lister, { selected: @scheduler&.params&.dig("schedule_type") },
         multiple: false,
-        
         onchange: "handleScheduleTypeChange(this.value)",
-        class: "form-control" %>
+        class: "select-input" %>
+            
+    <div id="customScheduleBlock">
+        <%= form.text_field :schedule, class: "form-input", id: "schedule_field", placeholder: "Custom Schedule (Crontab format)" %>
+    </div>
 </div>
-
-<div class="form-group" id="customScheduleBlock">
-    <%= form.label :schedule, "Custom Schedule (crontab format)" %>
-    <%= form.text_field :schedule, class: "form-control", id: "schedule_field" %>
-</div>
+</fieldset>
 
 <script>
     function getSchedules() {
