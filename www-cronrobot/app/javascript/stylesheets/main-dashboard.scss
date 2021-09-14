@@ -38,7 +38,7 @@ a, a:active {
 
 #main {
     width: 90%;
-    margin-top: calc(50px + 3vw);
+    margin-top: calc(20px + 2vw);
 }
 
 #logo {
@@ -361,8 +361,8 @@ textarea {
 
 .project-select-input {
     height: calc(20px + 1vw);
-    width: calc(110px + 5vw);
-    padding-left: 5px;
+    width: calc(120px + 8vw);
+    padding-left: calc(5px + 0.5vw);
     border: none;
     border-radius: calc(3px + 0.3vw);
 }
