@@ -38,7 +38,10 @@ class DashboardController < ApplicationController
   end
 
   def populate_accessible_projects
-    @accessible_projects = @current_user.projects
+
+    list_projects = @current_user.projects - [@project]
+
+    @accessible_projects = [@project] + list_projects
   end
 
 end
