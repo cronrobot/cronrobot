@@ -11,7 +11,7 @@ nav {
 
 h1 {
     color: white;
-    font-size: calc(24px + 1vw);
+    font-size: calc(20px + 1vw);
     font-weight: bold;
 }
 
@@ -365,6 +365,14 @@ textarea {
     padding-left: calc(5px + 0.5vw);
     border: none;
     border-radius: calc(3px + 0.3vw);
+}
+
+.project-tag {
+    margin: 0px;
+    margin-right: calc(10px + 1vw);
+    @media only screen and (max-width: 500px) {
+        display: none;
+    }
 }
 
 // Status
