@@ -24,8 +24,9 @@ module WwwSecured
   def verify_authentication
     session_user = Rails.env.test? ? params["userinfo"] : session[:userinfo]
 
+    @current_user = retrieve_authenticated_user(session_user&.dig("sub"))
+
     if requires_auth
-      @current_user = retrieve_authenticated_user(session_user&.dig("sub"))
       redirect_to '/' if @current_user.blank?
     end
   end
