@@ -29,7 +29,7 @@
       </div>
 
       <div class="project-selection">
-      <p class="project-tag">Project:</p>
+      <p class="project-tag"><a href="/dashboard/projects">Project</a>:</p>
         <select id="project-select" onchange="changeProject()" class="project-select-input">
             <% @accessible_projects.each do |projects| %>
               <option value="?selected_project_id=<%= projects.id %>"><%= projects.name %></option>

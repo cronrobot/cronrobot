@@ -1,0 +1,31 @@
+<div class="head-grid">
+    <h1>Your Projects (<%= @projects.count %>)</h1>
+
+    <a href="/dashboard/projects/new" class="create-btn">
+        <span>Create</span>
+        <img src="/images/dashboard/icons/create.svg">
+    </a>
+
+</div>
+
+<div class="table-grid">
+    <% @projects.each do |project| %>
+        <div class="table-grid-row">
+            <div class="state">
+                <p><%= project.id %></p>
+            </div>
+
+            <p><%= project.name %></p>
+
+            <div class="action-icons">
+                <a href="/dashboard/projects/<%= project.id %>">
+                    <img src="/images/dashboard/icons/edit.svg"></img>
+                </a>
+                <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/projects/<%= project.id %>">
+                    <img src="/images/dashboard/icons/delete.svg">
+                </a>
+            </div>
+
+        </div>
+    <% end %>
+</div>
