@@ -1,5 +1,9 @@
 class Dashboard::SchedulersController < DashboardController
 
+  def set_current_section
+    @section = "scheduler"
+  end
+
   before_action :validate_param_type
   before_action :authorize_scheduler_access
 

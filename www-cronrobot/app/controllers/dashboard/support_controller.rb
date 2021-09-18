@@ -1,5 +1,10 @@
 
 class Dashboard::SupportController < DashboardController
+
+  def set_current_section
+    @section = "support"
+  end
+
   def index
   end
 

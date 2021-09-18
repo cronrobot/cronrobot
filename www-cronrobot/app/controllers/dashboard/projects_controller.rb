@@ -1,5 +1,9 @@
 class Dashboard::ProjectsController < DashboardController
 
+  def set_current_section
+    @section = "project"
+  end
+
   def new
 
     @updated_project = Project.new
