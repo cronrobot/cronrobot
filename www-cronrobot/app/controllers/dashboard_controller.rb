@@ -5,12 +5,16 @@ class DashboardController < ApplicationController
   
   before_action :ensure_project_selected
   before_action :populate_accessible_projects
+  before_action :set_current_section
 
   def requires_auth
     true
   end
 
   private
+
+  def set_current_section
+  end
 
   def ensure_project_selected
     project = @current_user.projects.first

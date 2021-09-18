@@ -1,5 +1,10 @@
 
 class Dashboard::NotificationChannelsController < DashboardController
+
+  def set_current_section
+    @section = "notification_channel"
+  end
+
   def index
     @notification_channels = @current_user.notification_channels
   end

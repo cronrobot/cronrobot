@@ -40,19 +40,20 @@
     </div>
     
     <div class="menubar">
-    <a id="first-item-nav" href="/dashboard/schedulers" class="menu-icon-parent active">
+    <a id="first-item-nav" href="/dashboard/schedulers"
+      class="menu-icon-parent <%= section_active("scheduler") %>">
       <img src="/images/dashboard/calendar.svg" class="menu-icon">
       <p>Schedulers</p>
     </a>
-    <a href="/dashboard/resources" class="menu-icon-parent">
+    <a href="/dashboard/resources" class="menu-icon-parent <%= section_active("resource") %>">
       <img src="/images/dashboard/settings.svg" class="menu-icon">
       <p>Resources</p>
     </a>
-    <a href="/dashboard/notification_channels" class="menu-icon-parent">
+    <a href="/dashboard/notification_channels" class="menu-icon-parent <%= section_active("notification_channel") %>">
       <img src="/images/dashboard/bell.svg" class="menu-icon">
       <p>Notifications</p>
     </a>
-    <a href="/dashboard/support" class="menu-icon-parent">
+    <a href="/dashboard/support" class="menu-icon-parent <%= section_active("support") %>">
       <img src="/images/dashboard/help-circle.svg" class="menu-icon">
       <p>Support</p>
     </a>
