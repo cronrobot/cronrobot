@@ -2,7 +2,7 @@
     display: grid;
     width: 100%;
     grid-gap: 20px;
-    color: white;
+    color: black !important;
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
@@ -26,5 +26,5 @@
 
 .alert {
     padding: 2px;
-    color: white;
+    color: black !important;
 }

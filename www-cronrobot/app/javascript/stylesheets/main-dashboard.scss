@@ -1,9 +1,10 @@
 $bg-color: #222121;
 $main-blue: #5A6EF8;
 
+
 nav {
     width: 90%;
-    margin-top: calc(20px + 1vw);
+    margin-top: calc(15px + 1vw);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -11,7 +12,7 @@ nav {
 
 h1 {
     color: white;
-    font-size: calc(20px + 1vw);
+    font-size: calc(17px + 1vw);
     font-weight: bold;
 }
 
@@ -38,7 +39,7 @@ a, a:active {
 
 #main {
     width: 90%;
-    margin-top: calc(20px + 2vw);
+    margin-top: calc(15px + 2vw);
 }
 
 #logo {
@@ -209,8 +210,8 @@ a, a:active {
     font-size: calc(9px + 0.5vw);
     grid-template-columns: 0.5fr 1fr 2fr 0.5fr;
     width: 100%;
-    min-height: calc(15px + 0.3vw);
-    border-radius: calc(5px + 0.2vw);
+    min-height: calc(12px + 0.25vw);
+    border-radius: calc(4px + 0.2vw);
     transition: .25s linear;
     & > p {
         display: flex;
