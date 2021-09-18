@@ -21,4 +21,5 @@ module ApplicationHelper
   def friendly_schedule_lister
     friendly_schedules.map { |s| [s[:name], s[:id]] }
   end
+
 end

@@ -1,5 +1,10 @@
 
 class Dashboard::ResourcesController < DashboardController
+
+  def set_current_section
+    @section = "resource"
+  end
+
   def index
     @resources = Resource.accessible_by(@current_user)
       .select { |r| r.type == "ResourceProject" }
