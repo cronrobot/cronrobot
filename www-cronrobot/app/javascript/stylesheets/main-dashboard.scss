@@ -16,7 +16,7 @@ h1 {
     font-weight: bold;
 }
 
-p, li {
+p, li, label {
     color: rgb(255, 255, 255, 0.85);
     font-size: calc(11px + 0.6vw);
     font-weight: bold;
@@ -396,6 +396,14 @@ textarea {
     margin-right: calc(10px + 1vw);
     @media only screen and (max-width: 500px) {
         display: none;
+    }
+}
+
+.input-with-label {
+    display: flex;
+    flex-direction: column;
+    & label {
+        margin-bottom: calc(8px + 0.5vw);
     }
 }
 

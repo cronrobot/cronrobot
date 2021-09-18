@@ -3,7 +3,16 @@
   <%= form.hidden_field :project_id %>
 
   <div class="form-grid">
+
+    <% if false %>
+    <div class="input-with-label">
+      <label>Name</label>
+      <%= form.text_field :name, class: "form-input" %>
+    </div>
+    <% end %>
+
     <%= form.text_field :name, class: "form-input", placeholder: "Name" %>
+
   </div>
 
   <%= render "dashboard/schedulers/form_schedule", form: form %>
