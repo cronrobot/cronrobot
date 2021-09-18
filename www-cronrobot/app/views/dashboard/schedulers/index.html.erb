@@ -30,7 +30,7 @@
                 <p><%= @alerts_statuses[scheduler.id]&.dig("state") %> (todo)</p>
             </div>
             <p><%= scheduler.schedule %> (todo)</p>
-            <p><%= scheduler.name %> (display type)</p>
+            <p><a href="/asdf"><%= scheduler.name %></a> (display type)</p>
             <div class="action-icons">
                 
                 <a href="<%= Grafana.dashboard_url(scheduler) %>">
