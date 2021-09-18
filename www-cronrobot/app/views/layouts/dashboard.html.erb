@@ -19,17 +19,26 @@
       <a href="/dashboard">
         <img id="logo" src="/images/BigLogo.svg">
       </a>
+
+      <div>
+        <a class="nav-links active" href="/dashboard/schedulers">Schedulers</a>
+        <a class="nav-links" href="/dashboard/resources">Resources</a>
+        <a class="nav-links" href="/dashboard/notification_channels">Notifications</a>
+        <a class="nav-links" href="/dashboard/support">Support</a>
+        <a class="nav-links" href="/auth/logout">Logout</a>
+      </div>
+
       <div class="project-selection">
-        <a href="/dashboard/projects/new">
-          <img id="new-project-icon" src="/images/dashboard/icons/new.svg">
-        </a>
-        <select class="project-select-input">
+      <p class="project-tag">Project:</p>
+        <select id="project-select" onchange="changeProject()" class="project-select-input">
             <% @accessible_projects.each do |projects| %>
-              <option value="<%= projects.id %>"><%= projects.name %></option>
+              <option value="?selected_project_id=<%= projects.id %>"><%= projects.name %></option>
             <% end %>
+            <option value="/dashboard/projects/new">Create New <span class="plus-sign">+</span></option>
         </select>
       </div>
     </div>
+    
     <div class="menubar">
     <a id="first-item-nav" href="/dashboard/schedulers"
       class="menu-icon-parent <%= section_active("scheduler") %>">
@@ -53,12 +62,18 @@
       <p>Logout</p>
     </a>
     </div>
+
   </nav>
 
   <div id="main">
     <%= yield %>
   </div>
 
-
+  <script>
+      function changeProject() {
+        let url = document.getElementById('project-select').selectedOptions[0].value;
+        window.location.href = url;
+      }
+  </script>
   </body>
 </html>
