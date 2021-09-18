@@ -1,4 +1,4 @@
-.error-grid {
+#error-grid {
     display: grid;
     width: 100%;
     grid-gap: 20px;
@@ -24,7 +24,7 @@
     background: #FEDC56;
 }
 
-.alert {
+#alert {
     padding: 2px;
     color: black !important;
 }

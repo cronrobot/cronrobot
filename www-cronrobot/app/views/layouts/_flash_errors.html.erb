@@ -1,6 +1,6 @@
-<div class="error-grid">
+<div id="error-grid">
   <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>">
+    <div id="alert" class="alert-<%= key %>">
       <% values = value.class == Array ? value : [value] %>
       <ul>
         <% values.each do |msg| %>
