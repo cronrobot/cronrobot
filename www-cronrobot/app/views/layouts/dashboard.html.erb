@@ -21,10 +21,10 @@
       </a>
 
       <div>
-        <a class="nav-links active" href="/dashboard/schedulers">Schedulers</a>
-        <a class="nav-links" href="/dashboard/resources">Resources</a>
-        <a class="nav-links" href="/dashboard/notification_channels">Notifications</a>
-        <a class="nav-links" href="/dashboard/support">Support</a>
+        <a class="nav-links <%= section_active("scheduler") %>" href="/dashboard/schedulers">Schedulers</a>
+        <a class="nav-links <%= section_active("resource") %>" href="/dashboard/resources">Resources</a>
+        <a class="nav-links <%= section_active("notification_channel") %>" href="/dashboard/notification_channels">Notifications</a>
+        <a class="nav-links <%= section_active("support") %>" href="/dashboard/support">Support</a>
         <a class="nav-links" href="/auth/logout">Logout</a>
       </div>
 
