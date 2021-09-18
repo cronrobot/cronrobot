@@ -181,7 +181,7 @@ a, a:active {
     border-radius: calc(3px + 0.3vw);
     margin-bottom: calc(15px + 1vw);
     &::placeholder {
-        color: rgb(0, 0, 0, 0.75);
+        color: rgb(0, 0, 0, 0.5) !important;
         font-size: calc(10px + 0.5vw);
     }
 }
