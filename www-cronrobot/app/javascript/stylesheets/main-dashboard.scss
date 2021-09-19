@@ -174,7 +174,7 @@ a, a:active {
 .form-input {
     min-width: calc(240px + 8vw);
     background: white;
-    color: rgb(0, 0, 0, 0.85);
+    color: rgb(0, 0, 0);
     font-size: calc(10px + 0.5vw);
     padding-left: 15px;
     height: calc(40px + 1vw);
@@ -182,7 +182,7 @@ a, a:active {
     border-radius: calc(3px + 0.3vw);
     margin-bottom: calc(15px + 1vw);
     &::placeholder {
-        color: rgb(0, 0, 0, 0.5) !important;
+        color: rgb(0, 0, 0, 0.35) !important;
         font-size: calc(10px + 0.5vw);
     }
 }
