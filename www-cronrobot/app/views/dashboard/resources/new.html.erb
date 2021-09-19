@@ -8,7 +8,8 @@
   </div>
 
   <div class="form-group">
-    <%= form.select :sub_type, ResourceProject::SUB_TYPES, {}, class: "select-input" %>
+    <%= form.select :sub_type,
+      (ResourceProject::SUB_TYPES.map { |t| [resource_type_friendly(t), t] }), {}, class: "select-input" %>
   </div>
 
   <%= form.submit :Create, class: "create-btn" %>

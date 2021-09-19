@@ -5,7 +5,7 @@ class ResourceProject < Resource
   validates :project, presence: true
   validates :sub_type, presence: true
 
-  SUB_TYPES = %w(ResourceProjectSsh ResourceProjectVariable)
+  SUB_TYPES = %w(ResourceProjectVariable ResourceProjectSsh)
   validates :sub_type, :inclusion => {:in => SUB_TYPES}
 
   after_save :update_scheduler_resources
