@@ -30,14 +30,13 @@
                 <p><%= @alerts_statuses[scheduler.id]&.dig("state") %> (todo)</p>
             </div>
             <p><%= scheduler.schedule %> (todo)</p>
-            <p><%= scheduler.name %> (display type)</p>
+            <p><a href="/asdf"><%= scheduler.name %></a> (display type)</p>
             <div class="action-icons">
-                <a href="/dashboard/<%= scheduler.plural_path_name %>/<%= scheduler.id %>">
-                    <img src="/images/dashboard/icons/edit.svg"></img>
-                </a>
+                
                 <a href="<%= Grafana.dashboard_url(scheduler) %>">
                     <img src="/images/dashboard/icons/dashboard.svg"></img>
                 </a>
+
                 <% if @alerts_statuses[scheduler.id]&.dig("state") != "paused" %>
                     <a data-confirm="Are you sure?" rel="nofollow" href="/dashboard/schedulers/<%= scheduler.id %>/pause" data-method="post">
                         <img src="/images/dashboard/icons/pause.svg">
@@ -47,6 +46,11 @@
                         <img src="/images/dashboard/icons/resume.svg">
                     </a>
                 <% end %>
+
+                <a href="/dashboard/<%= scheduler.plural_path_name %>/<%= scheduler.id %>">
+                    <img src="/images/dashboard/icons/edit.svg"></img>
+                </a>
+
                 <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/schedulers/<%= scheduler.id %>">
                     <img src="/images/dashboard/icons/delete.svg">
                 </a>

@@ -7,10 +7,15 @@
 </a>
 </div>
 
-<div class="resource-info">
-    <img src="/images/dashboard/icons/info.png">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-</div>
+<% if @resources.count.zero? %>
+    <div class="resource-info">
+        <img src="/images/dashboard/icons/info.png">
+        <p>
+            Resources are configurations which can be reused within project schedulers. <br />
+            Example project resources are variables which can be defined and used in multiple fields [LINK TO DOC], or SSH credentials which can be used to connect to.
+        </p>
+    </div>
+<% end %>
 
 <div class="table-grid">
     <% @resources.each do |resource| %>
