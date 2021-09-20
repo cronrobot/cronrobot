@@ -46,6 +46,10 @@ logger.info(f"Record task results path: {RECORD_TASK_RESULTS_PATH}")
 ### Global
 
 
+class InternalEventException(Exception):
+    pass
+
+
 def replace_attribute_secret_variables(value, variables):
     replacements = {
         (v.get("params", {}) or {}).get("name"): (v.get("params", {}) or {}).get("value")
@@ -94,19 +98,30 @@ def handle_task(func):
 
             replace_secret_variables(body["params"], params.get("project_id"))
 
-            result = func(*args, **kwargs)
+            try:
+                result = func(*args, **kwargs)
+            except Exception as e:
+                raise InternalEventException(e)
+
             result["status"] = STATUS_SUCCESS_LABEL
 
             return record_task_result(LOG_LEVEL_INFO, orig_body, result, t_begin=t_begin)
 
-        except Exception as e:
+        except InternalEventException as e:
             logger.error(f"Celery exception, e={e}, exception={traceback.format_exc()}")
+
             return record_task_result(
                 LOG_LEVEL_ERROR,
                 orig_body,
                 {"error": f"{e}", "status": STATUS_ERROR_LABEL},
                 t_begin=t_begin,
             )
+        except Exception as e:
+            logger.error(
+                f"Celery GLOBAL exception, e={e}, exception={traceback.format_exc()}"
+            )
+
+            return {"error": "global_exception", "details": traceback.format_exc()}
 
     return inner
 
@@ -176,5 +191,6 @@ def debug_task(self):
 
 
 @app.task(bind=True)
-def hello_world(self):
+@handle_task
+def hello_world(self, **kwargs):
     print("Hello world ;)!")
