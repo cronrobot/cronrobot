@@ -278,7 +278,7 @@ def test_celery_replace_secret_variables_happy_path(requests_mock):
 
 
 def test_celery_internal_error_should_not_record_event(requests_mock):
-    #requests_mock.get("http://myrequest.com/test", text='{"this": "is"}')
+    # requests_mock.get("http://myrequest.com/test", text='{"this": "is"}')
 
     mock_oauth_resources(requests_mock)
 
@@ -286,7 +286,7 @@ def test_celery_internal_error_should_not_record_event(requests_mock):
         "url": "http://myrequest.com/testexception",
         "timeout": 3,
         "scheduler_id": 22,
-        "resource_id": 1234
+        "resource_id": 1234,
     }
 
     result = celery.http(body={"params": params})
