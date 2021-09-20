@@ -440,7 +440,7 @@ textarea {
     }
 }
 
-.state-unknown, .state-paused {
+.state-unknown, .state-paused, .state-pending, .state-no_data {
     background: #FEDC56;
 }
 
@@ -448,10 +448,10 @@ textarea {
     background: #03DDA6;
 }
 
-.state-ALL, .state-pending {
+.state-ALL {
     background: $main-blue;
 }
 
-.state-alerting, .state-no_data {
+.state-alerting {
     background: #F85C70;
 }
