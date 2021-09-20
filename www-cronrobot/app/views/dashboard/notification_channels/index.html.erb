@@ -16,12 +16,24 @@
             <p><%= notification_channels.type %></p>
             <p><%= notification_channels.name %></p>
             <div class="action-icons">
+            <div class="hover-over-tooltip">
                 <a href="/dashboard/notification_channels/<%= notification_channels.id %>">
-                    <img src="/images/dashboard/icons/edit.svg"></img>
+                    <img src="/images/dashboard/icons/edit.svg">
+                        <div class="tooltip-parent">
+                            <span class="tooltip">Edit</span>
+                        </div>
+                    </img>
                 </a>
+            </div>
+            <div class="hover-over-tooltip">
                 <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/notification_channels/<%= notification_channels.id %>">
                     <img src="/images/dashboard/icons/delete.svg">
+                        <div class="tooltip-parent">
+                            <span class="tooltip">Delete</span>
+                        </div>
+                    </img>
                 </a>
+            </div>
             </div>
         </div>
     <% end %>

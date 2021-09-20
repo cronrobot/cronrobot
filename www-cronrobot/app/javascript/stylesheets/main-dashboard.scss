@@ -242,6 +242,7 @@ a, a:active {
     align-items: center;
     & img {
         width: calc(15px + 0.4vw);
+        position: relative;
     }
 }
 
@@ -412,6 +413,22 @@ textarea {
     & label {
         margin-bottom: calc(8px + 0.5vw);
     }
+}
+
+
+.tooltip {
+    display: none;
+    position: absolute;
+    padding: 10px;
+    background: black;
+    border-radius: calc(2px + 0.1vw);
+    color:white;
+    margin-bottom: 10px;
+    z-index: 10;
+}
+
+.hover-over-tooltip:hover .tooltip {
+    display: block;
 }
 
 // Status
