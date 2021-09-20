@@ -431,6 +431,30 @@ textarea {
     display: block;
 }
 
+#notif-input {
+    padding: 0px;
+    height: calc(100px + 5vw);
+    min-width: calc(255px + 8vw);
+    background: white;
+    color: rgb(0, 0, 0, 0.75);
+    font-size: calc(10px + 0.5vw);
+    border: none;
+    border-radius: calc(3px + 0.3vw);
+    margin-bottom: calc(15px + 1vw);
+    & option {
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        height: 20%;
+        transition: .15s linear;
+        cursor: pointer;
+        outline: none;
+        &:hover {
+            background:rgb(0, 0, 0, 0.15);
+        }
+    }
+}
+
 // Status
 
 .state {
