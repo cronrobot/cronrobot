@@ -66,8 +66,8 @@ def test_celery_http_no_params():
 
     result = celery.http(body=body)
 
-    assert "No params" in result["result"]["error"]
-    assert result["status"] == "error"
+    assert "No params" in result["details"]
+    assert result["error"] == "global_exception"
 
 
 def test_celery_http_happy_path(requests_mock):
@@ -119,11 +119,7 @@ def test_celery_http_exception_on_call(requests_mock):
 
     result = celery.http(body={"params": params})
 
-    assert result["level"], "error"
-    assert result["status"], "error"
-    assert result["body"] == {"params": params}
-    assert "No mock address" in result["result"]["error"]
-    assert result["result"]["duration"] > 0
+    assert result["error"] == "global_exception"
 
 
 # SSH
@@ -276,3 +272,23 @@ def test_celery_replace_secret_variables_happy_path(requests_mock):
     celery.replace_secret_variables(entity, 1234)
 
     assert entity == {"command": "ls -la /root/path", "hello": "any testtest "}
+
+
+# soft error handling
+
+
+def test_celery_internal_error_should_not_record_event(requests_mock):
+    #requests_mock.get("http://myrequest.com/test", text='{"this": "is"}')
+
+    mock_oauth_resources(requests_mock)
+
+    params = {
+        "url": "http://myrequest.com/testexception",
+        "timeout": 3,
+        "scheduler_id": 22,
+        "resource_id": 1234
+    }
+
+    result = celery.http(body={"params": params})
+
+    assert result["error"] == "global_exception"
