@@ -7,10 +7,15 @@
 </a>
 </div>
 
-<div class="resource-info">
-    <img src="/images/dashboard/icons/info.png">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-</div>
+<% if @resources.count.zero? %>
+    <div class="resource-info">
+        <img src="/images/dashboard/icons/info.png">
+        <p>
+            Resources are configurations which can be reused within project schedulers. <br />
+            Example project resources are variables which can be defined and used in multiple fields [LINK TO DOC], or SSH credentials which can be used to connect to.
+        </p>
+    </div>
+<% end %>
 
 <div class="table-grid">
     <% @resources.each do |resource| %>
@@ -21,12 +26,24 @@
             <p><%= resource_type_friendly resource.sub_type %></p>
             <p><%= resource.params.dig("name") %></p>
             <div class="action-icons">
+            <div class="hover-over-tooltip">
                 <a href="/dashboard/resources/<%= resource.id %>">
-                    <img src="/images/dashboard/icons/edit.svg"></img>
+                    <img src="/images/dashboard/icons/edit.svg">
+                        <div class="tooltip-parent">
+                            <span class="tooltip">Edit</span>
+                        </div>
+                    </img>
                 </a>
+            </div>
+            <div class="hover-over-tooltip">
                 <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/resources/<%= resource.id %>">
                     <img src="/images/dashboard/icons/delete.svg">
+                    <div class="tooltip-parent">
+                        <span class="tooltip">Delete</span>
+                    </div>
+                    </img>
                 </a>
+            </div>
             </div>
         </div>
     <% end %>

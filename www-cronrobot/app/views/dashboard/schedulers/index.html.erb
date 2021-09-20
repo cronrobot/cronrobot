@@ -30,26 +30,59 @@
                 <p><%= @alerts_statuses[scheduler.id]&.dig("state") %> (todo)</p>
             </div>
             <p><%= scheduler.schedule %> (todo)</p>
-            <p><%= scheduler.name %> (display type)</p>
+            <p><a href="/asdf"><%= scheduler.name %></a> (display type)</p>
             <div class="action-icons">
-                <a href="/dashboard/<%= scheduler.plural_path_name %>/<%= scheduler.id %>">
-                    <img src="/images/dashboard/icons/edit.svg"></img>
-                </a>
+                
+            <div class="hover-over-tooltip">
                 <a href="<%= Grafana.dashboard_url(scheduler) %>">
-                    <img src="/images/dashboard/icons/dashboard.svg"></img>
+                    <img src="/images/dashboard/icons/dashboard.svg">
+                    <div class="tooltip-parent">
+                        <span class="tooltip">Grafana Dashboard</span>
+                    </div>
+                </img>
                 </a>
+            </div>
+
+            <div class="hover-over-tooltip">
                 <% if @alerts_statuses[scheduler.id]&.dig("state") != "paused" %>
                     <a data-confirm="Are you sure?" rel="nofollow" href="/dashboard/schedulers/<%= scheduler.id %>/pause" data-method="post">
                         <img src="/images/dashboard/icons/pause.svg">
+                        <div class="tooltip-parent">
+                            <span class="tooltip">Pause</span>
+                        </div>
+                        </img>
                     </a>
                 <% else %>
                     <a data-confirm="Are you sure?" rel="nofollow" href="/dashboard/schedulers/<%= scheduler.id %>/unpause" data-method="post">
                         <img src="/images/dashboard/icons/resume.svg">
+                        <div class="tooltip-parent">
+                            <span class="tooltip">Resume</span>
+                        </div>
+                        </img>
                     </a>
                 <% end %>
+            </div>
+
+            <div class="hover-over-tooltip">
+                <a href="/dashboard/<%= scheduler.plural_path_name %>/<%= scheduler.id %>">
+                    <img src="/images/dashboard/icons/edit.svg">
+                    <div class="tooltip-parent">
+                        <span class="tooltip">Edit</span>
+                    </div>
+                    </img>
+                </a>
+            </div>
+
+            <div class="hover-over-tooltip">
                 <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/schedulers/<%= scheduler.id %>">
                     <img src="/images/dashboard/icons/delete.svg">
+                    <div class="tooltip-parent">
+                        <span class="tooltip">Delete</span>
+                    </div>
+                    </img>
                 </a>
+            </div>
+
             </div>
         </div>
     <% end %>

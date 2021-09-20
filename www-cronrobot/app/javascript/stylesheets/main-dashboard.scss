@@ -1,9 +1,10 @@
 $bg-color: #222121;
 $main-blue: #5A6EF8;
 
+
 nav {
     width: 90%;
-    margin-top: calc(20px + 1vw);
+    margin-top: calc(15px + 1vw);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -11,11 +12,11 @@ nav {
 
 h1 {
     color: white;
-    font-size: calc(20px + 1vw);
+    font-size: calc(17px + 1vw);
     font-weight: bold;
 }
 
-p, li {
+p, li, label {
     color: rgb(255, 255, 255, 0.85);
     font-size: calc(11px + 0.6vw);
     font-weight: bold;
@@ -38,7 +39,7 @@ a, a:active {
 
 #main {
     width: 90%;
-    margin-top: calc(20px + 2vw);
+    margin-top: calc(12px + 2vw);
 }
 
 #logo {
@@ -173,7 +174,7 @@ a, a:active {
 .form-input {
     min-width: calc(240px + 8vw);
     background: white;
-    color: rgb(0, 0, 0, 0.85);
+    color: rgb(0, 0, 0);
     font-size: calc(10px + 0.5vw);
     padding-left: 15px;
     height: calc(40px + 1vw);
@@ -181,7 +182,7 @@ a, a:active {
     border-radius: calc(3px + 0.3vw);
     margin-bottom: calc(15px + 1vw);
     &::placeholder {
-        color: rgb(0, 0, 0, 0.75);
+        color: rgb(0, 0, 0, 0.35) !important;
         font-size: calc(10px + 0.5vw);
     }
 }
@@ -197,7 +198,7 @@ a, a:active {
     color: black;
     width: 100%;
     grid-template-columns: 1fr;
-    grid-row-gap: 20px;
+    grid-row-gap: 15px;
     margin-bottom: 80px;
 }
 
@@ -209,14 +210,21 @@ a, a:active {
     font-size: calc(9px + 0.5vw);
     grid-template-columns: 0.5fr 1fr 2fr 0.5fr;
     width: 100%;
-    min-height: calc(15px + 0.3vw);
-    border-radius: calc(5px + 0.2vw);
+    min-height: calc(12px + 0.25vw);
+    border-radius: calc(4px + 0.2vw);
     transition: .25s linear;
     & > p {
         display: flex;
         align-items: center;
         justify-content: center;
         color: rgb(0, 0, 0, 0.75);
+    }
+    & a {
+        color: rgb(0, 0, 0, 0.75);
+        transition: .2s linear;
+        &:hover {
+            color: rgb(0, 0, 0, 0.55);
+        }
     }
     &:hover {
         box-shadow: 0px 8px 12px 12px rgba(0, 0, 0, 0.25);
@@ -234,6 +242,7 @@ a, a:active {
     align-items: center;
     & img {
         width: calc(15px + 0.4vw);
+        position: relative;
     }
 }
 
@@ -398,10 +407,37 @@ textarea {
     }
 }
 
+.input-with-label {
+    display: flex;
+    flex-direction: column;
+    & label {
+        margin-bottom: calc(8px + 0.5vw);
+    }
+}
+
+
+.tooltip {
+    display: none;
+    position: absolute;
+    padding: 10px;
+    background: black;
+    border-radius: calc(2px + 0.1vw);
+    color:white;
+    margin-bottom: 10px;
+    z-index: 10;
+}
+
+.hover-over-tooltip:hover .tooltip {
+    display: block;
+}
+
 // Status
 
 .state {
     background: $main-blue;
+    & p {
+        color: rgba(0, 0, 0, 0.75);
+    }
 }
 
 .state-unknown, .state-paused {

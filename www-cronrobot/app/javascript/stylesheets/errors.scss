@@ -1,8 +1,10 @@
-.error-grid {
+$bg-color: #222121;
+
+#error-grid {
     display: grid;
     width: 100%;
     grid-gap: 20px;
-    color: white;
+    color: $bg-color !important;
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
@@ -24,7 +26,11 @@
     background: #FEDC56;
 }
 
-.alert {
+#alert {
     padding: 2px;
-    color: white;
+    color: $bg-color !important;
+}
+
+.black-text {
+    color: $bg-color !important;
 }
