@@ -3,6 +3,8 @@
 <% else %>
 <p class="options-text" onclick="displayOptions()">Options <span><img id="chevron" src="/images/dashboard/icons/chevron.svg"></span></p>
 <div class="form-group" id="notification-form">
+    <p class="sub-heading">Notification Channels</p>
+    <p>Hold Shift to select multiple channels</p>
     <%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, id: "notif-input", multiple: "true" %>
 </div>
 <% end %>
