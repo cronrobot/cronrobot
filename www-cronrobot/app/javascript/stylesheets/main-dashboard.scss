@@ -455,6 +455,14 @@ textarea {
     }
 }
 
+.default-links {
+    color: rgba(255, 255, 255, 0.45);
+    transition: .2s linear;
+    &:hover {
+        color:rgba(255, 255, 255, 0.75);
+    }
+}
+
 // Status
 
 .state {
