@@ -3,14 +3,11 @@
 <% else %>
 <p class="options-text" onclick="displayOptions()">Options <span><img id="chevron" src="/images/dashboard/icons/chevron.svg"></span></p>
 <div class="form-group" id="notification-form">
-    <p class="sub-heading">Notification Channels</p>
-    <p>Hold Ctrl / CMD to select multiple channels</p>
-    <%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, id: "notif-input" %>
+    <%= form.select :notification_channels, (@notification_channels.collect {|p| [ p.name, p.id ] }), {}, id: "notif-input", multiple: "true" %>
 </div>
 <% end %>
 
 <script>
-    document.getElementById('notif-input').multiple = true;
     document.getElementById('chevron').style.transform = 'rotate(90deg)'
     document.getElementById('notification-form').style.display = 'none';
     function displayOptions() {
