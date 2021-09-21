@@ -13,7 +13,7 @@ class Dashboard::ProjectsController < DashboardController
     project.update!(allowed_params)
 
     flash[:success] = "Project updated successfully!"
-    redirect_to controller: :projects, action: :index
+    redirect_to_project(project.id)
   end
 
   def new
@@ -23,10 +23,10 @@ class Dashboard::ProjectsController < DashboardController
   end
 
   def create
-    Project.create!(allowed_params.merge(user_id: @current_user.id))
+    project = Project.create!(allowed_params.merge(user_id: @current_user.id))
 
     flash[:success] = "Project created successfully!"
-    redirect_to controller: :projects, action: :index
+    redirect_to_project(project.id)
   end
 
   def destroy
@@ -39,6 +39,10 @@ class Dashboard::ProjectsController < DashboardController
   end
 
   protected
+
+  def redirect_to_project(project_id)
+    redirect_to controller: :schedulers, action: :index, selected_project_id: project_id
+  end
 
   def current_project
     @current_user.projects.find { |p| p.id == params["id"].to_i }

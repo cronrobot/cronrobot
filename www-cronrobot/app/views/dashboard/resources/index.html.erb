@@ -23,7 +23,7 @@
             <div class="state">
                 <p><%= resource.id %></p>
             </div>
-            <p><%= resource.sub_type %></p>
+            <p><%= resource_type_friendly resource.sub_type %></p>
             <p><%= resource.params.dig("name") %></p>
             <div class="action-icons">
             <div class="hover-over-tooltip">

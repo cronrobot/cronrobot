@@ -7,4 +7,6 @@ class Project < ApplicationRecord
            class_name: :ResourceProject,
            dependent: :destroy
   has_many :notification_channels, dependent: :destroy
+
+  validates :name, presence: true
 end
