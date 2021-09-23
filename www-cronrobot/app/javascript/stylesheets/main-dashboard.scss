@@ -220,10 +220,10 @@ a, a:active {
         color: rgb(0, 0, 0, 0.75);
     }
     & a {
-        color: rgb(0, 0, 0, 0.75);
+        color: rgb(0, 0, 0, 0.45);
         transition: .2s linear;
         &:hover {
-            color: rgb(0, 0, 0, 0.55);
+            color: rgb(0, 0, 0, 0.75);
         }
     }
     &:hover {
@@ -335,7 +335,7 @@ textarea {
 
 .resource-info {
     margin-bottom: 45px;
-    max-width: calc(290px + 18vw);
+    max-width: calc(500px + 18vw);
     background: $main-blue;
     border-radius: calc(5px + 0.2vw);
     padding: 10px;
@@ -431,6 +431,38 @@ textarea {
     display: block;
 }
 
+#notif-input {
+    padding: 0px;
+    height: calc(100px + 5vw);
+    min-width: calc(255px + 8vw);
+    background: white;
+    color: rgb(0, 0, 0, 0.75);
+    font-size: calc(10px + 0.5vw);
+    border: none;
+    border-radius: calc(3px + 0.3vw);
+    margin-bottom: calc(15px + 1vw);
+    & option {
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        height: 20%;
+        transition: .15s linear;
+        cursor: pointer;
+        outline: none;
+        &:hover {
+            background:rgb(0, 0, 0, 0.15);
+        }
+    }
+}
+
+.default-links {
+    color: rgba(255, 255, 255, 0.45);
+    transition: .2s linear;
+    &:hover {
+        color:rgba(255, 255, 255, 0.75);
+    }
+}
+
 // Status
 
 .state {
@@ -440,7 +472,7 @@ textarea {
     }
 }
 
-.state-unknown, .state-paused {
+.state-unknown, .state-paused, .state-pending, .state-no_data {
     background: #FEDC56;
 }
 
@@ -448,10 +480,10 @@ textarea {
     background: #03DDA6;
 }
 
-.state-ALL, .state-pending {
+.state-ALL {
     background: $main-blue;
 }
 
-.state-alerting, .state-no_data {
+.state-alerting {
     background: #F85C70;
 }
