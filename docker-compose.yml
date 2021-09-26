@@ -70,6 +70,7 @@ services:
     image: grafana/grafana:8.1.1
     volumes:
       - ./grafana/grafana/etc:/etc/grafana
+      - ./grafana/grafana/public/emails/alert_notification.html:/usr/share/grafana/public/emails/alert_notification.html
     env_file:
       - .grafana.env
     #ports:
