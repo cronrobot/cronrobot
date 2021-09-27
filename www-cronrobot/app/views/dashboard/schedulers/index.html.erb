@@ -26,11 +26,14 @@
 <div class="table-grid">
     <% @schedulers.each do |scheduler| %>
         <div class="table-grid-row">
-            <div class="state state-<%= @alerts_statuses[scheduler.id]&.dig("state") %>">
-                <p><%= @alerts_statuses[scheduler.id]&.dig("state") %> (todo)</p>
+            <div class="state state-<%= @alerts_statuses[scheduler.id]&.dig("state")&.downcase %>">
+                <p><%= @alerts_statuses[scheduler.id]&.dig("state") %></p>
             </div>
-            <p><%= scheduler.schedule %> (todo)</p>
-            <p><a href="/asdf"><%= scheduler.name %></a> (display type)</p>
+            <p><%= scheduler.schedule %></p>
+            <p>
+                <a href="/asdf"><%= scheduler.name %></a> 
+                (<%= scheduler_human_type(scheduler.type) %>)
+            </p>
             <div class="action-icons">
                 
             <div class="hover-over-tooltip">

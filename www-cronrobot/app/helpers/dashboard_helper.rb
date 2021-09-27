@@ -12,4 +12,14 @@ module DashboardHelper
 
     values[name] || "N/A"
   end
+
+  def scheduler_human_type(type)
+    values = {
+      "SchedulerSocketPing" => "TCP",
+      "SchedulerHttp" => "HTTP",
+      "SchedulerSsh" => "SSH"
+    }
+
+    values[type] || "N/A"
+  end
 end
