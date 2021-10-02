@@ -31,6 +31,31 @@ class ResourceProjectTest < ActiveSupport::TestCase
 
   end
 
+  test "should not allow multiple times same name in the same project" do
+    p = Project.last
+    p.user_id = User.last.id
+    p.save!
+
+
+    params = {
+      "name" => "name1",
+      "host" => "localhost",
+      "username": "ubuntu",
+      "port": 22,
+      "private_key": "--"
+    }
+
+    ResourceProjectSsh.create!(
+      reference_id: p.id, type: "ResourceProject", params: params
+    )
+
+    resource2 = ResourceProjectSsh.create(
+      reference_id: p.id, type: "ResourceProject", params: params
+    )
+
+    assert ! resource2.valid?
+  end
+
   test "changing resource project should repopulate store params" do
     p = Project.last
     p.user_id = User.last.id
