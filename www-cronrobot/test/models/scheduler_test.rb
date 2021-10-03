@@ -191,4 +191,30 @@ class SchedulerTest < ActiveSupport::TestCase
 
     s.unpause!
   end
+
+  test "on delete, should delete in grafana and scheduler resources" do
+    p = Project.last
+
+    sched = SchedulerSocketPing.create!(
+      project: p, schedule: "* * * * *", name: 's', updated_by_user_id: User.last.id
+    )
+
+    sched.params = { "name" => "test", "port" => 80, "host" => "localhost" }
+    sched.save!
+
+    assert sched.errors.count == 0
+    assert sched.resources.count == 1
+    resource = sched.resources.first
+
+    mock_find_celery_periodic_task(sched.id, 200)
+    mock_delete_celery_periodic_task(sched.id)
+    mock_get_grafana_dashboard_by_uid(sched.id, 200, response: '{}')
+    mock_delete_grafana_dashboard(sched, 200)
+
+    sched.destroy
+
+    resource = Resource.find_by id: resource.id
+
+    assert ! resource
+  end
 end
