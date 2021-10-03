@@ -4,6 +4,7 @@ class ResourceProject < Resource
 
   validates :project, presence: true
   validates :sub_type, presence: true
+  validate :name_unique_by_project
 
   SUB_TYPES = %w(ResourceProjectVariable ResourceProjectSsh)
   validates :sub_type, :inclusion => {:in => SUB_TYPES}
@@ -34,6 +35,18 @@ class ResourceProject < Resource
       scheduler.params ||= {}
       scheduler.params["resource_id"] = self.id
       scheduler.store_params
+    end
+  end
+
+  def name_unique_by_project
+    if project.present?
+      resource_name_exists = project.resources.any? do |r|
+        r.params.dig("name") == self.params.dig("name") and self != r
+      end
+
+      if resource_name_exists
+        errors.add(:name, "resource name already exists")
+      end
     end
   end
 

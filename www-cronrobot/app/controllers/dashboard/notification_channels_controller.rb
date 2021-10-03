@@ -6,7 +6,9 @@ class Dashboard::NotificationChannelsController < DashboardController
   end
 
   def index
-    @notification_channels = @current_user.notification_channels
+    @notification_channels = @current_user
+      .notification_channels
+      .select { |nc| nc.project_id == @project.id }
   end
 
   def new
