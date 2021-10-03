@@ -140,6 +140,15 @@ class Scheduler < ApplicationRecord
     if Grafana.dashboard_exists?(self)
       Grafana.destroy_dashboard(self)
     end
+
+    destroy_resources
+  end
+
+  def destroy_resources
+    resources.each do |resource|
+      resource.destroy
+      Rails.logger.info("Removing resource #{resource.id}")
+    end
   end
 
   def pause!(should_pause = true, pause_state="")
