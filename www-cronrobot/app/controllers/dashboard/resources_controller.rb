@@ -6,7 +6,6 @@ class Dashboard::ResourcesController < DashboardController
   end
 
   def index
-    puts "resources.. project = #{@project.inspect}"
     @resources = Resource.accessible_by(@current_user)
       .select { |r| r.type == "ResourceProject" && r.reference_id == @project.id }
   end
@@ -49,7 +48,6 @@ class Dashboard::ResourcesController < DashboardController
 
   def show
     @resource = find_resource(params["id"])
-    puts "show resource -> #{@resource.inspect} current user = #{@current_user.inspect}"
   end
 
   private

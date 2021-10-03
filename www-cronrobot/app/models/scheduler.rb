@@ -79,18 +79,13 @@ class Scheduler < ApplicationRecord
   end
 
   def store_params
-    puts "store params.."
     if self.params.present?
-      puts " pres"
 
       if resources.exists?
-        puts " res ex"
         resource = resources.first
-        puts "resources #{resources.inspect}"
         resource.params = params
         resource.save
       else
-        puts " res crea"
         klass = "Resource#{self.type}".constantize
         resource = klass.create(reference_id: id, params: params)
       end
