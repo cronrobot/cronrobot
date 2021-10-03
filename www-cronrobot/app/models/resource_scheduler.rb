@@ -22,6 +22,9 @@ class ResourceScheduler < Resource
   end
 
   def validate_scheduler_type
+
+    puts "validate sched type.. #{self.inspect}"
+
     if expected_scheduler_type && scheduler.type != expected_scheduler_type
       errors.add(:scheduler_type, "invalid scheduler type")
     end

@@ -15,9 +15,13 @@ class Dashboard::SchedulerHttpsController < Dashboard::SchedulersController
   protected
 
   def handle_update
+    puts "schduler ? #{@scheduler.inspect}"
     @scheduler.attributes = allowed_scheduler_http_params
+    puts "schduler after ? #{@scheduler.inspect}"
     @scheduler.updated_by_user_id = @current_user.id
     @scheduler.save && @scheduler.errors.count.zero? && @scheduler.touch!
+
+    puts "www"
 
     if @scheduler.errors.count.positive?
       if @scheduler.id.present?
