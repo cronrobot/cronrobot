@@ -23,6 +23,15 @@
     </a>
 </form>
 
+<% if @schedulers.count.zero? %>
+    <div class="resource-info">
+        <img src="/images/dashboard/icons/info.png">
+        <p>
+            A scheduler is the process which allows to periodically executes a task or request.
+        </p>
+    </div>
+<% end %>
+
 <div class="table-grid">
     <% @schedulers.each do |scheduler| %>
         <div class="table-grid-row">
