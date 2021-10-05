@@ -19,8 +19,8 @@
   <%= render "dashboard/schedulers/form_schedule", form: form %>
 
   <div class="form-grid">
-    <%= form.number_field "params[port]", class: "form-input", placeholder: "Port", value: @scheduler&.params&.dig("port") %>
-    <%= form.text_field "params[host]", class: "form-input", placeholder: "Host", value: @scheduler&.params&.dig("host") %>
+    <%= form.text_field "params[host]", class: "form-input", placeholder: "Host, {{ VARIABLE }} allowed", value: @scheduler&.params&.dig("host") %>
+    <%= form.number_field "params[port]", class: "form-input", placeholder: "Port, {{ VARIABLE }} allowed", value: @scheduler&.params&.dig("port") %>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
@@ -30,8 +30,8 @@
 
 <script>
   if (window.location.href.includes('new')) {
-    document.getElementById("header").innerHTML = "Create Socket Ping Scheduler"; 
+    document.getElementById("header").innerHTML = "Create TCP Scheduler"; 
   } else {
-    document.getElementById("header").innerHTML = "Update Socket Ping Scheduler";
+    document.getElementById("header").innerHTML = "Update TCP Scheduler";
   }
 </script>
