@@ -14,7 +14,7 @@
   </div>
 
   <div class="form-grid">
-    <%= form.text_field "params[command]", class: "form-input", placeholder: "Remote Command", value: @scheduler.params&.dig("command") %>
+    <%= form.text_field "params[command]", class: "form-input", placeholder: "Remote Command, {{ VARIABLE }} allowed", value: @scheduler.params&.dig("command") %>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>

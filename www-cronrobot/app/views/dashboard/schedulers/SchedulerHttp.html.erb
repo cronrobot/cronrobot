@@ -9,7 +9,7 @@
   <%= render "dashboard/schedulers/form_schedule", form: form %>
 
   <div class="form-grid">
-    <%= form.text_field "params[url]", class: "form-input", placeholder: "URL", value: @scheduler.params&.dig("url") %>
+    <%= form.text_field "params[url]", class: "form-input", placeholder: "URL, {{ VARIABLE }} allowed", value: @scheduler.params&.dig("url") %>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
