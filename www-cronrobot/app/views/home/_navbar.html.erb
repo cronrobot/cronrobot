@@ -1,7 +1,7 @@
 <!-- The Navbar of the website, contains the logo, and main links -->
 <nav>
   <a href="/#home">
-    <img id="logo" alt="Logo" src="images/BigLogo.svg">
+    <img id="logo" alt="Logo" src="/images/BigLogo.svg">
   </a>
 
   <div id="center-nav">
@@ -13,12 +13,12 @@
 
     <% if @current_user %>
       <a href="/dashboard" class="center" id="dashboard">
-        <img src="images/icons/dashboard.svg">
+        <img src="/images/icons/dashboard.svg">
         <p class="btn text-medium">Dashboard</p>
       </a>
     <% else %>
     <a onclick="handleLogin()" class="center" id="dashboard">
-      <img src="images/icons/dashboard.svg">
+      <img src="/images/icons/dashboard.svg">
       <p class="btn text-medium">Login / Signup</p>
     </a>
     <% end %>
