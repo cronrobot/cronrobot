@@ -13,20 +13,3 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     }
   )
 end
-
-OmniAuth.config.full_host = lambda do |env|
-
-  scheme         = env['rack.url_scheme']
-  local_host     = env['HTTP_HOST']
-  forwarded_host = env['HTTP_X_FORWARDED_HOST']
-
-  Rails.logger.info "scheme #{scheme.inspect}"
-  Rails.logger.info "forwarded_host #{forwarded_host.inspect}"
-  Rails.logger.info "local_host #{local_host.inspect}"
-
-  host = forwarded_host.blank? ? "#{scheme}://#{local_host}" : "#{scheme}://#{forwarded_host}"
-
-  Rails.logger.info "full_host = #{host}"
-
-  host
-end
