@@ -19,7 +19,7 @@ class Dashboard::NotificationChannelsController < DashboardController
   def create
     ch = NotificationChannel.create!(allowed_notification_channel_params)
 
-    flash[:success] = "Scheduler successfully saved!"
+    flash[:success] = "Notification channel successfully created!"
     redirect_to action: :update, id: ch.id
   end
 
@@ -27,6 +27,7 @@ class Dashboard::NotificationChannelsController < DashboardController
     @notification_channel = @current_user.notification_channels.find(params["id"])
     @notification_channel.update!(allowed_notification_channel_params)
 
+    flash[:success] = "Notification channel successfully saved!"
     redirect_to action: :index
   end
 
@@ -34,6 +35,7 @@ class Dashboard::NotificationChannelsController < DashboardController
     @notification_channel = @current_user.notification_channels.find(params["id"])
     @notification_channel.destroy!
 
+    flash[:success] = "Notification channel removed!"
     redirect_to action: :index
   end
 

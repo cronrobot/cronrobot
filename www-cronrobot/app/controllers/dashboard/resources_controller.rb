@@ -22,7 +22,7 @@ class Dashboard::ResourcesController < DashboardController
       )
     )
 
-    flash[:success] = "Resource successfully saved!"
+    flash[:success] = "Resource successfully initialized!"
     redirect_to action: :update, id: ch.id
   end
 
@@ -36,6 +36,7 @@ class Dashboard::ResourcesController < DashboardController
 
     @resource.update!(new_params)
 
+    flash[:success] = "Resource successfully saved!"
     redirect_to action: :index
   end
 
@@ -43,6 +44,7 @@ class Dashboard::ResourcesController < DashboardController
     @resource = find_resource(params["id"])
     @resource.destroy!
 
+    flash[:success] = "Resource successfully removed!"
     redirect_to action: :index
   end
 
