@@ -1,5 +1,21 @@
 server {
-  listen 80;
+  listen   443;
+
+ssl    on;
+ssl_certificate    /etc/nginx/certs/cert;
+ssl_certificate_key    /etc/nginx/certs/pk;
+
+    server_name  cronrobot.io;
+    return       301 https://www.cronrobot.io$request_uri;
+}
+
+server {
+  listen   443;
+
+ssl    on;
+ssl_certificate    /etc/nginx/certs/cert;
+ssl_certificate_key    /etc/nginx/certs/pk;
+  
   server_name www.cronrobot.io;
   
   location / {
@@ -7,12 +23,12 @@ server {
     proxy_set_header Host $http_host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Host $http_host;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Ssl on;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $host;
     proxy_set_header X-Forwarded-Port $server_port;
-    proxy_set_header X-Forwarded-Server $host;
-    #proxy_set_header X-Forwarded-Ssl on;
-    #proxy_set_header X-Forwarded-Proto https;
-    proxy_set_header Origin http://$http_host;
+    proxy_set_header Origin https://$http_host;
     proxy_redirect off;
     proxy_set_header    Connection        "Upgrade";
     proxy_set_header    Upgrade           $http_upgrade;
