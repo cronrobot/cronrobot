@@ -13,10 +13,14 @@ class Auth0Controller < ApplicationController
     email = session[:userinfo]["email"]
     uid = session[:userinfo]["sub"]
 
-    create_grafana_user(uid, email)
-
-    # Redirect to the URL you want after successful auth
-    redirect_to '/dashboard'
+    if create_grafana_user(uid, email).present?
+      # special events when it's a new user
+      flash[:success] = "Congratulations! Your account has been successfully created. Let's get started."
+      redirect_to '/dashboard/schedulers/welcome'
+    else
+      # Redirect to the URL you want after successful auth
+      redirect_to '/dashboard'
+    end
   end
 
   def failure

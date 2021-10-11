@@ -106,8 +106,16 @@
         document.getElementById('display-form').style.display = 'none';
         document.getElementById('scheduler-select').style.display = 'grid';
     }
+    
     function submitForm() {
         let value = document.getElementById('scheduler-select').elements[0].value;
         window.location.href = `/dashboard/schedulers/new/Scheduler${value}`
     }
 </script>
+
+<% if @new_user_welcome.present? %>
+    <!-- Event snippet for Sign-up CronRobot conversion page -->
+    <script>
+      gtag('event', 'conversion', {'send_to': 'AW-10788143108/Nhg6CIStgfsCEISAmJgo'});
+    </script>
+<% end %>
