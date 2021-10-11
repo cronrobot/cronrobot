@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get '/', to: 'home#index'
 
     get '/schedulers/', to: 'schedulers#index'
+    get '/schedulers/welcome', to: 'schedulers#welcome'
     get '/schedulers/new/:type', to: 'schedulers#new'
     post '/schedulers/:id/pause', to: 'schedulers#pause'
     post '/schedulers/:id/unpause', to: 'schedulers#unpause'

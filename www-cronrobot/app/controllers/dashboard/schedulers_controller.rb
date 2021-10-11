@@ -10,6 +10,13 @@ class Dashboard::SchedulersController < DashboardController
   def index
     @schedulers = @current_user.schedulers.order(id: :desc)
     @alerts_statuses = prepare_alerts_statuses(@schedulers)
+    @new_user_welcome = nil
+  end
+
+  def welcome
+    index
+    @new_user_welcome = "new"
+    render "index"
   end
 
   def new
