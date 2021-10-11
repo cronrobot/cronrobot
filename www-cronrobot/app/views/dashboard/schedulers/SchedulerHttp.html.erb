@@ -8,8 +8,14 @@
 
   <%= render "dashboard/schedulers/form_schedule", form: form %>
 
-  <div class="form-grid">
-    <%= form.text_field "params[url]", class: "form-input", placeholder: "URL, {{ VARIABLE }} allowed", value: @scheduler.params&.dig("url") %>
+  <div class="hover-over-tooltip">
+    <div class="form-grid">
+      <%= form.text_field "params[url]", class: "form-input", placeholder: "URL (Example: https://mysite.com/)",
+        value: @scheduler.params&.dig("url") %>
+      <div class="tooltip-parent">
+          <span class="tooltip">Resource variables, for example {{ my_variable }}, can be used in this field.</span>
+      </div>
+    </div>
   </div>
 
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
