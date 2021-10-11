@@ -1,0 +1,17 @@
+
+default: &default
+
+  email:
+    fields:
+      - name: addresses
+        placeholder: Email addresses (comma separated)
+        type: text_field
+
+test:
+  <<: *default
+
+development:
+  <<: *default
+
+production:
+  <<: *default
