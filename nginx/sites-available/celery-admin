@@ -1,5 +1,10 @@
 server {
-  listen 80;
+  listen   443;
+
+  ssl    on;
+  ssl_certificate    /etc/nginx/certs/cert;
+  ssl_certificate_key    /etc/nginx/certs/pk;
+
   server_name celery-admin.cronrobot.io;
   
   location / {
