@@ -1,11 +1,28 @@
 
 default: &default
 
+  discord:
+    fields:
+      - type: blank
+      - name: url
+        placeholder: Discord webhook URL
+        required: true
+        type: url_field
+      - type: blank
+      - name: avatar_url
+        placeholder: Avatar image URL
+        type: url_field
+      - name: content
+        placeholder: Optional custom content
+        type: text_field
+
   email:
     fields:
       - name: addresses
         placeholder: Email addresses (comma separated)
         type: text_field
+
+
 
 test:
   <<: *default

@@ -9,10 +9,19 @@
   <% @fields.each do |field| %>
     <div class="form-group">
       <% case field[:type] %>
+      <% when "blank" %>
+        
       <% when "text_field" %>
         <%= form.text_field "configs[#{field[:name]}]",
           placeholder: field[:placeholder],
           value: @notification_channel.configs&.dig(field[:name]),
+          required: field[:required],
+          class: "form-input" %>
+      <% when "url_field" %>
+        <%= form.url_field "configs[#{field[:name]}]",
+          placeholder: field[:placeholder],
+          value: @notification_channel.configs&.dig(field[:name]),
+          required: field[:required],
           class: "form-input" %>
       <% end %>
     </div>

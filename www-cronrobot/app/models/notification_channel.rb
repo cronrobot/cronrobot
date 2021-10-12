@@ -7,9 +7,17 @@ class NotificationChannel < ApplicationRecord
   
   encrypts :configs
 
+  def self.config_types
+    NotificationChannel.configs.keys.map { |k| k.to_s }
+  end
+
+  def self.configs
+    Rails.application.config_for(:notification_channels)
+  end
+
   NOTIFICATION_CHANNEL_TYPES = %w(email )
 
-  validates :type, :inclusion => {:in => NOTIFICATION_CHANNEL_TYPES}
+  validates :type, :inclusion => {:in => NotificationChannel.config_types}
 
   before_update :upsert_grafana_notification_channel
   before_destroy :destroy_grafana_notification_channel

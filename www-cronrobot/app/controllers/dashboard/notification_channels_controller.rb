@@ -14,6 +14,9 @@ class Dashboard::NotificationChannelsController < DashboardController
   def new
     @notification_channel = NotificationChannel.new
     @notification_channel.project_id = @project.id
+
+    configs = notification_channel_configs
+    @notification_channel_types = NotificationChannel.config_types
   end
 
   def create
@@ -43,11 +46,15 @@ class Dashboard::NotificationChannelsController < DashboardController
     @notification_channel = @current_user.notification_channels.find(params["id"])
     @notification_channel.configs ||= {}
 
-    configs = Rails.application.config_for(:notification_channels)
+    configs = notification_channel_configs
     @fields = configs[@notification_channel.type][:fields]
   end
 
   private
+
+  def notification_channel_configs
+    NotificationChannel.configs
+  end
 
   def allowed_notification_channel_params
     params
