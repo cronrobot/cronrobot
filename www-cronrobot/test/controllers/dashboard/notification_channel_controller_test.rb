@@ -4,29 +4,28 @@ class DashboardNotificationChannelsControllerTest < ActionDispatch::IntegrationT
 
   setup do
     set_auth0
+    default_user_project
   end
 
-  test "happy path - email" do
-    current_user = User.last
-    current_user.uid = "1234"
-    current_user.save!
-    project = Project.last
-    project.user = current_user
-    project.save!
+  test "new - happy path" do
+    body = default_user_body
 
+    get "/dashboard/notification_channels/new", params: body
+
+    assert_response :ok
+    assert_includes response.parsed_body, "<option value=\"discord\">"
+    assert_includes response.parsed_body, "<option value=\"email\">"
+  end
+
+  test "show a notification channel" do
     channel = NotificationChannel.create!(
-      project: project,
+      project: @project,
       name: "notif-channel1",
       configs: {"addresses" => "my@email.com"},
       type: "email"
     )
 
-    body = {
-      "userinfo" => {
-        "sub" => "1234"
-      },
-      "selected_project_id": project.id
-    }
+    body = default_user_body
     scheduler = Scheduler.last
 
     get "/dashboard/notification_channels/#{channel.id}", params: body
