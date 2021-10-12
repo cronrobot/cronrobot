@@ -16,6 +16,24 @@ class ActiveSupport::TestCase
     ENV["AUTH_SCHEME"] = "auth0"
   end
 
+  def default_user_project
+    @current_user = User.last
+    @current_user.uid = "1234"
+    @current_user.save!
+    @project = Project.last
+    @project.user = @current_user
+    @project.save!
+  end
+
+  def default_user_body
+    {
+      "userinfo" => {
+        "sub" => "1234"
+      },
+      "selected_project_id": @project.id
+    }
+  end
+
   def mock_find_celery_periodic_task(id, status_code = 200, response_body="")
     stub_request(:get,
       "http://localhost:8000/api/periodic-tasks/find?name=scheduler-#{id}").
