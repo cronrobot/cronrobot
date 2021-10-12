@@ -6,10 +6,17 @@
     <%= form.text_field :name, class: "form-input", placeholder: "Name" %>
   </div>
 
-  <!-- TODO - split into partials -->
-  <div class="form-group">
-    <%= form.text_field "configs[addresses]", placeholder: "Email addresses (comma separated)", value: @notification_channel.configs&.dig("addresses"), class: "form-input" %>
-  </div>
+  <% @fields.each do |field| %>
+    <div class="form-group">
+      <% case field[:type] %>
+      <% when "text_field" %>
+        <%= form.text_field "configs[#{field[:name]}]",
+          placeholder: field[:placeholder],
+          value: @notification_channel.configs&.dig(field[:name]),
+          class: "form-input" %>
+      <% end %>
+    </div>
+  <% end %>
 
   <%= form.submit :Submit, class: "create-btn" %>
 <% end %>

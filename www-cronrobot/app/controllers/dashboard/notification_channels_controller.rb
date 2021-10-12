@@ -42,6 +42,9 @@ class Dashboard::NotificationChannelsController < DashboardController
   def show
     @notification_channel = @current_user.notification_channels.find(params["id"])
     @notification_channel.configs ||= {}
+
+    configs = Rails.application.config_for(:notification_channels)
+    @fields = configs[@notification_channel.type][:fields]
   end
 
   private
