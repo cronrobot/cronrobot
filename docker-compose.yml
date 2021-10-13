@@ -71,6 +71,7 @@ services:
     volumes:
       - ./grafana/grafana/etc:/etc/grafana
       - ./grafana/grafana/public/emails/alert_notification.html:/usr/share/grafana/public/emails/alert_notification.html
+      - ./grafana/grafana/public/img/rendering_plugin_not_installed.png:/usr/share/grafana/public/img/rendering_plugin_not_installed.png
     env_file:
       - .grafana.env
     #ports:
