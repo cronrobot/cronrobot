@@ -2,6 +2,8 @@
 default: &default
 
   discord:
+    name: Discord
+    icon_path: images/icons/socials/discord.svg
     fields:
       - type: blank
       - name: url
@@ -17,6 +19,8 @@ default: &default
         type: text_field
 
   email:
+    name: Email
+    icon_path: images/icons/email.svg
     fields:
       - name: addresses
         placeholder: Email addresses (comma separated)

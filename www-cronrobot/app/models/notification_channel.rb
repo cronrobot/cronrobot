@@ -15,6 +15,10 @@ class NotificationChannel < ApplicationRecord
     Rails.application.config_for(:notification_channels)
   end
 
+  def config
+    NotificationChannel.configs[type]
+  end
+
   NOTIFICATION_CHANNEL_TYPES = %w(email )
 
   validates :type, :inclusion => {:in => NotificationChannel.config_types}
