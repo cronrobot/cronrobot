@@ -1,4 +1,7 @@
-<h1>Edit Notification Channel</h1>
+<h1>Edit <%= @notification_channel.config[:name] %> Notification Channel 
+  <img style="width: calc(10px + 1vw);" src="/<%= @notification_channel.config[:icon_path] %>" />
+</h1>
+
 <%= form_with class: "form-grid", model: [:dashboard, @notification_channel] do |form| %>
   <%= form.hidden_field :project_id %>
 

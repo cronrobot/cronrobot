@@ -8,16 +8,21 @@
 </div>
 
 <div class="table-grid">
-    <% @notification_channels.each do |notification_channels| %>
+    <% @notification_channels.each do |notification_channel| %>
         <div class="table-grid-row">
             <div class="state">
-                <p><%= notification_channels.id %></p>
+                <p><%= notification_channel.id %></p>
             </div>
-            <p><%= notification_channels.type %></p>
-            <p><%= notification_channels.name %></p>
+            <p>
+                <img style="width: calc(10px + 1.2vw);" src="/<%= notification_channel.config[:icon_path] %>">
+                </img>
+            </p>
+            <p>
+                <%= notification_channel.name %>
+            </p>
             <div class="action-icons">
             <div class="hover-over-tooltip">
-                <a href="/dashboard/notification_channels/<%= notification_channels.id %>">
+                <a href="/dashboard/notification_channels/<%= notification_channel.id %>">
                     <img src="/images/dashboard/icons/edit.svg">
                         <div class="tooltip-parent">
                             <span class="tooltip">Edit</span>
@@ -26,7 +31,7 @@
                 </a>
             </div>
             <div class="hover-over-tooltip">
-                <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/notification_channels/<%= notification_channels.id %>">
+                <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/dashboard/notification_channels/<%= notification_channel.id %>">
                     <img src="/images/dashboard/icons/delete.svg">
                         <div class="tooltip-parent">
                             <span class="tooltip">Delete</span>
