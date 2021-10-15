@@ -12,6 +12,12 @@ CronRobot consists of the following pieces:
 - [promtail](https://grafana.com/docs/loki/latest/clients/promtail/): For reading (stream) logs. Forward logs to the loki instance.
 - [loki](https://grafana.com/oss/loki/): Aggregate logs and streamed to an external storage system.
 
+## Architecture
+
+The main parts of the system are designed as follows:
+
+![Architecture](images/arch.svg)
+
 ## Documentation
 
 The documentation is available at [http://docs.cronrobot.io/](http://docs.cronrobot.io/).
