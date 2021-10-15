@@ -65,4 +65,37 @@ class SchedulersControllerTest < ActionDispatch::IntegrationTest
     assert scheduler.pause_state == ""
   end
 
+  test "access scheduler, with notification channel" do
+    default_user_project
+
+    assert @current_user.notification_channels.count.positive?
+
+    body = default_user_body
+    scheduler = SchedulerHttp.create!(
+      project: @project, schedule: "* * * * *", name: 's', updated_by_user_id: @current_user.id
+    )
+
+    get "/dashboard/scheduler_https/#{scheduler.id}", params: body
+
+    assert response.parsed_body.include?("Hold Shift to select multiple channels")
+  end
+
+  test "access scheduler, without notification channel" do
+    default_user_project
+    
+    p2 = Project.where.not(id: @project.id).first
+    @current_user.notification_channels.update_all(project_id: p2.id)
+
+    assert !@current_user.notification_channels.count.positive?
+
+    body = default_user_body
+    scheduler = SchedulerHttp.create!(
+      project: @project, schedule: "* * * * *", name: 's', updated_by_user_id: @current_user.id
+    )
+
+    get "/dashboard/scheduler_https/#{scheduler.id}", params: body
+
+    assert response.parsed_body.include?("There is currently no notification channel")
+  end
+
 end
