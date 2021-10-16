@@ -11,6 +11,11 @@ module ApplicationHelper
         id: "every_minute"
       },
       {
+        name: "Every 5 minutes",
+        cron: "*/5 * * * *",
+        id: "every_5_minutes"
+      },
+      {
         name: "Every hour",
         cron: "0 * * * *",
         id: "every_hour"
