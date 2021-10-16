@@ -5,7 +5,6 @@
             friendly_schedule_lister, { selected: @scheduler&.params&.dig("schedule_type") || "every_5_minutes" },
             multiple: false,
             onchange: "handleScheduleTypeChange(this.value)",
-            oninit: "alert('hello')",
             class: "select-input" %>
                 
         <div id="customScheduleBlock">
