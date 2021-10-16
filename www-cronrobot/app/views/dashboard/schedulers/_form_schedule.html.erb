@@ -24,7 +24,7 @@
         window.formShow("customScheduleBlock")
 
         let scheduleType = document.getElementById("scheduler_http_params[schedule_type]")
-        handleScheduleTypeChange(scheduleType)
+        handleScheduleTypeChange(scheduleType.value)
     })();
 
     function handleScheduleTypeChange(value) {
@@ -38,11 +38,7 @@
             const schedule = schedules.find(s => s["id"] === value)
             const scheduleTextField = document.getElementById("schedule_field")
 
-            if (schedule) {
-                scheduleTextField.value = schedule["cron"]
-            } else {
-                scheduleTextField.value = "every_5_minutes"
-            }
+            scheduleTextField.value = schedule["cron"]
         }
     }
 </script>
