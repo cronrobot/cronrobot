@@ -50,4 +50,20 @@ class NotificationChannelTest < ActiveSupport::TestCase
 
     ch.destroy!
   end
+
+  test "test - happy path" do
+    p = Project.last
+    ch = NotificationChannel.create!(
+      project: p, name: "channel3", configs: {"c1" => "v1"}, type: "email"
+    )
+
+    ch.configs = {}
+    ch.configs["addresses"] = "test@mail.com"
+    ch.name = "what"
+
+    mock_get_grafana_notification_channel(ch, 200)
+    mock_test_grafana_notification_channel(200, "{\"type\":null,\"settings\":null}")
+
+    ch.test_grafana_notification_channel
+  end
 end

@@ -30,6 +30,11 @@ class Dashboard::NotificationChannelsController < DashboardController
     @notification_channel = @current_user.notification_channels.find(params["id"])
     @notification_channel.update!(allowed_notification_channel_params)
 
+    # Run a test if the test btn was clicked
+    if params["commit"] == "Save and Test"
+      @notification_channel.test_grafana_notification_channel
+    end
+
     flash[:success] = "Notification channel successfully saved!"
     redirect_to action: :index
   end

@@ -184,4 +184,21 @@ class Grafana
       Grafana.delete("/alert-notifications/uid/#{model.id}", Grafana.headers)
     end
   end
+
+  def self.test_notification_channel(model)
+    grafana_channel = Grafana.notification_channel_exists?(model)
+
+    if grafana_channel
+      attribs = {
+        "type" => grafana_channel["type"],
+        "settings" => grafana_channel["settings"]
+      }
+
+      Grafana.post(
+        "/alert-notifications/test",
+        attribs.to_json,
+        Grafana.headers
+      )
+    end
+  end
 end

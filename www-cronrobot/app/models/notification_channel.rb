@@ -38,4 +38,8 @@ class NotificationChannel < ApplicationRecord
   def destroy_grafana_notification_channel
     Grafana.destroy_notification_channel(self)
   end
+
+  def test_grafana_notification_channel
+    Grafana.test_notification_channel(self)
+  end
 end
