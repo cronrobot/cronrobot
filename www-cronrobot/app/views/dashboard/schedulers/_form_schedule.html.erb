@@ -2,7 +2,7 @@
     <legend class="sub-heading">Schedule</legend>
     <div class="form-grid">
         <%= form.select "params[schedule_type]",
-            friendly_schedule_lister, { selected: @scheduler&.params&.dig("schedule_type") },
+            friendly_schedule_lister, { selected: @scheduler&.params&.dig("schedule_type") || "every_5_minutes" },
             multiple: false,
             onchange: "handleScheduleTypeChange(this.value)",
             class: "select-input" %>
@@ -21,6 +21,9 @@
     (function() {
         window.formHide("customScheduleBlock")
         window.formShow("customScheduleBlock")
+
+        let scheduleType = document.getElementById("scheduler_http_params[schedule_type]")
+        handleScheduleTypeChange(scheduleType.value)
     })();
 
     function handleScheduleTypeChange(value) {
@@ -33,6 +36,7 @@
 
             const schedule = schedules.find(s => s["id"] === value)
             const scheduleTextField = document.getElementById("schedule_field")
+
             scheduleTextField.value = schedule["cron"]
         }
     }
