@@ -9,4 +9,10 @@ class Project < ApplicationRecord
   has_many :notification_channels, dependent: :destroy
 
   validates :name, presence: true
+
+  after_destroy :process_destroy
+
+  def process_destroy
+    Grafana.destroy_folder(self)
+  end
 end

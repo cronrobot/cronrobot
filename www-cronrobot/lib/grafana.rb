@@ -31,7 +31,7 @@ class Grafana
   end
 
   def self.post(path, body, headers = {})
-    Rails.logger.info("Grafana POST #{path}")
+    Rails.logger.info("Grafana POST #{path}, body=#{body.inspect}")
 
     Grafana.handle_mutation_result HTTParty.post(
       Grafana.api_url(path),
@@ -81,6 +81,19 @@ class Grafana
     Grafana.post("/alerts/#{alert_id}/pause", body.to_json, Grafana.headers)
   end
 
+  ### Folder
+
+  def self.destroy_folder(model)
+    begin
+      result_get = Grafana.delete("/folders/project-#{model.id}", Grafana.headers)
+
+      result_get.code == 200
+    rescue Exception => e
+      Rails.logger.debug "Cannot destroy dashboard - #{e.inspect}"
+      false
+    end
+  end
+
   ### Dashboard
 
   def self.dashboard_url(model)
@@ -119,13 +132,27 @@ class Grafana
   end
 
   def self.destroy_dashboard(model)
-    result_get = Grafana.delete("/dashboards/uid/#{model.id}", Grafana.headers)
+    begin
+      result_get = Grafana.delete("/dashboards/uid/#{model.id}", Grafana.headers)
 
-
-    result_get.code == 200
+      result_get.code == 200
+    rescue Exception => e
+      Rails.logger.debug "Cannot destroy dashboard - #{e.inspect}"
+      false
+    end
   end
 
   def self.upsert_dashboard(model)
+    begin
+      Grafana.post(
+        "/folders",
+        { "uid": "project-#{model.project_id}", "title": "Project #{model.project_id}" }.to_json,
+        Grafana.headers
+      )
+    rescue Exception => e
+      Rails.logger.debug "Cannot create folder - #{e.inspect}"
+    end
+
     existing_dashboard = Grafana.dashboard_exists?(model)
     engine = GrafanaTemplateEngine.new(model)
 
