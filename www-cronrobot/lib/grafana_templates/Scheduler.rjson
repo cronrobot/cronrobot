@@ -1,5 +1,6 @@
 {
   "overwrite": true,
+  "folderUid": "project-<%= @model.project_id %>",
   "dashboard": {
     "annotations": {
       "list": [
