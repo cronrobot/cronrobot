@@ -1,0 +1,8 @@
+<div class="hover-over-tooltip">
+  <div class="form-grid">
+    <%= form.text_field "params[timeout]", class: "form-input", placeholder: "Timeout (seconds)", value: @scheduler&.params&.dig("timeout") %>
+    <div class="tooltip-parent">
+      <span class="tooltip">Request timeout (in seconds).</span>
+    </div>
+  </div>
+</div>
