@@ -11,7 +11,12 @@
             id: "schedule_type_field" %>
                 
         <div id="customScheduleBlock">
-            <%= form.text_field :schedule, class: "form-input", id: "schedule_field", placeholder: "Custom Schedule (Crontab format)" %>
+            <%= form.text_field :schedule,
+                class: "form-input",
+                id: "schedule_field",
+                onchange: "handleScheduleTypeChange(document.getElementById('schedule_type_field').value)",
+                placeholder: "Custom Schedule (Crontab format)" %>
+            <p class="custom-schedule" id="customScheduleMsg">hello test</p>
         </div>
     </div>
 </fieldset>
@@ -25,19 +30,43 @@
         let scheduleType = document.getElementById("schedule_type_field")
 
         handleScheduleTypeChange(scheduleType.value)
+
+        console.log(window.cronstrue)
     })();
+
+    function stringifyCustomCron(value) {
+        try {
+            return window.cronstrue.toString(value)
+        } catch(e) {
+            return "Invalid cron expression"
+        }
+        
+    }
 
     function handleScheduleTypeChange(value) {
         const schedules = getSchedules()
+        const scheduleTextField = document.getElementById("schedule_field")
 
-        console.log(`value = ${value}`)
         if (value === "custom") {
             window.formShow("customScheduleBlock")
+
+            const msgBox = document.getElementById("customScheduleMsg")
+
+            const humanCron = stringifyCustomCron(scheduleTextField.value)
+            msgBox.innerHTML = humanCron
+            msgBox.style["max-width"] = `${parseInt(scheduleTextField.getBoundingClientRect().width)}px`
+
+            if (humanCron.includes("Invalid cron")) {
+                msgBox.classList.remove("custom-schedule-valid")
+                msgBox.classList.add("custom-schedule-invalid")
+            } else {
+                msgBox.classList.remove("custom-schedule-invalid")
+                msgBox.classList.add("custom-schedule-valid")
+            }
         } else {
             window.formHide("customScheduleBlock")
 
             const schedule = schedules.find(s => s["id"] === value)
-            const scheduleTextField = document.getElementById("schedule_field")
 
             scheduleTextField.value = schedule["cron"]
         }
