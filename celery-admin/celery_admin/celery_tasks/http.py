@@ -9,7 +9,7 @@ def task(**kwargs):
     params = body.get("params")
 
     url = params.get("url")
-    timeout = params.get("timeout") or default_http_timeout
+    timeout = float(params.get("timeout") or default_http_timeout)
     expected_status_code = (
         params.get("expected_status_code") or default_expected_status_code
     )

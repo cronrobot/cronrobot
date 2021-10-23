@@ -18,6 +18,12 @@
     </div>
   </div>
 
+  <fieldset>
+    <legend class="sub-heading">Options</legend>
+    
+    <%= render "dashboard/schedulers/form_timeout", form: form %>
+  </fieldset>
+
   <%= render "dashboard/schedulers/form_notification_channels", form: form %>
 
   <%= form.submit :Save, class: "create-btn" %>

@@ -111,7 +111,7 @@ def task(**kwargs):
     command = params.get("command")
     private_key = params.get("private_key")
 
-    timeout = params.get("timeout") or default_timeout
+    timeout = float(params.get("timeout") or default_timeout)
     expected_exit_code = params.get("expected_exit_code") or default_expected_exit_code
 
     try:
