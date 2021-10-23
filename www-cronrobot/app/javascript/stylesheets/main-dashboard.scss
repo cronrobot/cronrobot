@@ -1,6 +1,7 @@
 $bg-color: #222121;
 $main-blue: #5A6EF8;
 $light-green: #009933;
+$red-error: #F85C70;
 
 
 nav {
@@ -226,6 +227,21 @@ a, a:active {
 
 #scheduler-select {
     display: none;
+}
+
+// schedule box
+
+.custom-schedule {
+    font-size: calc(6px + 0.6vw);
+    margin-bottom: 0px;
+}
+
+.custom-schedule-valid {
+    color: $light-green;
+}
+
+.custom-schedule-invalid {
+    color: $red-error;
 }
 
 // Tables
